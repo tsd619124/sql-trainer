@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="SQL训练营">
 <meta name="theme-color" content="#087f8c">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src 'none'; worker-src blob:; connect-src blob: data: https://cdn.jsdelivr.net https://*.lcloud.cn https://*.leancloud.cn; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src 'none'; worker-src blob:; connect-src blob: data: https://cdn.jsdelivr.net https://*.lcloud.cn https://*.leancloud.cn https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>SQL 八周训练营</title>
 <style>:root {
   color-scheme: light dark;
@@ -1771,6 +1771,12 @@ html>body{padding:0;min-width:320px;-webkit-font-smoothing:antialiased}
 #sqltrain-root .st-sync-grid .form-control{font-size:11px;min-height:32px;padding:6px 9px}
 #sqltrain-root .st-sync-enc{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:#5d787e;white-space:nowrap}
 @media(max-width:680px){#sqltrain-root .st-sync-grid{grid-template-columns:minmax(0,1fr)}#sqltrain-root .st-sync-grid .form-control{font-size:16px}}
+#sqltrain-root .st-syncbox input[name="st-sync-prov"]{display:none}
+#sqltrain-root .st-prov-lbl{display:inline-block;padding:5px 12px;border:1px solid var(--border);border-radius:8px;font-size:11px;color:#5d787e;cursor:pointer;background:#fff;margin:6px 6px 2px 0}
+#sqltrain-root input[name="st-sync-prov"]:checked + .st-prov-lbl{background:#e8f5f4;color:#0a7580;border-color:#9fd4d8;font-weight:600}
+#sqltrain-root .st-sync-grid.st-fl{display:none}
+#sqltrain-root #st-sync-prov-lc:checked ~ .st-sync-grid.st-fl{display:grid}
+#sqltrain-root #st-sync-prov-lc:checked ~ .st-sync-grid.st-fg{display:none}
 #sqltrain-root .st-reset-row{margin-top:12px}
 #sqltrain-root .st-reset-row .btn{color:#788995;font-size:10px}
 #sqltrain-root .st-main-footer{display:flex;justify-content:space-between;gap:12px;margin-top:26px;padding-top:14px;border-top:1px solid var(--border);font-size:9px;color:#7e8e9c}
@@ -2924,7 +2930,7 @@ function runQuery(db,sql){return db.exec(sql)}
     return {};
   }
   function saveSyncCfg(c){try{localStorage.setItem(SYNC_CFG_KEY,JSON.stringify(c))}catch(e){}}
-  function syncCfgReady(c){c=c||loadSyncCfg();return !!(c.base&&c.appId&&c.appKey&&c.code)}
+  function syncCfgReady(c){c=c||loadSyncCfg();return c.provider==='lc'?!!(c.base&&c.appId&&c.appKey&&c.code):!!(c.token&&c.code)}
   function fmtClock(ts){var d=new Date(ts);function p(n){return ('0'+n).slice(-2)}return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
   function syncStatus(msg,cls){
     var el=document.getElementById('st-sync-status');
@@ -2977,6 +2983,28 @@ function runQuery(db,sql){return db.exec(sql)}
       if(!res2.ok)throw new Error('HTTP '+res2.status);
     }
   }
+  function gistApiBase(c){return c.gistApi||'https://api.github.com'}
+  function ghHeaders(c){return {'Authorization':'Bearer '+c.token,'Accept':'application/vnd.github+json','Content-Type':'application/json'}}
+  async function gistGet(c){
+    if(!c.gistId)return null;
+    var res=await fetch(gistApiBase(c)+'/gists/'+c.gistId,{headers:ghHeaders(c)});
+    if(res.status===404)return null;
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    var j=await res.json();
+    var f=j.files&&j.files['sync.json'];
+    return f&&f.content?{payload:f.content}:null;
+  }
+  async function gistPut(c,payloadStr){
+    if(!c.gistId){
+      var res=await fetch(gistApiBase(c)+'/gists',{method:'POST',headers:ghHeaders(c),body:JSON.stringify({description:'SQL训练系统同步数据（端到端加密）',public:false,files:{'sync.json':{content:payloadStr}}})});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      var j=await res.json();c.gistId=j.id;saveSyncCfg(c);
+      var gi=document.getElementById('st-sync-gistid');if(gi)gi.value=c.gistId;
+    }else{
+      var res2=await fetch(gistApiBase(c)+'/gists/'+c.gistId,{method:'PATCH',headers:ghHeaders(c),body:JSON.stringify({files:{'sync.json':{content:payloadStr}}})});
+      if(!res2.ok)throw new Error('HTTP '+res2.status);
+    }
+  }
   function scheduleSyncPush(){
     if(syncBusy)return;
     if(!syncCfgReady())return;
@@ -2990,7 +3018,7 @@ function runQuery(db,sql){return db.exec(sql)}
     syncBusy=true;
     if(manual)syncStatus('同步中…');
     try{
-      var remote=await lcQuery(c);
+      var remote=c.provider==='gist'?await gistGet(c):await lcQuery(c);
       if(remote&&remote.payload){
         var parsed=null,o=null;
         try{parsed=JSON.parse(remote.payload)}catch(e){parsed=null}
@@ -3013,28 +3041,37 @@ function runQuery(db,sql){return db.exec(sql)}
         }
       }
       var payload=c.enc?await encSyncPayload(state,c.code):JSON.stringify(state);
-      await lcUpsert(c,payload);
+      if(c.provider==='gist'){await gistPut(c,payload)}else{await lcUpsert(c,payload)}
       c.lastSync=Date.now();saveSyncCfg(c);
       syncStatus('已同步 · '+fmtClock(c.lastSync)+(manual?'':'（自动）'),'ok');
     }catch(e){
-      syncStatus('同步失败：'+String(e.message||e)+' · 本地进度不受影响，稍后自动重试','err');
+      var emsg=String(e.message||e);if(emsg.indexOf('401')>=0)emsg+='（令牌无效或已过期：GitHub → Settings → Developer settings 重新生成，勾选 gist 权限）';
+      syncStatus('同步失败：'+emsg+' · 本地进度不受影响，稍后自动重试','err');
     }finally{syncBusy=false}
   }
   function doSyncSave(){
     var c=loadSyncCfg();
-    c.base=(document.getElementById('st-sync-base').value||'').trim().replace(/\/+$/,'');
-    c.appId=(document.getElementById('st-sync-id').value||'').trim();
-    c.appKey=(document.getElementById('st-sync-key').value||'').trim();
+    var provEl=document.querySelector('input[name="st-sync-prov"]:checked');
+    c.provider=provEl?provEl.getAttribute('data-prov'):'gist';
     c.code=(document.getElementById('st-sync-code').value||'').trim();
     c.enc=!!document.getElementById('st-sync-enc').checked;
-    if(!/^https?:\/\//.test(c.base)){syncStatus('API 域名要以 https:// 开头（LeanCloud 控制台 → 设置 → 应用凭证）','err');return}
-    if(!c.appId||!c.appKey){syncStatus('AppID / AppKey 不能为空','err');return}
+    if(c.provider==='gist'){
+      c.token=(document.getElementById('st-sync-token').value||'').trim();
+      c.gistId=(document.getElementById('st-sync-gistid').value||'').trim();
+      if(c.token.length<20){syncStatus('GitHub 令牌不能为空：github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → 生成，只勾选 gist 权限','err');return}
+    }else{
+      c.base=(document.getElementById('st-sync-base').value||'').trim().replace(/\/+$/,'');
+      c.appId=(document.getElementById('st-sync-id').value||'').trim();
+      c.appKey=(document.getElementById('st-sync-key').value||'').trim();
+      if(!/^https?:\/\//.test(c.base)){syncStatus('REST API 域名要以 https:// 开头（LeanCloud 控制台 → 设置 → 应用凭证）','err');return}
+      if(!c.appId||!c.appKey){syncStatus('AppID / AppKey 不能为空','err');return}
+    }
     if(c.code.length<8){syncStatus('同步码太短：点"生成新同步码"，或在其他设备复制同一个码','err');return}
     saveSyncCfg(c);syncKeyCache=null;
     syncStatus('配置已保存，正在连接…');
     syncNow(true);
   }
-  /* ---------- 总览 ---------- */
+
   function renderDash(){
     var panel=document.getElementById('panel-dash');
     var doneCount=Object.keys(state.done).length;
@@ -3095,21 +3132,31 @@ function runQuery(db,sql){return db.exec(sql)}
       +'<button class="btn btn-sm" data-act="import-merge" type="button"><span class="st-btn-ic"><i data-lucide="git-merge" aria-hidden="true"></i>合并导入（两台都练过用这个）</span></button>'
       +'<input type="file" id="st-import-file" accept=".json,application/json" hidden></div></details>'
     var scfg=loadSyncCfg();
-    markup+='<details class="st-guide st-syncbox"><summary>云同步（LeanCloud）· 手机/电脑自动同步</summary>'
-      +'<p>leancloud.cn 注册（开发版免费）→ 创建应用 → "设置 → 应用凭证"里把 REST API 域名、AppID、AppKey 填到下面（建议在"安全中心"把本系统的托管域名加入 Web 安全域名）。第一台设备点"生成新同步码"，手机和其他电脑填同一个码保存即可。开启加密后，进度用同步码端到端加密（AES-GCM），服务器只存密文。保存后自动同步：练习完成自动推送、打开页面自动拉取合并；两端都有新进度时自动取并集，不会互相覆盖。清空进度也会同步清空云端（已有二次确认）。</p>'
-      +'<div class="st-sync-grid">'
+    markup+='<details class="st-guide st-syncbox"><summary>云同步 · 手机/电脑自动同步（GitHub Gist / LeanCloud）</summary>'
+      +'<p><strong>推荐：GitHub Gist</strong>，无需新注册账号：github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token，只勾选 <strong>gist</strong> 一个权限，把生成的令牌填到下面（Gist ID 留空，保存时自动创建私有 Gist）。绑定手机/新电脑：填同一个令牌、同一个 Gist ID（本机连上后会显示在下方输入框，复制过去）和同一个同步码。<strong>LeanCloud</strong> 供已注册用户使用（国际版已停止新注册）。开启端到端加密后，进度用同步码加密（AES-GCM），云端只存密文。保存后自动同步：练习完成自动推送、打开页面自动拉取合并；两端都有新进度时自动取并集，不会互相覆盖。清空进度也会同步清空云端（已有二次确认）。</p>'
+      +'<input type="radio" name="st-sync-prov" id="st-sync-prov-gist" data-prov="gist"'+(scfg.provider==='lc'?'':' checked')+'>'
+      +'<label class="st-prov-lbl" for="st-sync-prov-gist">GitHub Gist（推荐）</label>'
+      +'<input type="radio" name="st-sync-prov" id="st-sync-prov-lc" data-prov="lc"'+(scfg.provider==='lc'?' checked':'')+'>'
+      +'<label class="st-prov-lbl" for="st-sync-prov-lc">LeanCloud</label>'
+      +'<div class="st-sync-grid st-fg">'
+      +'<input id="st-sync-token" class="form-control" type="password" placeholder="GitHub personal access token（勾选 gist 权限）" value="'+esc(scfg.token||'')+'">'
+      +'<input id="st-sync-gistid" class="form-control" placeholder="Gist ID（留空自动创建；新设备填同一个）" value="'+esc(scfg.gistId||'')+'">'
+      +'</div>'
+      +'<div class="st-sync-grid st-fl">'
       +'<input id="st-sync-base" class="form-control" placeholder="REST API 域名，如 https://xxxxxx.lcloud.cn" value="'+esc(scfg.base||'')+'">'
       +'<input id="st-sync-id" class="form-control" placeholder="AppID" value="'+esc(scfg.appId||'')+'">'
       +'<input id="st-sync-key" class="form-control" type="password" placeholder="AppKey" value="'+esc(scfg.appKey||'')+'">'
-      +'<input id="st-sync-code" class="form-control" placeholder="同步码（各设备保持一致）" value="'+esc(scfg.code||'')+'">'
       +'</div>'
+      +'<div class="viz-row" style="gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center">'
+      +'<input id="st-sync-code" class="form-control" style="flex:1;min-width:200px" placeholder="同步码（各设备保持一致）" value="'+esc(scfg.code||'')+'">'
+      +'<label class="st-sync-enc"><input type="checkbox" id="st-sync-enc"'+(scfg.enc===false?'':' checked')+'>端到端加密</label></div>'
       +'<div class="viz-row" style="gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center">'
       +'<button class="btn btn-primary btn-sm" data-act="sync-save" type="button"><span class="st-btn-ic"><i data-lucide="cloud-upload" aria-hidden="true"></i>保存配置并连接</span></button>'
       +'<button class="btn btn-sm" data-act="sync-gencode" type="button"><span class="st-btn-ic"><i data-lucide="key-round" aria-hidden="true"></i>生成新同步码</span></button>'
       +'<button class="btn btn-sm" data-act="sync-now" type="button"><span class="st-btn-ic"><i data-lucide="refresh-cw" aria-hidden="true"></i>立即同步</span></button>'
       +'<button class="btn btn-ghost btn-sm" data-act="sync-unbind" type="button"><span class="st-btn-ic"><i data-lucide="unlink" aria-hidden="true"></i>解绑</span></button>'
-      +'<label class="st-sync-enc"><input type="checkbox" id="st-sync-enc"'+(scfg.enc===false?'':' checked')+'>端到端加密</label>'
       +'<span id="st-sync-status" class="text-small text-muted">'+(syncCfgReady(scfg)?('已绑定'+(scfg.lastSync?' · 上次同步 '+fmtClock(scfg.lastSync):'')+' · 打开页面会自动同步'):'未配置')+'</span></div></details>'
+
     markup+='<div class="viz-row st-reset-row"><button class="btn btn-ghost btn-sm" data-act="reset1" type="button">清空全部进度</button><span id="st-reset-confirm"></span></div>';
     panel.innerHTML=markup;
     refreshIcons();
