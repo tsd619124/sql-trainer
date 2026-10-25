@@ -1,5 +1,5 @@
 // SQL 训练营 Service Worker：在线时永远拿最新版，离线时用缓存打开
-const CACHE = 'sql-trainer-v5';
+const CACHE = 'sql-trainer-v8';
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
