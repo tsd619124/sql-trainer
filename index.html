@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-title" content="SQL训练营">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f7fa">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1216">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
 <meta name="referrer" content="no-referrer">
 <script>try{var _m=JSON.parse(localStorage.getItem("sqltrain_mode")||'"auto"');var _eff=_m==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):_m;document.documentElement.dataset.mode=_eff;document.documentElement.style.colorScheme=_eff}catch(e){}</script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src 'none'; worker-src blob: 'self'; connect-src blob: data: https://cdn.jsdelivr.net https://*.lcloud.cn https://*.leancloud.cn https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
@@ -1677,65 +1677,65 @@ body>.nav .nav-link.active .st-btn-ic svg{stroke-width:2.4;animation:st-glow .5s
 /* ---------- 深色模式：跟随系统 ---------- */
 html[data-mode="dark"]{
     color-scheme:dark;
-    --background:#0d1216;--foreground:#e7edf2;--card:#151c22;--card-foreground:#e7edf2;--card-border:#26303a;
-    --popover:#1a2128;--popover-foreground:#e7edf2;
+    --background:#000000;--foreground:#F5F5F7;--card:#17171B;--card-foreground:#F5F5F7;--card-border:#2A2A2E;
+    --popover:#1C1C1E;--popover-foreground:#F5F5F7;
     --primary:#0A84FF;--primary-foreground:#fff;--content-accent:#5FA8FF;
-    --secondary:#1c242c;--secondary-foreground:#dbe3ea;
-    --muted:#1a222a;--muted-foreground:#9aa8b5;
+    --secondary:#16161A;--secondary-foreground:#dbe3ea;
+    --muted:#131316;--muted-foreground:#98989D;
     --accent:#10233B;--accent-foreground:#7CB8FF;
-    --border:#26303a;--input:#323d48;--ring:#0A84FF;
+    --border:#2A2A2E;--input:#3A3A3F;--ring:#0A84FF;
     --green:#30D158;--red:#ff8089;--destructive:#ffa268;
-    --input-bg:#151d24;--input-bg-focused:#151d24;--input-border:#323d48;--input-border-hover:#46545f;--input-border-focused:#0A84FF;
-    --hover:#1d262f;--selected:#10233B;--glass-rgb:16,23,29;--glass-a:0.38;--head-rgb:13,18,22;--glass-strong-a:0.58;--glass-edge:rgba(255,255,255,0.12);--glass-hi:rgba(255,255,255,0.09);--hair-rgb:255,255,255;--hair-a:0.10;--glass-blur:blur(34px) saturate(1.8);--card-glass:rgba(21,28,34,0.55);--pill-bg:rgba(255,255,255,0.18);--pill-shadow:0 2px 10px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.12);--shadow-float:0 14px 40px rgba(0,0,0,0.55),0 3px 10px rgba(0,0,0,0.4);--glow-1:rgba(10,132,255,0.13);--glow-2:rgba(10,132,255,0.07);
+    --input-bg:#131316;--input-bg-focused:#131316;--input-border:#3A3A3F;--input-border-hover:#46545f;--input-border-focused:#0A84FF;
+    --hover:#1C1C20;--selected:#10233B;--glass-rgb:20,20,24;--glass-a:0.38;--head-rgb:0,0,0;--glass-strong-a:0.58;--glass-edge:rgba(255,255,255,0.12);--glass-hi:rgba(255,255,255,0.09);--hair-rgb:255,255,255;--hair-a:0.10;--glass-blur:blur(34px) saturate(1.8);--card-glass:rgba(21,28,34,0.55);--pill-bg:rgba(255,255,255,0.18);--pill-shadow:0 2px 10px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.12);--shadow-float:0 14px 40px rgba(0,0,0,0.55),0 3px 10px rgba(0,0,0,0.4);--glow-1:rgba(10,132,255,0.16);--glow-2:rgba(10,132,255,0.09);
   }
-@media(min-width:681px){html[data-mode="dark"] #sqltrain-root .st-sidebar{background:rgba(var(--glass-rgb),0.82);border-right-color:#242c34}}
-html[data-mode="dark"] #sqltrain-root .st-sidebar .nav-link:hover{background:#1a222a;color:#e7edf2}
+@media(min-width:681px){html[data-mode="dark"] #sqltrain-root .st-sidebar{background:rgba(var(--glass-rgb),0.82);border-right-color:#2A2A2E}}
+html[data-mode="dark"] #sqltrain-root .st-sidebar .nav-link:hover{background:#131316;color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-sidebar .nav-link.active{background:#10233B;color:#7CB8FF}
-html[data-mode="dark"] #sqltrain-root .st-sidebar-course{background:#1a2128;border-color:#26303a}
-html[data-mode="dark"] #sqltrain-root .st-sidebar-course strong{color:#e7edf2}
-html[data-mode="dark"] #sqltrain-root .st-progress-track{background:#26303a}
+html[data-mode="dark"] #sqltrain-root .st-sidebar-course{background:#1C1C1E;border-color:#2A2A2E}
+html[data-mode="dark"] #sqltrain-root .st-sidebar-course strong{color:#F5F5F7}
+html[data-mode="dark"] #sqltrain-root .st-progress-track{background:#2A2A2E}
 html[data-mode="dark"] #sqltrain-root .st-engine{background:#112418;border-color:#1F4A31;color:#66D38A}
 html[data-mode="dark"] #sqltrain-root .st-engine[data-mode="loading"],html[data-mode="dark"] #sqltrain-root .st-engine[data-mode="self"]{color:#e8b96a;background:#2a2013;border-color:#5a4526}
 html[data-mode="dark"] #sqltrain-root .st-avatar{background:#1c2b30;color:#6FA8FF}
-html[data-mode="dark"] #sqltrain-root .btn{background:#171f26;border-color:#303b46;color:#c2cdd8}
-html[data-mode="dark"] #sqltrain-root .btn:hover{border-color:#46545f;background:#1e2830}
+html[data-mode="dark"] #sqltrain-root .btn{background:#161619;border-color:#303b46;color:#C7C7CC}
+html[data-mode="dark"] #sqltrain-root .btn:hover{border-color:#46545f;background:#1E1E22}
 html[data-mode="dark"] #sqltrain-root .btn-primary{color:#fff;background:#0A84FF;border-color:#0A84FF}
 html[data-mode="dark"] #sqltrain-root .btn-primary:hover{background:#0974E8;border-color:#0974E8;color:#fff}
 html[data-mode="dark"] #sqltrain-root .st-focus-card{background:#0F2038;border-color:#1E3C5C}
-html[data-mode="dark"] #sqltrain-root .st-focus-card h2{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-focus-card h2{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-focus-copy>p{color:#b9c5d0}
 html[data-mode="dark"] #sqltrain-root .st-focus-label{color:#6FB5FF}
 html[data-mode="dark"] #sqltrain-root .st-focus-actions>span{color:#95a6b0}
-html[data-mode="dark"] #sqltrain-root .st-stat{background:#151c22}
-html[data-mode="dark"] #sqltrain-root .st-week-card{background:#151c22}
+html[data-mode="dark"] #sqltrain-root .st-stat{background:#17171B}
+html[data-mode="dark"] #sqltrain-root .st-week-card{background:#17171B}
 html[data-mode="dark"] #sqltrain-root .st-week-card.is-current{border-color:#2C5AA0}
 html[data-mode="dark"] #sqltrain-root .st-week-open{color:#d3dce3}
 html[data-mode="dark"] #sqltrain-root .st-week-number{color:#8d9aa7}
 html[data-mode="dark"] #sqltrain-root .st-week-state{color:#8d9aa7}
 html[data-mode="dark"] #sqltrain-root .st-week-bottom>span{color:#8d9aa7}
 html[data-mode="dark"] #sqltrain-root .st-mdot{background:#2b3540}
-html[data-mode="dark"] #sqltrain-root .st-routine{background:#151c22}
-html[data-mode="dark"] #sqltrain-root .st-routine-step strong{color:#e7edf2}
-html[data-mode="dark"] #sqltrain-root .st-routine-title{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-routine{background:#17171B}
+html[data-mode="dark"] #sqltrain-root .st-routine-step strong{color:#F5F5F7}
+html[data-mode="dark"] #sqltrain-root .st-routine-title{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-guide{color:#8d9aa7}
 html[data-mode="dark"] #sqltrain-root .st-guide summary{color:#9db0bd}
-html[data-mode="dark"] #sqltrain-root .st-brand-name{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-brand-name{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-nav-label{color:#8d9aa7}
 html[data-mode="dark"] #sqltrain-root .st-task-description{color:#b9c5d0}
-html[data-mode="dark"] #sqltrain-root .st-question-library{background:#151c22}
+html[data-mode="dark"] #sqltrain-root .st-question-library{background:#17171B}
 html[data-mode="dark"] #sqltrain-root .st-qlist{scrollbar-color:#3a4650 transparent}
 html[data-mode="dark"] #sqltrain-root .st-qlist .btn:hover{background:#1a232b}
 html[data-mode="dark"] #sqltrain-root .st-qlist .btn-primary{background:#10233B;color:#7CB8FF}
 html[data-mode="dark"] #sqltrain-root .st-reset-row .btn{color:#8d9aa7}
-html[data-mode="dark"] #sqltrain-root .st-prov-lbl{background:#171f26;color:#95a6b0}
+html[data-mode="dark"] #sqltrain-root .st-prov-lbl{background:#161619;color:#95a6b0}
 html[data-mode="dark"] #sqltrain-root input[name="st-sync-prov"]:checked + .st-prov-lbl{background:#10233B;color:#7CB8FF;border-color:#1E3C5C}
-html[data-mode="dark"] #sqltrain-root .st-lh{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-lh{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-lp{color:#b9c5d0}
 html[data-mode="dark"] #sqltrain-root .st-goal{background:#0F2038;border-color:#1E3C5C;color:#9CCBFF}
-html[data-mode="dark"] #sqltrain-root .st-ex{background:#151c22}
-html[data-mode="dark"] #sqltrain-root .st-ex-head{background:#1a2128;border-bottom-color:#26303a}
+html[data-mode="dark"] #sqltrain-root .st-ex{background:#17171B}
+html[data-mode="dark"] #sqltrain-root .st-ex-head{background:#1C1C1E;border-bottom-color:#2A2A2E}
 html[data-mode="dark"] #sqltrain-root .st-ex-head .st-kpi{color:#95a6b0}
-html[data-mode="dark"] #sqltrain-root .st-ex-note{background:#121920;border-color:#26303a;color:#8d9aa7}
+html[data-mode="dark"] #sqltrain-root .st-ex-note{background:#141418;border-color:#2A2A2E;color:#8d9aa7}
 html[data-mode="dark"] #sqltrain-root .st-traps{background:#241714;border-color:#5a2f28}
 html[data-mode="dark"] #sqltrain-root .st-traps strong{color:#ff9d8a}
 html[data-mode="dark"] #sqltrain-root .st-traps li{color:#d8ab9f}
@@ -1745,61 +1745,61 @@ html[data-mode="dark"] #sqltrain-root .st-biz p{color:#b5c5da}
 html[data-mode="dark"] #sqltrain-root .st-key{background:#0F2338;border-color:#274B77}
 html[data-mode="dark"] #sqltrain-root .st-key strong{color:#4DB2FF}
 html[data-mode="dark"] #sqltrain-root .st-key p{color:#A9C8EE}
-html[data-mode="dark"] #sqltrain-root .st-lqhead{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-lqhead{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-lqhead svg{color:#5FA8FF}
-html[data-mode="dark"] #sqltrain-root .st-pchk{background:#151c22;color:#b9c5d0}
+html[data-mode="dark"] #sqltrain-root .st-pchk{background:#17171B;color:#b9c5d0}
 html[data-mode="dark"] #sqltrain-root .st-pchk:hover{border-color:#46545f}
 html[data-mode="dark"] #sqltrain-root .st-pchk.is-on{background:#0F2338;border-color:#274B77;color:#A9C8EE}
-html[data-mode="dark"] #sqltrain-root .st-pchk-box{border-color:#39454f;background:#151c22;color:#30D158}
+html[data-mode="dark"] #sqltrain-root .st-pchk-box{border-color:#39454f;background:#17171B;color:#30D158}
 html[data-mode="dark"] #sqltrain-root .st-pchk.is-on .st-pchk-box{border-color:#30D158;background:#112918}
-html[data-mode="dark"] #sqltrain-root .st-psteps>div{background:#151c22}
+html[data-mode="dark"] #sqltrain-root .st-psteps>div{background:#17171B}
 html[data-mode="dark"] #sqltrain-root .st-psteps>div>span{color:#5FA8FF}
-html[data-mode="dark"] #sqltrain-root .st-psteps strong{color:#e7edf2}
-html[data-mode="dark"] #sqltrain-root .st-rules div{background:#151c22;color:#b9c5d0}
+html[data-mode="dark"] #sqltrain-root .st-psteps strong{color:#F5F5F7}
+html[data-mode="dark"] #sqltrain-root .st-rules div{background:#17171B;color:#b9c5d0}
 html[data-mode="dark"] #sqltrain-root .st-rules div>span{background:#10233B;color:#7CB8FF}
-html[data-mode="dark"] #sqltrain-root .st-res{background:#151c22}
+html[data-mode="dark"] #sqltrain-root .st-res{background:#17171B}
 html[data-mode="dark"] #sqltrain-root .st-res a{color:#5FA8FF}
-html[data-mode="dark"] #sqltrain-root .st-res span:first-child{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-res span:first-child{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-order{background:#0F2038;border-color:#1E3C5C;color:#9CCBFF}
-html[data-mode="dark"] #sqltrain-root #panel-learn details{background:#151c22}
-html[data-mode="dark"] #sqltrain-root #panel-learn details summary{background:#1a2128;color:#e7edf2}
-html[data-mode="dark"] #sqltrain-root .st-cheat-tbl td:first-child{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root #panel-learn details{background:#17171B}
+html[data-mode="dark"] #sqltrain-root #panel-learn details summary{background:#1C1C1E;color:#F5F5F7}
+html[data-mode="dark"] #sqltrain-root .st-cheat-tbl td:first-child{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-cheat-tbl td:nth-child(n+2){color:#b9c5d0}
 html[data-mode="dark"] #sqltrain-root :is(.st-stat,html[data-mode="dark"] .st-week-card,html[data-mode="dark"] .st-routine,html[data-mode="dark"] .st-question-library,html[data-mode="dark"] #st-qpanel,html[data-mode="dark"] #panel-learn details){background:var(--card-glass)}
 html[data-mode="dark"] #sqltrain-root .st-focus-card{background:rgba(15,32,56,0.72)}
 html[data-mode="dark"] #sqltrain-root #panel-learn details summary{background:rgba(26,33,40,0.75)}
-html[data-mode="dark"] body>.nav.nav-pills{background:rgba(28,33,40,0.52);border-color:rgba(255,255,255,0.16);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),inset 0 -6px 14px -10px rgba(0,0,0,0.5),0 10px 30px rgba(0,0,0,0.45)}
+html[data-mode="dark"] body>.nav.nav-pills{background:rgba(22,22,26,0.55);border-color:rgba(255,255,255,0.16);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),inset 0 -6px 14px -10px rgba(0,0,0,0.5),0 10px 30px rgba(0,0,0,0.45)}
 html[data-mode="dark"] body>.nav.nav-pills::before{background:linear-gradient(100deg,rgba(255,255,255,0.12),rgba(255,255,255,0.03) 38%,transparent 62%,rgba(255,255,255,0.10) 84%,rgba(255,255,255,0.03)),radial-gradient(60% 50% at 8% 0%,rgba(255,255,255,0.14),transparent 65%)}
 html[data-mode="dark"] body>.nav .nav-link{color:#aeb9c4}
-html[data-mode="dark"] body>.nav .nav-link:hover{color:#e7edf2}
+html[data-mode="dark"] body>.nav .nav-link:hover{color:#F5F5F7}
 html[data-mode="dark"] body>.nav .nav-link.active{color:#5FA8FF}
   body>.nav .nav-link.active .st-btn-ic svg{filter:drop-shadow(0 2px 8px rgba(10,132,255,0.45))}
 html[data-mode="dark"] #st-tabpill{box-shadow:0 4px 14px rgba(0,0,0,0.4),inset 0 1.5px 0 rgba(255,255,255,0.35)}
-html[data-mode="dark"] #sqltrain-root .st-me-head h2{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-me-head h2{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-subseg button{color:#8d9aa7}
 html[data-mode="dark"] #sqltrain-root .st-subseg::before{background:radial-gradient(130% 100% at 16% 0%,rgba(255,255,255,0.12),rgba(255,255,255,0.03) 45%,transparent 70%)}
 html[data-mode="dark"] #sqltrain-root .st-subseg{box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.22),inset 0 4px 6px -3px rgba(255,255,255,0.07)}
 html[data-mode="dark"] #sqltrain-root .st-subseg button.on{background:#10233B;color:#7CB8FF}
-html[data-mode="dark"] #sqltrain-root .st-ms b{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-ms b{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-ms b span{color:#8d9aa7}
-html[data-mode="dark"] #sqltrain-root .st-mrow summary{color:#e7edf2}
+html[data-mode="dark"] #sqltrain-root .st-mrow summary{color:#F5F5F7}
 html[data-mode="dark"] #sqltrain-root .st-mrow-body{color:#b9c5d0}
 html[data-mode="dark"] #sqltrain-root .st-mrow.danger summary,html[data-mode="dark"] #sqltrain-root .st-mrow.danger .st-mrow-t{color:#ff8089}
 html[data-mode="dark"] #sqltrain-root .st-mrow.danger .st-mrow-ic{background:rgba(255,128,137,.14);color:#ff8089}
 html[data-mode="dark"] #sqltrain-root .st-chev{color:#5a6a78}
-html[data-mode="dark"] #sqltrain-root .st-clent ul{color:#9aa8b5}
-html[data-mode="dark"] #sqltrain-root pre{background:#111C28;border-color:#1E3244}
+html[data-mode="dark"] #sqltrain-root .st-clent ul{color:#98989D}
+html[data-mode="dark"] #sqltrain-root pre{background:#101014;border-color:#2A2A2E}
 html[data-mode="dark"] #sqltrain-root pre code{color:#C9DCEC}
-html[data-mode="dark"] #sqltrain-root .table th{background:#152234;color:#8fb6c6;border-bottom:1px solid #1E3244}
-html[data-mode="dark"] #sqltrain-root .table td{border-color:#1B2632;color:#c3d5e0}
+html[data-mode="dark"] #sqltrain-root .table th{background:#131317;color:#98989D;border-bottom:1px solid #2A2A2E}
+html[data-mode="dark"] #sqltrain-root .table td{border-color:#26262B;color:#C7C7CC}
 html[data-mode="dark"] #sqltrain-root .table tbody tr:nth-child(even){background:#0F1822}
 html[data-mode="dark"] #sqltrain-root .table tbody tr:hover{background:#16233A}
-html[data-mode="dark"] #sqltrain-root #st-answer{background:#0F1D30;border-color:#1E3C5C;color:#CFE0F2}
-html[data-mode="dark"] #sqltrain-root #st-verdict:not(:empty){background:#0F1D30;border-color:#1E3C5C}
-html[data-mode="dark"] #sqltrain-root #st-note{background:#151d24;border-color:#323d48;color:#c2cdd8}
+html[data-mode="dark"] #sqltrain-root #st-answer{background:#101014;border-color:#1E3C5C;color:#CFE0F2}
+html[data-mode="dark"] #sqltrain-root #st-verdict:not(:empty){background:#101014;border-color:#1E3C5C}
+html[data-mode="dark"] #sqltrain-root #st-note{background:#131316;border-color:#3A3A3F;color:#C7C7CC}
 html[data-mode="dark"] #sqltrain-root #st-hint{background:#251c0e;border-color:#4d3c1c;color:#e2c078!important}
 html[data-mode="dark"] #sqltrain-root #st-test-timer{background:#10233B;color:#7CB8FF}
-html[data-mode="dark"] #sqltrain-root .form-select{background-color:#151d24;color:#dbe3ea;border-color:#323d48}
+html[data-mode="dark"] #sqltrain-root .form-select{background-color:#131316;color:#dbe3ea;border-color:#3A3A3F}
 </style>
 
 <div id="sqltrain-root">
@@ -2736,7 +2736,7 @@ function runQuery(db,sql){return db.exec(sql)}
     var eff=m==='auto'?(modeMql.matches?'dark':'light'):m;
     document.documentElement.dataset.mode=eff;
     document.documentElement.style.colorScheme=eff;
-    document.querySelectorAll('meta[name="theme-color"]').forEach(function(m2){m2.removeAttribute('media');m2.setAttribute('content',eff==='dark'?'#0d1216':'#f5f7fa')});
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function(m2){m2.removeAttribute('media');m2.setAttribute('content',eff==='dark'?'#000000':'#f5f7fa')});
     var seg=document.getElementById('st-mode-seg');
     if(seg)Array.prototype.forEach.call(seg.querySelectorAll('button[data-mo]'),function(b){b.classList.toggle('btn-primary',b.getAttribute('data-mo')===m)});
     return eff;
@@ -3748,6 +3748,7 @@ function renderCheatPage(){
   /* ---------- 我的:档案 / 数据管理 / 关于与版本更新 ---------- */
   var APP_VERSION='2.5.2';
   var CHANGELOG=[
+    ['2.5.3','2026-10-25',['暗色模式重做为纯黑(OLED)画布:背景纯黑、卡片微抬升、文字与边框换 iOS 中性灰,蓝色环境光与玻璃保持']],
     ['2.5.2','2026-10-25',['Tab 栏玻璃质感对齐参考稿:清透白玻璃、大图标深描边、白色云朵选中胶囊、更宽排布']],
     ['2.5.1','2026-10-25',['底栏玻璃质感重做:顶缘锐光/底部厚度暗影/内圈轮廓与双热斑光泽,玻璃有了厚度','点击交互:按压缩放回弹、选中光晕绽放、药丸移动弹性形变,激活图标加粗发光']],
     ['2.5.0','2026-10-25',['手动主题切换:「我的 · 外观」可选 跟随系统 / 浅色 / 深色,状态栏颜色同步跟随','命令面板:桌面按 Ctrl/⌘+K 搜索并直达任意页面、题目、微课与模板','清理约 55KB 未使用的可视化脚手架代码,加载更轻']],
