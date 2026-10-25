@@ -1898,6 +1898,22 @@ html>body{padding:0;min-width:320px;-webkit-font-smoothing:antialiased}
 #sqltrain-root .st-clent + .st-clent{border-top:1px dashed var(--border)}
 #sqltrain-root .st-clent-h{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 #sqltrain-root .st-clent ul{margin:0;padding-left:30px;color:var(--muted-foreground);font-size:11.5px;line-height:1.85;display:flex;flex-direction:column;gap:3px}
+/* ---------- v2.4:热图/成就/运行历史/轻提示 ---------- */
+#sqltrain-root .st-heatwrap{margin:2px 0 24px}
+#sqltrain-root .st-heat-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+#sqltrain-root .st-heat-t{font-size:15px;font-weight:650;letter-spacing:-.3px;color:#1d3446}
+#sqltrain-root .st-heat{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+#sqltrain-root .st-heat i{aspect-ratio:1;border-radius:3px;background:rgba(var(--glass-rgb),0.6);border:1px solid var(--border)}
+#sqltrain-root .st-heat i.on{background:var(--primary);border-color:transparent}
+#sqltrain-root .st-mil{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+#sqltrain-root .st-mil span{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;border:1px solid var(--border);font-size:11px;color:var(--muted-foreground);background:rgba(var(--glass-rgb),0.4)}
+#sqltrain-root .st-mil span.on{background:var(--accent);color:var(--accent-foreground);border-color:transparent;font-weight:600}
+#sqltrain-root .st-hist summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;color:var(--muted-foreground);font-size:11.5px}
+#sqltrain-root .st-hist summary::-webkit-details-marker{display:none}
+#sqltrain-root .st-hist .st-hlist{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+#sqltrain-root .st-hist .st-hlist .btn{justify-content:flex-start;min-height:0;padding:6px 10px}
+#st-toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%) translateY(-6px);z-index:120;max-width:min(92vw,420px);display:flex;gap:8px;align-items:center;padding:11px 16px;border-radius:999px;background:rgba(var(--head-rgb),0.95);border:1px solid var(--glass-edge);box-shadow:var(--shadow-float);font-size:12.5px;font-weight:550;color:var(--foreground);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease}
+#st-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 /* ---------- 深色模式：跟随系统 ---------- */
 @media (prefers-color-scheme:dark){
   :root{
@@ -2972,6 +2988,7 @@ function runQuery(db,sql){return db.exec(sql)}
     try{if(window.zcode&&window.zcode.setWidgetState){window.zcode.setWidgetState({privateContent:state}).catch(function(){})}}catch(e){}
     try{localStorage.setItem('sqltrain_state',JSON.stringify(state))}catch(e){}
     scheduleSyncPush();
+    checkMilestones();
   }
   function markToday(){var t=todayStr();if(state.days.indexOf(t)<0){state.days.push(t);saveState();updateStreak()}}
   function streak(){
@@ -2987,6 +3004,9 @@ function runQuery(db,sql){return db.exec(sql)}
   function refreshIcons(){try{if(window.lucide&&window.lucide.createIcons)window.lucide.createIcons({attrs:{width:16,height:16}})}catch(e){}}
   function qById(id){if(id==='play')return null;for(var i=0;i<QUESTIONS.length;i++){if(QUESTIONS[i].id===id)return QUESTIONS[i]}return null}
   function nextQuestion(){
+    var bw=null,bwW=9;
+    QUESTIONS.forEach(function(q){if(state.wrong[q.id]&&!state.done[q.id]&&q.w<bwW){bwW=q.w;bw=q}});
+    if(bw)return bw;
     for(var w=1;w<=8;w++){
       for(var i=0;i<QUESTIONS.length;i++){
         var q=QUESTIONS[i];
@@ -3268,6 +3288,9 @@ function runQuery(db,sql){return db.exec(sql)}
     var next=nextQuestion();
     var nl=nextLesson();
     var percentage=Math.round(doneCount/QUESTIONS.length*100);
+    var wsNow=weekStatsNow();var dset={};(state.days||[]).forEach(function(d){dset[d]=1});
+    var heatCells='';
+    for(var hi=55;hi>=0;hi--){var hdt=new Date(Date.now()-hi*864e5);var hk=hdt.getFullYear()+'-'+('0'+(hdt.getMonth()+1)).slice(-2)+'-'+('0'+hdt.getDate()).slice(-2);heatCells+='<i'+(dset[hk]?' class="on"':'')+' title="'+hk+'"></i>'}
     var markup='<section class="st-focus-card" aria-label="今日推荐"><div class="st-focus-copy">';
     if(next){
       markup+='<div class="st-focus-label"><i data-lucide="sparkles" aria-hidden="true"></i>今日推荐 · 第 '+next.w+' 周</div>'
@@ -3285,7 +3308,8 @@ function runQuery(db,sql){return db.exec(sql)}
       +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="circle-check" aria-hidden="true"></i>已完成题目</div><div class="st-stat-value">'+doneCount+'<span>/ '+QUESTIONS.length+' 题</span></div><div class="st-stat-foot">完成整个计划的 '+percentage+'%</div></div>'
       +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="flame" aria-hidden="true"></i>连续练习</div><div class="st-stat-value">'+streak()+'<span>天</span></div><div class="st-stat-foot">保持节奏，让理解更扎实</div></div>'
       +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="rotate-ccw" aria-hidden="true"></i>待重写错题</div><div class="st-stat-value">'+wrongCount+'<span>题</span></div><div class="st-stat-foot">'+(wrongCount?'去错题本，重新试一遍':'新的一页，准备好开始')+'</div></div>'
-      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="route" aria-hidden="true"></i>当前学习阶段</div><div class="st-stat-value st-stat-week">'+(next?'第 '+next.w+' 周':'已通关')+'</div><div class="st-stat-foot">'+(next?WEEKS[next.w-1].name:'八周训练路径已完成')+'</div></div></section>';
+      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="route" aria-hidden="true"></i>当前学习阶段</div><div class="st-stat-value st-stat-week">'+(next?'第 '+next.w+' 周':'已通关')+'</div><div class="st-stat-foot">'+(next?WEEKS[next.w-1].name:'八周训练路径已完成')+'</div></div></section>'
+      +'<div class="st-heatwrap"><div class="st-heat-head"><span class="st-heat-t">近 8 周打卡</span><span class="text-small text-muted">本周打卡 '+wsNow.d+' 天 · 本周完成 '+wsNow.q+' 题</span></div><div class="st-heat">'+heatCells+'</div></div>';
     markup+='<section aria-label="八周进度地图"><div class="st-section-heading"><div><h3>八周学习路径</h3><p>循序渐进，从取数基础到业务实战。点击方块，继续对应题目。</p></div>'
       +'<div class="st-legend"><span><span class="st-mdot is-done"></span>已通过</span><span><span class="st-mdot is-wrong"></span>待重写</span><span><span class="st-mdot"></span>未开始</span></div></div><div class="st-mosaic">';
     WEEKS.forEach(function(week){
@@ -3397,7 +3421,11 @@ function runQuery(db,sql){return db.exec(sql)}
       +'<div id="st-answer" hidden style="margin-top:12px"><div class="text-small text-muted st-kpi"><i data-lucide="book-open" aria-hidden="true"></i>参考答案（看完请关掉重写）</div><div class="st-pre"><pre><code>'+q.answer.replace(/</g,'&lt;')+'</code></pre></div></div>'
       +'<div id="st-explain" hidden style="margin-top:12px"><div class="text-small text-muted st-kpi"><i data-lucide="route" aria-hidden="true"></i>思路拆解（看完请关掉重写）</div><div class="st-lp" style="white-space:pre-line;margin-bottom:0">'+esc(EXPLAINS[qid]||'这道题暂无拆解。')+'</div></div>'
       +'<label class="form-label text-small" for="st-note" style="margin-top:12px"><span class="st-kpi"><i data-lucide="pen-line" aria-hidden="true"></i>我的笔记（自动保存）</span></label>'
-      +'<textarea id="st-note" class="form-control" rows="2" placeholder="一句话记下这道题的卡点">'+esc(state.notes[qid]||'')+'</textarea>';
+      +'<textarea id="st-note" class="form-control" rows="2" placeholder="一句话记下这道题的卡点">'+esc(state.notes[qid]||'')+'</textarea>'
+      +'<div id="st-att-line" data-qid="'+qid+'" class="text-small text-muted" style="margin-top:8px">本题已尝试 '+(attempts[qid]||0)+' 次'+(viewed[qid]?' · 已看过参考答案':'')+'</div>'
+      +'<details class="st-hist" style="margin-top:6px"><summary>运行历史（最近 '+(state.history||[]).length+' 次）</summary><div class="st-hlist">'
+      +((state.history||[]).map(function(h,hi){var qq=qById(h.q);return '<button class="btn btn-sm" data-act="hist-load" data-i="'+hi+'" type="button">'+(h.ok?'✓':'✗')+' '+esc(qq?qq.title:h.q)+' · '+fmtClock(h.t)+'</button>'}).join('')||'<span class="text-small text-muted">还没有运行记录</span>')
+      +'</div></details>';
     bindEditor(qid);
     var note=document.getElementById('st-note');
     note.oninput=function(){
@@ -3465,18 +3493,19 @@ function runQuery(db,sql){return db.exec(sql)}
   function doRun(qid){
     var q=qById(qid);if(!q||!db)return;
     var v=document.getElementById('st-verdict'),out=document.getElementById('st-result');
-    var mine;
-    try{mine=resultRows(runQuery(db,getSQL(qid)))}
+    var mine,sqlTxt=getSQL(qid);
+    try{mine=resultRows(runQuery(db,sqlTxt))}
     catch(e){
-      attempts[qid]=(attempts[qid]||0)+1;
+      attempts[qid]=(attempts[qid]||0)+1;pushHistory(qid,sqlTxt,0);
       state.wrong[qid]=Math.max(state.wrong[qid]||0,1);saveState();
       v.innerHTML='<div class="text-destructive st-kpi" role="alert"><i data-lucide="circle-x" aria-hidden="true"></i>SQL 有错误：'+String(e.message||e).replace(/</g,'&lt;')+'</div>';
       out.innerHTML='';renderQStatus(qid);refreshIcons();return;
     }
-    if(!mine){v.innerHTML='<div class="text-destructive" role="alert">查询没有返回结果集（检查是不是写了只含注释的语句）。</div>';out.innerHTML='';return}
+    if(!mine){pushHistory(qid,sqlTxt,0);v.innerHTML='<div class="text-destructive" role="alert">查询没有返回结果集（检查是不是写了只含注释的语句）。</div>';out.innerHTML='';return}
     var ref=refRows(q);
     attempts[qid]=(attempts[qid]||0)+1;
-    if(cmpRows(mine,ref)){
+    var passed=cmpRows(mine,ref);pushHistory(qid,sqlTxt,passed);
+    if(passed){
       var assisted=viewed[qid]?'<span class="text-muted text-small">（看过答案，此题保留在错题本）</span>':'';
       state.done[qid]={ts:Date.now(),used:viewed[qid]?1:0};
       if(!viewed[qid])delete state.wrong[qid];
@@ -3593,7 +3622,7 @@ function runQuery(db,sql){return db.exec(sql)}
         +'<span class="viz-row" style="gap:6px"><button class="btn btn-primary btn-sm" data-act="open-q" data-qid="'+qid+'" type="button"><span class="st-btn-ic"><i data-lucide="pen-line" aria-hidden="true"></i>去重写</span></button>'
         +'<button class="btn btn-ghost btn-sm" data-act="wrong-del" data-qid="'+qid+'" type="button"><i data-lucide="x" aria-hidden="true"></i><span class="sr-only">移除</span></button></span></div>';
     }).join('');
-    el.innerHTML=head+'<hr>'+rows;
+    el.innerHTML=head+'<div class="viz-row" style="margin:10px 0 12px"><button class="btn btn-primary" data-act="wrong-practice" type="button"><span class="st-btn-ic"><i data-lucide="repeat" aria-hidden="true"></i>开始重练 · 只看错题</span></button></div><hr>'+rows;
     refreshIcons();
   }
 
@@ -3943,8 +3972,9 @@ function renderCheatPage(){
   function renderExam(){if(examSub==='test')renderTest();else renderWrong()}
 
   /* ---------- 我的:档案 / 数据管理 / 关于与版本更新 ---------- */
-  var APP_VERSION='2.3.3';
+  var APP_VERSION='2.4.0';
   var CHANGELOG=[
+    ['2.4.0','2026-10-25',['错题重练卷:错题本一键进入只看错题的练习模式','运行历史:每次执行的 SQL 与通过与否留档最近 12 次,可一键回填;题目页显示累计尝试次数','打卡热图:总览新增近 8 周打卡日历与本周摘要','里程碑成就:首题通过/连续打卡/首周通关等 8 枚成就,「我的」页点亮并轻提示','每日自动快照:每天首次打开自动留档,「备份与迁移」可一键恢复','今日推荐优先错题相关题目']],
     ['2.3.3','2026-10-25',['底部 Tab 栏质感重做:磨砂更醇更透亮,图标 22px / 字号 11px,选中胶囊更饱满,光感层次对齐参考稿','全面体检修复:桌面端导航断点迁移加固;周测计时器改墙钟基准,锁屏不再走慢;周测范围补齐第 8 周;笔记转义防破坏编辑器']],
     ['2.3.2','2026-10-25',['玻璃光感三处重做:光泽改为左上光源径向渐变(柔光自胶囊左上洒落、向右下淡出),顶缘高光加粗至 1.5px 并收窄柔边,选中药丸顶部高光提至 95% 白,「玻璃上叠玻璃」层次更实']],
     ['2.3.1','2026-10-25',['修复「测验」页空白:4 Tab 合并时面板嵌套错位,测验面板被包在隐藏的训练面板内','入场动画不再使用透明度(iOS 后台恢复时动画冻结曾导致内容停在透明态)','顶栏彻底移除磨砂:滚动后改为 iOS 导航栏式高不透明实底,不再出现雾面']],
@@ -3983,10 +4013,12 @@ function renderCheatPage(){
       +'<div class="st-ms"><b class="num">'+pct+'<span>%</span></b><span>总体进度</span></div>'
       +'<div class="st-ms"><b class="num">'+doneCount+'<span>/'+QUESTIONS.length+'</span></b><span>已完成</span></div>'
       +'<div class="st-ms"><b class="num">'+wrongCount+'<span>题</span></b><span>待重写</span></div></section>'
+      +'<div class="st-menu-cap" style="margin-top:2px">成就</div><div class="st-mil">'+MILESTONES.map(function(m){return '<span class="'+(state.mil&&state.mil[m.id]?'on':'')+'">'+(state.mil&&state.mil[m.id]?'✓ ':'')+m.t+'</span>'}).join('')+'</div>'
       +'<div class="st-menu-cap">数据与同步</div>'
       +'<div class="st-menu">'
     markup+='<details class="st-mrow"><summary><span class="st-mrow-ic"><i data-lucide="database-backup" aria-hidden="true"></i></span><span class="st-mrow-t">备份与迁移</span><span class="st-mrow-sub">导出 · 进度码 · 导入</span><span class="st-chev"><i data-lucide="chevron-down" aria-hidden="true"></i></span></summary><div class="st-mrow-body"><p>进度保存在此浏览器的本地存储里。换浏览器、换电脑或清理缓存前：点"导出备份文件"存一份 JSON，或点"复制进度码"把进度变成一段文本随身携带。在新设备打开本页面，把内容粘进下面的框，点"粘贴恢复"（覆盖）或"合并导入"（两台都练过时取并集）。每次导入前系统会自动把当前进度留一份应急备份，导错也不怕。</p>'
       +'<div class="viz-row" style="gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center">'
+      +'<button class="btn btn-sm" data-act="snap-restore" type="button"><span class="st-btn-ic"><i data-lucide="history" aria-hidden="true"></i>恢复上次快照</span></button>'
       +'<button class="btn btn-sm" data-act="export-progress" type="button"><span class="st-btn-ic"><i data-lucide="download" aria-hidden="true"></i>导出备份文件</span></button>'
       +'<button class="btn btn-sm" data-act="copy-progress" type="button"><span class="st-btn-ic"><i data-lucide="clipboard-copy" aria-hidden="true"></i>复制进度码</span></button>'
       +'<button class="btn btn-sm" data-act="import-file" type="button"><span class="st-btn-ic"><i data-lucide="upload" aria-hidden="true"></i>导入备份文件</span></button>'
@@ -4036,6 +4068,53 @@ function renderCheatPage(){
     el.innerHTML=markup;
     refreshIcons();
   }
+  /* ---------- v2.4:轻提示/成就/运行历史/周统计 ---------- */
+  function stToast(msg){
+    var t=document.getElementById('st-toast');
+    if(!t){t=document.createElement('div');t.id='st-toast';t.setAttribute('role','status');document.body.appendChild(t)}
+    t.textContent=msg;t.classList.add('on');
+    clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);
+  }
+  var MILESTONES=[
+    {id:'first',t:'首题通过',c:function(st){return Object.keys(st.done).length>=1}},
+    {id:'d3',t:'连续 3 天',c:function(st){return streak()>=3}},
+    {id:'d7',t:'连续 7 天',c:function(st){return streak()>=7}},
+    {id:'l5',t:'微课 5 讲',c:function(st){var n=0;for(var k in st.lessons){if(st.lessons[k])n++}return n>=5}},
+    {id:'t10',t:'十题达成',c:function(st){return Object.keys(st.done).length>=10}},
+    {id:'w1',t:'首周通关',c:function(st){var p=weekProgress(1);return p.total>0&&p.done===p.total}},
+    {id:'half',t:'过半征程',c:function(st){return Object.keys(st.done).length>=21}},
+    {id:'all',t:'全部通关',c:function(st){return Object.keys(st.done).length>=QUESTIONS.length}}
+  ];
+  var _milLock=false;
+  function checkMilestones(){
+    if(_milLock)return;_milLock=true;
+    state.mil=state.mil||{};
+    var got=[];
+    MILESTONES.forEach(function(m){if(!state.mil[m.id]&&m.c(state)){state.mil[m.id]=1;got.push(m.t)}});
+    if(got.length){saveState();stToast('成就解锁:'+got.join(' · '))}
+    _milLock=false;
+  }
+  function pushHistory(qid,sql,ok){
+    state.history=state.history||[];
+    state.history.unshift({q:qid,s:String(sql).slice(0,400),ok:ok?1:0,t:Date.now()});
+    if(state.history.length>12)state.history.length=12;
+    try{
+      var _hs=document.querySelector('#st-qpanel .st-hist summary');
+      if(_hs)_hs.textContent='运行历史（最近 '+state.history.length+' 次）';
+      var _hc=document.querySelector('#st-qpanel .st-hlist');
+      if(_hc)_hc.innerHTML=state.history.map(function(h,hi){var qq=qById(h.q);return '<button class="btn btn-sm" data-act="hist-load" data-i="'+hi+'" type="button">'+(h.ok?'✓':'✗')+' '+esc(qq?qq.title:h.q)+' · '+fmtClock(h.t)+'</button>'}).join('')||'<span class="text-small text-muted">还没有运行记录</span>';
+      var _al=document.getElementById('st-att-line');
+      if(_al&&_al.getAttribute('data-qid')===qid)_al.innerHTML='本题已尝试 '+(attempts[qid]||0)+' 次'+(viewed[qid]?' · 已看过参考答案':'');
+    }catch(e){}
+  }
+  function weekStatsNow(){
+    var now=new Date(),dow=(now.getDay()+6)%7;
+    var mon=new Date(now.getFullYear(),now.getMonth(),now.getDate()-dow);mon.setHours(0,0,0,0);
+    var ds=0,set={};(state.days||[]).forEach(function(d){set[d]=1});
+    for(var i=0;i<7;i++){var dt=new Date(mon.getFullYear(),mon.getMonth(),mon.getDate()+i);var k=dt.getFullYear()+'-'+('0'+(dt.getMonth()+1)).slice(-2)+'-'+('0'+dt.getDate()).slice(-2);if(set[k])ds++}
+    var q=0;for(var id2 in state.done){if(state.done[id2]&&state.done[id2].ts>=mon.getTime())q++}
+    return {d:ds,q:q};
+  }
   var resetArmed=false;
   root.addEventListener('click',function(e){
     var el=e.target.closest?e.target.closest('[data-act]'):null;
@@ -4067,6 +4146,13 @@ function renderCheatPage(){
     else if(act==='sync-now'){syncNow(true)}
     else if(act==='sync-unbind'){var uc=loadSyncCfg();delete uc.code;uc.lastSync=0;saveSyncCfg(uc);syncStatus('已解绑：本机不再同步（云端数据保留，重新填码可再绑定）')}
     else if(act==='check-update'){checkUpdate()}
+    else if(act==='wrong-practice'){qfilter='wrong';switchTab('practice')}
+    else if(act==='hist-load'){var hIdx=parseInt(el.getAttribute('data-i'),10);var hRec=(state.history||[])[hIdx];if(hRec){if(hRec.q!==currentQid)openQuestion(hRec.q);var _ta=document.getElementById('st-code');if(_ta){_ta.value=hRec.s;_ta.dispatchEvent(new Event('input',{bubbles:true}))}}}
+    else if(act==='snap-restore'){var sw=null;try{sw=JSON.parse(localStorage.getItem('sqltrain_snap')||'null')}catch(e){}
+      if(!sw||!sw.s){backupStatus('还没有自动快照:明天首次打开时才会生成')}
+      else{var so=parseBackup(sw.s);if(!so){backupStatus('快照数据无法识别')}
+      else if((sw.t||0)<=(state.savedAt||0)){backupStatus('当前进度已是最新（'+fmtClock(state.savedAt)+'）,快照为 '+fmtClock(sw.t||0)+',无需恢复')}
+      else{applyBackup(so,'replace');backupStatus('已恢复 '+sw.d+' 的自动快照')}}}
     else if(act==='tpl-load'){codes['play']=TEMPLATES[parseInt(el.getAttribute('data-i'),10)].code;currentQid='play';switchTab('practice')}
     else if(act==='test-start'){startTest()}
     else if(act==='test-next'){test.idx++;renderTestRunning()}
@@ -4152,9 +4238,13 @@ function renderCheatPage(){
 
   loadState();
   state.lessons=state.lessons||{};state.plan=state.plan||{};
+  try{var _snap=JSON.parse(localStorage.getItem('sqltrain_snap')||'null');var _today=todayStr();
+    if(state.savedAt&&(!_snap||_snap.d!==_today)){localStorage.setItem('sqltrain_snap',JSON.stringify({d:_today,t:state.savedAt,s:JSON.stringify(state)}))}
+  }catch(e){}
   initEngine();
   setTimeout(function(){syncNow(false)},1500);
   switchTab('dash');
+  checkMilestones();
   window.__SQLTRAIN__={QUESTIONS:QUESTIONS,LESSONS:LESSONS,WEEKS:WEEKS,TEMPLATES:TEMPLATES,buildDatabase:buildDatabase,runQuery:runQuery,resultRows:resultRows,cmpRows:cmpRows};
 })();
 </script>
