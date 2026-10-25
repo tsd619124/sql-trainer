@@ -2,7 +2,7 @@
 <html lang="zh-CN" data-visualize-standalone>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SQL训练营">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -10,6 +10,7 @@
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
 <meta name="referrer" content="no-referrer">
 <script>try{var _m=JSON.parse(localStorage.getItem("sqltrain_mode")||'"auto"');var _eff=_m==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):_m;document.documentElement.dataset.mode=_eff;document.documentElement.style.colorScheme=_eff}catch(e){}</script>
+<script>try{var _fz=localStorage.getItem("sqltrain_font");if(_fz==="l"||_fz==="xl")document.documentElement.dataset.font=_fz}catch(e){}</script>
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src 'none'; worker-src blob: 'self'; connect-src blob: data: https://cdn.jsdelivr.net https://*.lcloud.cn https://*.leancloud.cn https://api.github.com; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>SQL 八周训练营</title>
 <style>:root {
@@ -1349,23 +1350,23 @@ html>body{box-sizing:border-box;padding:32px clamp(20px,5vw,64px) 56px}
 #sqltrain-root .st-learn-switch .btn{flex:1;justify-content:center}
 #sqltrain-root .st-lh{margin:20px 0 8px;font-size:15px;font-weight:650;letter-spacing:-.2px;color:#203344}
 #sqltrain-root .st-lp{margin:0 0 10px;color:#44586a;font-size:12.5px;line-height:1.85;max-width:980px}
-#sqltrain-root .st-goal{display:flex;gap:9px;padding:12px 14px;border:1px solid #C9DFFF;background:#F0F6FF;border-radius:11px;margin:2px 0 4px;font-size:12.5px;color:#005BB8;line-height:1.7;align-items:flex-start}
+#sqltrain-root .st-goal{display:flex;gap:9px;padding:12px 14px;border:1px solid #C9DFFF;background:#F0F6FF;border-radius:12px;margin:2px 0 4px;font-size:12.5px;color:#005BB8;line-height:1.7;align-items:flex-start}
 #sqltrain-root .st-goal svg{flex:none;margin-top:2px;width:15px!important;height:15px!important}
 #sqltrain-root .st-goal strong{font-weight:650}
-#sqltrain-root .st-ex{border:1px solid var(--border);border-radius:11px;margin:10px 0 12px;overflow:hidden;background:#fff}
+#sqltrain-root .st-ex{border:1px solid var(--border);border-radius:12px;margin:10px 0 12px;overflow:hidden;background:#fff}
 #sqltrain-root .st-ex-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;background:#f6f8fa;border-bottom:1px solid var(--border)}
 #sqltrain-root .st-ex-head .st-kpi{font-size:10.5px;color:#5d787e}
 #sqltrain-root .st-ex-note{padding:8px 12px;background:#fbfcfd;border-top:1px solid var(--border);border-bottom:1px solid var(--border);color:#5d787e}
 #sqltrain-root .st-ex-out{padding:10px 12px;max-height:320px;overflow:auto}
-#sqltrain-root .st-traps{padding:12px 14px;border:1px solid #f3d9d3;background:#fdf6f4;border-radius:11px;margin:12px 0}
+#sqltrain-root .st-traps{padding:12px 14px;border:1px solid #f3d9d3;background:#fdf6f4;border-radius:12px;margin:12px 0}
 #sqltrain-root .st-traps strong{display:flex;align-items:center;gap:6px;font-size:12px;color:#a8452e;margin-bottom:5px}
 #sqltrain-root .st-traps strong svg{width:13px!important;height:13px!important}
 #sqltrain-root .st-traps li{font-size:12px;color:#7c4a3c;line-height:1.8;margin-left:16px}
-#sqltrain-root .st-biz{padding:12px 14px;border:1px solid #d3e0f2;background:#f4f8fd;border-radius:11px;margin:12px 0}
+#sqltrain-root .st-biz{padding:12px 14px;border:1px solid #d3e0f2;background:#f4f8fd;border-radius:12px;margin:12px 0}
 #sqltrain-root .st-biz strong{display:flex;align-items:center;gap:6px;font-size:12px;color:#2b5c9a;margin-bottom:5px}
 #sqltrain-root .st-biz strong svg{width:13px!important;height:13px!important}
 #sqltrain-root .st-biz p{margin:0;font-size:12px;color:#4a5f78;line-height:1.8}
-#sqltrain-root .st-key{padding:12px 14px;border:1px solid #DDEBFC;background:#f2faf6;border-radius:11px;margin:12px 0}
+#sqltrain-root .st-key{padding:12px 14px;border:1px solid #DDEBFC;background:#f2faf6;border-radius:12px;margin:12px 0}
 #sqltrain-root .st-key strong{display:flex;align-items:center;gap:6px;font-size:12px;color:#1E8E4E;margin-bottom:5px}
 #sqltrain-root .st-key strong svg{width:13px!important;height:13px!important}
 #sqltrain-root .st-key p{margin:0;font-size:12.5px;color:#1E8E4E;line-height:1.8;font-weight:550}
@@ -1378,21 +1379,21 @@ html>body{box-sizing:border-box;padding:32px clamp(20px,5vw,64px) 56px}
 #sqltrain-root .st-pchk-box{flex:none;display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;margin-top:1px;border:1.5px solid #c3cfda;border-radius:5px;font-size:11px;color:#1E8E4E;font-weight:700;background:#fff}
 #sqltrain-root .st-pchk.is-on .st-pchk-box{border-color:#1E8E4E;background:#e3f4ec}
 #sqltrain-root .st-psteps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:4px 0 10px}
-#sqltrain-root .st-psteps>div{display:flex;gap:10px;padding:13px 14px;border:1px solid var(--border);border-radius:11px;background:#fff;align-items:flex-start}
+#sqltrain-root .st-psteps>div{display:flex;gap:10px;padding:13px 14px;border:1px solid var(--border);border-radius:12px;background:#fff;align-items:flex-start}
 #sqltrain-root .st-psteps>div>span{font:650 20px var(--font-mono);color:#007AFF;flex:none}
 #sqltrain-root .st-psteps strong{display:block;font-size:12px;color:#203344}
 #sqltrain-root .st-psteps small{font-size:10.5px;color:#667789;line-height:1.6;display:block;margin-top:2px}
 #sqltrain-root .st-rules{display:flex;flex-direction:column;gap:8px;margin:4px 0 8px}
 #sqltrain-root .st-rules div{display:flex;gap:10px;padding:10px 13px;border:1px solid var(--border);border-radius:10px;background:#fff;font-size:12.5px;color:#44586a;line-height:1.7;align-items:flex-start}
-#sqltrain-root .st-rules div>span{flex:none;display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:7px;background:#E8F1FF;color:#007AFF;font:700 11px var(--font-mono);margin-top:1px}
+#sqltrain-root .st-rules div>span{flex:none;display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:8px;background:#E8F1FF;color:#007AFF;font:700 11px var(--font-mono);margin-top:1px}
 #sqltrain-root .st-rules-tight div{padding:8px 12px;font-size:12px}
 #sqltrain-root .st-res{display:flex;gap:12px;align-items:baseline;padding:9px 13px;border:1px solid var(--border);border-radius:10px;background:#fff;margin-bottom:7px}
 #sqltrain-root .st-res a{color:#007AFF;font-size:12.5px;font-weight:600;text-decoration:none}
 #sqltrain-root .st-res a:hover{text-decoration:underline}
 #sqltrain-root .st-res span:first-child{font-size:12.5px;font-weight:600;color:#203344}
 #sqltrain-root .st-res span:last-child{font-size:11px;color:#667789}
-#sqltrain-root .st-order{display:inline-block;padding:9px 14px;border:1px solid #C9DFFF;background:#F0F6FF;border-radius:9px;font:600 11.5px var(--font-mono);color:#005BB8;margin-bottom:6px}
-#sqltrain-root #panel-learn details{border:1px solid var(--border);border-radius:11px;background:var(--card-glass);margin-bottom:10px;overflow:hidden}
+#sqltrain-root .st-order{display:inline-block;padding:9px 14px;border:1px solid #C9DFFF;background:#F0F6FF;border-radius:10px;font:600 11.5px var(--font-mono);color:#005BB8;margin-bottom:6px}
+#sqltrain-root #panel-learn details{border:1px solid var(--border);border-radius:12px;background:var(--card-glass);margin-bottom:10px;overflow:hidden}
 #sqltrain-root #panel-learn details summary{padding:11px 14px;font-size:13px;font-weight:650;color:#203344;cursor:pointer;background:#f6f8fa;user-select:none}
 #sqltrain-root #panel-learn details>*:not(summary){padding:0 14px 12px;margin-top:0}
 #sqltrain-root .st-cheat-tbl th{font-size:10.5px;white-space:nowrap}
@@ -1447,7 +1448,7 @@ html>body{padding:0;min-width:320px;-webkit-font-smoothing:antialiased}
 #sqltrain-root [role="tabpanel"]{min-width:0;animation:st-reveal .3s cubic-bezier(.32,.72,.3,1)}
 #sqltrain-root .st-kpi,#sqltrain-root .st-btn-ic{display:flex;align-items:center;gap:7px}
 #sqltrain-root .st-btn-ic{display:inline-flex}
-#sqltrain-root .btn{min-height:38px;padding:8px 14px;border-color:#dbe4eb;border-radius:9px;background:#fff;color:#45596b;font-size:12px;font-weight:550;box-shadow:0 1px 2px #20334404;transition:background .15s,border-color .15s,box-shadow .15s}
+#sqltrain-root .btn{min-height:38px;padding:8px 14px;border-color:#dbe4eb;border-radius:10px;background:#fff;color:#45596b;font-size:12px;font-weight:550;box-shadow:0 1px 2px #20334404;transition:background .15s,border-color .15s,box-shadow .15s}
 #sqltrain-root .btn:hover{border-color:#b3c5cf;background:#f5f9fb;box-shadow:0 2px 5px #20334408}
 #sqltrain-root .btn-primary{color:#fff;background:var(--primary);border-color:var(--primary);box-shadow:0 3px 7px #007AFF16}
 #sqltrain-root .btn-primary:hover{background:#0071E3;border-color:#0071E3;color:#fff}
@@ -1461,7 +1462,7 @@ html>body{padding:0;min-width:320px;-webkit-font-smoothing:antialiased}
 #sqltrain-root .st-focus-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap}
 #sqltrain-root .st-focus-actions .btn{min-height:39px;padding:9px 17px}
 #sqltrain-root .st-focus-actions>span{font-size:10px;color:#5d787e}
-#sqltrain-root .st-database-map{align-self:center;padding:17px 19px 19px;border:1px solid #274B6A;border-radius:13px;background:#142E44;color:#DCE9F6;box-shadow:0 9px 20px #143e4810}
+#sqltrain-root .st-database-map{align-self:center;padding:17px 19px 19px;border:1px solid #274B6A;border-radius:14px;background:#142E44;color:#DCE9F6;box-shadow:0 9px 20px #143e4810}
 #sqltrain-root .st-map-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:14px;border-bottom:1px solid #ffffff18;font:10px var(--font-mono);letter-spacing:.3px;color:#bed5dc}
 #sqltrain-root .st-map-heading span{display:flex;align-items:center;gap:7px}
 #sqltrain-root .st-db-tables{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
@@ -1469,7 +1470,7 @@ html>body{padding:0;min-width:320px;-webkit-font-smoothing:antialiased}
 #sqltrain-root .st-db-table code{padding:0;background:transparent;color:#9CCBFF;font:11px var(--font-mono)}
 #sqltrain-root .st-db-table span{display:block;margin-top:5px;color:#9cb4bf;font-size:9px}
 #sqltrain-root .st-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:27px}
-#sqltrain-root .st-stat{min-width:0;padding:19px 20px 17px;border:1px solid var(--border);border-radius:13px;background:var(--card-glass)}
+#sqltrain-root .st-stat{min-width:0;padding:19px 20px 17px;border:1px solid var(--border);border-radius:14px;background:var(--card-glass)}
 #sqltrain-root .st-stat-label{display:flex;align-items:center;gap:7px;color:#637487;font-size:11px}
 #sqltrain-root .st-stat-value{margin-top:11px;font-size:29px;line-height:1.25;font-weight:650;letter-spacing:-.6px;font-variant-numeric:tabular-nums;color:#203b4c}
 #sqltrain-root .st-stat-value span{margin-left:5px;font-size:11px;font-weight:450;letter-spacing:0;color:#758595}
@@ -1499,7 +1500,7 @@ html>body{padding:0;min-width:320px;-webkit-font-smoothing:antialiased}
 #sqltrain-root .st-mdot.is-done{background:#34C759}
 #sqltrain-root .st-mdot.is-wrong{background:#FF3B30}
 #sqltrain-root .st-legend .st-mdot{width:7px;height:7px;border-radius:2px}
-#sqltrain-root .st-routine{display:grid;grid-template-columns:140px repeat(3,minmax(0,1fr));gap:20px;align-items:center;margin-top:21px;padding:21px 23px;border:1px solid var(--border);border-radius:13px;background:var(--card-glass)}
+#sqltrain-root .st-routine{display:grid;grid-template-columns:140px repeat(3,minmax(0,1fr));gap:20px;align-items:center;margin-top:21px;padding:21px 23px;border:1px solid var(--border);border-radius:14px;background:var(--card-glass)}
 #sqltrain-root .st-routine-title{font-size:12px;font-weight:650;color:#354d5e}
 #sqltrain-root .st-routine-title span{display:block;margin-top:4px;color:#7b8b98;font-size:10px;font-weight:400}
 #sqltrain-root .st-routine-step{display:flex;gap:10px;align-items:center}
@@ -1566,8 +1567,8 @@ html>body{padding:0;min-width:320px;-webkit-font-smoothing:antialiased}
 #sqltrain-root .st-pass,#sqltrain-root .st-verdict-pass{color:var(--green)}
 #sqltrain-root .st-fail,#sqltrain-root .st-timer-warn{color:var(--red)}
 #sqltrain-root .st-verdict-pass{font-weight:600}
-#sqltrain-root #st-verdict:not(:empty){padding:14px;border:1px solid #D2E4F8;border-radius:9px;background:#F2F8FF;font-size:12px}
-#sqltrain-root :is(#panel-test,#panel-wrong,#panel-tpl,#panel-schema){padding:27px;border:1px solid var(--border);border-radius:15px;background:var(--card-glass)}
+#sqltrain-root #st-verdict:not(:empty){padding:14px;border:1px solid #D2E4F8;border-radius:10px;background:#F2F8FF;font-size:12px}
+#sqltrain-root :is(#panel-test,#panel-wrong,#panel-tpl,#panel-schema){padding:27px;border:1px solid var(--border);border-radius:14px;background:var(--card-glass)}
 #sqltrain-root :is(#panel-test,#panel-wrong,#panel-tpl,#panel-schema) h3{font-size:18px;font-weight:650;line-height:1.5}
 #sqltrain-root :is(#panel-test,#panel-schema)>p{line-height:1.9}
 #sqltrain-root #panel-test .viz-controls{margin:24px 0 18px}
@@ -1607,7 +1608,7 @@ body>.nav .nav-link.active .st-btn-ic svg{stroke-width:2.4;animation:st-glow .5s
 }
 /* ---------- 合并子页切换 / 我的 / 关于 ---------- */
 #sqltrain-root .st-subseg{position:relative;display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:rgba(var(--glass-rgb),0.45);border:1px solid var(--border);margin-bottom:14px;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.85),inset 0 4px 6px -3px rgba(255,255,255,0.22)}#sqltrain-root .st-subseg::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(130% 100% at 16% 0%,rgba(255,255,255,0.30),rgba(255,255,255,0.07) 45%,transparent 70%)}
-#sqltrain-root .st-subseg button{position:relative;z-index:1;min-height:32px;padding:6px 14px;border:0;border-radius:9px;background:transparent;color:#5a6c7d;font-size:12px;font-weight:550;cursor:pointer;transition:background .15s,color .15s}
+#sqltrain-root .st-subseg button{position:relative;z-index:1;min-height:32px;padding:6px 14px;border:0;border-radius:10px;background:transparent;color:#5a6c7d;font-size:12px;font-weight:550;cursor:pointer;transition:background .15s,color .15s}
 #sqltrain-root .st-subseg button.on{background:var(--card);color:var(--accent-foreground);box-shadow:0 1px 3px rgba(23,52,71,.12);font-weight:650}
 #sqltrain-root .st-me-head{display:flex;gap:14px;align-items:center;margin:6px 0 18px}
 #sqltrain-root .st-me-avatar{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:var(--accent);color:var(--accent-foreground);flex:none}
@@ -1617,7 +1618,7 @@ body>.nav .nav-link.active .st-btn-ic svg{stroke-width:2.4;animation:st-glow .5s
 #sqltrain-root .st-about{margin-top:18px;padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--card-glass)}
 #sqltrain-root .st-about-head{display:flex;gap:12px;align-items:center}
 #sqltrain-root .st-about-head strong{display:block;font-size:14px;font-weight:650}
-#sqltrain-root .st-about-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#3B9EFF,#0063E0);color:#fff;flex:none}
+#sqltrain-root .st-about-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#3B9EFF,#0063E0);color:#fff;flex:none}
 #sqltrain-root .st-about-mark svg{width:20px!important;height:20px!important}
 #sqltrain-root .st-me-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:18px;padding:15px 16px;border:1px solid var(--border);border-radius:14px;background:var(--card-glass)}
 #sqltrain-root .st-ms{min-width:0}
@@ -1629,7 +1630,7 @@ body>.nav .nav-link.active .st-btn-ic svg{stroke-width:2.4;animation:st-glow .5s
 #sqltrain-root .st-menu .st-mrow + .st-mrow{border-top:1px solid var(--border)}
 #sqltrain-root .st-mrow summary{display:flex;align-items:center;gap:12px;padding:12px 15px;cursor:pointer;list-style:none;font-size:13px;font-weight:600;color:#203344}
 #sqltrain-root .st-mrow summary::-webkit-details-marker{display:none}
-#sqltrain-root .st-mrow-ic{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--accent);color:var(--accent-foreground);flex:none}
+#sqltrain-root .st-mrow-ic{display:grid;place-items:center;width:30px;height:30px;border-radius:10px;background:var(--accent);color:var(--accent-foreground);flex:none}
 #sqltrain-root .st-mrow-ic svg{width:16px!important;height:16px!important}
 #sqltrain-root .st-mrow-t{flex:none}
 #sqltrain-root .st-mrow-sub{flex:1;min-width:0;font-size:11px;font-weight:450;color:var(--muted-foreground);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1639,7 +1640,7 @@ body>.nav .nav-link.active .st-btn-ic svg{stroke-width:2.4;animation:st-glow .5s
 #sqltrain-root .st-mrow-body{padding:0 15px 15px;font-size:12px;color:#45596b}
 #sqltrain-root .st-mrow.danger summary,#sqltrain-root .st-mrow.danger .st-mrow-t{color:#c84450}
 #sqltrain-root .st-mrow.danger .st-mrow-ic{background:rgba(200,68,80,.12);color:#c84450}
-#sqltrain-root .st-clbox{margin-top:10px;border:1px solid var(--border);border-radius:11px;background:rgba(var(--glass-rgb),0.4);overflow:hidden}
+#sqltrain-root .st-clbox{margin-top:10px;border:1px solid var(--border);border-radius:12px;background:rgba(var(--glass-rgb),0.4);overflow:hidden}
 #sqltrain-root .st-clbox summary{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;list-style:none;font-size:12px}
 #sqltrain-root .st-clbox summary::-webkit-details-marker{display:none}
 #sqltrain-root .st-cl-v{font:600 11px var(--font-mono);color:var(--accent-foreground);background:var(--accent);padding:2px 8px;border-radius:6px;white-space:nowrap}
@@ -1800,6 +1801,94 @@ html[data-mode="dark"] #sqltrain-root #st-note{background:#131316;border-color:#
 html[data-mode="dark"] #sqltrain-root #st-hint{background:#251c0e;border-color:#4d3c1c;color:#e2c078!important}
 html[data-mode="dark"] #sqltrain-root #st-test-timer{background:#10233B;color:#7CB8FF}
 html[data-mode="dark"] #sqltrain-root .form-select{background-color:#131316;color:#dbe3ea;border-color:#3A3A3F}
+/* ==================== v2.6.0 ==================== */
+/* ---------- 规格令牌:圆角统一为 6/8/10/12/14/18 六级 ---------- */
+#sqltrain-root{--r-s:6px;--r-m:8px;--r-c:10px;--r-t:12px;--r-l:14px;--r-xl:18px}
+/* ---------- 动态字号:外观设置写入 data-font,整体等比缩放(默认不启用 zoom,避免与 sticky 合成冲突) ---------- */
+html[data-font="l"]{zoom:1.1}
+html[data-font="xl"]{zoom:1.22}
+/* ---------- 骨架屏:首屏与数据就绪前的版式占位 ---------- */
+.st-skel{padding:4px 2px}
+.st-skel .sk{border:1px solid var(--border);border-radius:var(--r-l);background:linear-gradient(100deg,rgba(var(--glass-rgb),0.45) 35%,rgba(var(--glass-rgb),0.85) 50%,rgba(var(--glass-rgb),0.45) 65%);background-size:220% 100%;animation:st-shimmer 1.5s linear infinite}
+.st-skel .sk-focus{height:212px;margin-bottom:20px;border-radius:var(--r-xl)}
+.st-skel .sk-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.st-skel .sk-stat{height:110px;border-radius:var(--r-l)}
+.st-skel .sk-map{height:150px;margin-bottom:20px}
+.st-skel .sk-card{height:170px}
+@keyframes st-shimmer{from{background-position:120% 0}to{background-position:-120% 0}}
+@media(prefers-reduced-motion:reduce){.st-skel .sk{animation:none}}
+@media(max-width:680px){.st-skel .sk-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.st-skel .sk-focus{height:176px}.st-skel .sk-stat{height:96px}}
+/* ---------- 大标题折叠(移动端):页首大标题滚动渐隐,顶栏小标题同步渐显 ---------- */
+#st-ltitle{display:none}
+#st-tbtitle{display:none}
+@media(max-width:680px){
+  #st-ltitle{display:block;padding:8px 2px 2px;font-size:30px;line-height:1.25;font-weight:750;letter-spacing:-.8px;color:var(--foreground);opacity:calc(1 - var(--st-tbp)*1);transform:translateY(calc(var(--st-tbp)*-6px)) scale(calc(1 - var(--st-tbp)*0.04));transform-origin:left bottom;transition:opacity .18s linear,transform .18s linear}
+  #sqltrain-root .st-breadcrumb{display:none}
+  #st-tbtitle{display:block;min-width:0;font-size:16px;font-weight:650;letter-spacing:-.3px;color:var(--foreground);opacity:var(--st-tbp);transform:translateY(calc((1 - var(--st-tbp))*4px));transition:opacity .18s linear,transform .18s linear;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #sqltrain-root .st-topbar{gap:10px}
+}
+/* ---------- 滑动切 Tab 的方向性过渡 ---------- */
+#sqltrain-root [role="tabpanel"].st-slide-l{animation:st-slide-l .28s cubic-bezier(.32,.72,.3,1)}
+#sqltrain-root [role="tabpanel"].st-slide-r{animation:st-slide-r .28s cubic-bezier(.32,.72,.3,1)}
+@keyframes st-slide-l{from{transform:translateX(26px)}to{transform:translateX(0)}}
+@keyframes st-slide-r{from{transform:translateX(-26px)}to{transform:translateX(0)}}
+/* ---------- 间隔复习 ---------- */
+#sqltrain-root #panel-review{padding:27px;border:1px solid var(--border);border-radius:var(--r-l);background:var(--card-glass)}
+#sqltrain-root .st-rev-strip{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 18px;padding:15px 18px;border:1px solid #D7E7FF;border-radius:var(--r-l);background:linear-gradient(135deg,#F2F7FF,#E9F1FF)}
+#sqltrain-root .st-rev-strip-t{display:flex;align-items:center;gap:9px;font-weight:650;font-size:15px;color:#173e46}
+#sqltrain-root .st-rev-strip-t small{display:block;margin-top:3px;font-weight:400;font-size:11px;color:#5d787e}
+#sqltrain-root .st-rev-list{border-top:1px solid var(--border)}
+#sqltrain-root .st-rev-item{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)}
+#sqltrain-root .st-rev-due{flex:none;font-size:10.5px;color:var(--muted-foreground);font-variant-numeric:tabular-nums;white-space:nowrap}
+#sqltrain-root .st-rev-due.is-today{color:#B45309;font-weight:600}
+#sqltrain-root .st-rev-due.is-over{color:var(--red);font-weight:600}
+html[data-mode="dark"] #sqltrain-root .st-rev-strip{background:rgba(15,32,56,0.72);border-color:#1E3C5C}
+html[data-mode="dark"] #sqltrain-root .st-rev-strip-t{color:#F5F5F7}
+html[data-mode="dark"] #sqltrain-root .st-rev-strip-t small{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-rev-due.is-today{color:#FFD60A}
+/* ---------- 键盘避让:键盘弹出时底栏随 visualViewport 上移(需带 translateX 保持居中) ---------- */
+@media(max-width:680px){
+  body>.nav.nav-pills{transform:translateX(-50%) translateY(calc(-1*var(--st-kb,0px)))}
+}
+/* ---------- 触控目标达标(移动端):控件 ≥44px,密集控件补命中区 ---------- */
+@media(max-width:680px){
+  #sqltrain-root .btn{min-height:44px;padding:10px 15px}
+  #sqltrain-root .btn-sm{min-height:44px;padding:9px 13px}
+  #sqltrain-root .st-qlist .btn{min-height:44px}
+  #sqltrain-root .st-hist .st-hlist .btn{min-height:44px}
+  #sqltrain-root .st-mode-row .btn{min-height:44px}
+  #sqltrain-root .form-select{min-height:44px}
+  #sqltrain-root .form-control{font-size:16px}
+  #sqltrain-root .st-sync-grid .form-control{font-size:16px}
+  #sqltrain-root #st-code,#sqltrain-root #st-test-code{font-size:16px;line-height:1.8}
+  #sqltrain-root #st-note{font-size:16px}
+  #sqltrain-root .st-subseg{max-width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #sqltrain-root .st-subseg::-webkit-scrollbar{display:none}
+  #sqltrain-root .st-subseg button{position:relative;min-height:40px;padding:8px 13px}
+  #sqltrain-root .st-subseg button::after{content:"";position:absolute;inset:-6px 0}
+  #sqltrain-root .st-prov-lbl{display:inline-flex;align-items:center;min-height:44px;padding:10px 14px}
+  #sqltrain-root .st-mdot{position:relative;width:16px;height:16px;border-radius:4px}
+  #sqltrain-root .st-mdot::after{content:"";position:absolute;inset:-4px}
+  #sqltrain-root .st-week-open{min-height:44px;align-items:center}
+  #sqltrain-root .st-guide summary{padding:10px 0}
+}
+/* ---------- 深色对比度清扫:补齐漏覆盖的灰字,全部提到 WCAG AA ---------- */
+html[data-mode="dark"] #sqltrain-root .st-breadcrumb strong{color:#C7C7CC}
+html[data-mode="dark"] #sqltrain-root .st-topbar-status{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-stat-label{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-stat-value{color:#F5F5F7}
+html[data-mode="dark"] #sqltrain-root .st-stat-value span{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-stat-foot{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-heat-t{color:#F5F5F7}
+html[data-mode="dark"] #sqltrain-root .st-main-footer{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-sync-enc{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-routine-title span{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-routine-step>span{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-routine-step small{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .form-label{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-editor-shortcut{color:#98989D}
+html[data-mode="dark"] #sqltrain-root .st-editor-shortcut kbd{border-color:#3A3A3F;background:#1C1C1E;color:#C7C7CC}
+html[data-mode="dark"] #sqltrain-root .st-res span:last-child{color:#98989D}
 </style>
 
 <div id="sqltrain-root">
@@ -1828,18 +1917,22 @@ html[data-mode="dark"] #sqltrain-root .form-select{background-color:#131316;colo
   <main class="st-main">
     <header class="st-topbar">
       <div class="st-breadcrumb"><span>我的学习空间</span><i data-lucide="chevron-right" aria-hidden="true"></i><strong id="st-breadcrumb-current">总览</strong></div>
-      <div class="st-topbar-status"><span class="st-engine" id="st-engine" data-mode="loading"><i data-lucide="database" aria-hidden="true"></i><span id="st-engine-text">引擎加载中…</span></span><span class="st-kpi" id="st-streak">连续练习 0 天</span><span class="st-avatar" aria-hidden="true">SQL</span></div>
+      <strong id="st-tbtitle" aria-hidden="true">总览</strong>
+      <div class="st-topbar-status"><span class="st-engine" id="st-engine" data-mode="loading"><i data-lucide="database" aria-hidden="true"></i><span id="st-engine-text">正在准备练习库…</span></span><span class="st-kpi" id="st-streak">连续练习 0 天</span><span class="st-avatar" aria-hidden="true">SQL</span></div>
     </header>
-    <div id="panel-dash" role="tabpanel" aria-labelledby="tab-dash"></div>
+    <div id="st-ltitle" aria-hidden="true">总览</div>
+    <div id="panel-dash" role="tabpanel" aria-labelledby="tab-dash"><div class="st-skel" aria-hidden="true"><div class="sk sk-focus"></div><div class="sk-row"><div class="sk sk-stat"></div><div class="sk sk-stat"></div><div class="sk sk-stat"></div><div class="sk sk-stat"></div></div><div class="sk sk-map"></div><div class="sk-row"><div class="sk sk-card"></div><div class="sk sk-card"></div></div></div></div>
     <div id="panel-train" role="tabpanel" aria-labelledby="tab-train" hidden>
       <div class="st-subseg" id="st-train-seg" role="group" aria-label="训练子页切换">
         <button type="button" class="on" data-sub="learn">学习</button>
         <button type="button" data-sub="practice">练习</button>
+        <button type="button" data-sub="review">复习</button>
         <button type="button" data-sub="tpl">模板库</button>
         <button type="button" data-sub="schema">数据表</button>
       </div>
       <div id="panel-learn" role="tabpanel" aria-label="学习中心" hidden></div>
       <div id="panel-practice" role="tabpanel" aria-label="SQL 练习" hidden></div>
+      <div id="panel-review" role="tabpanel" aria-label="间隔复习" hidden></div>
 
       <div id="panel-tpl" role="tabpanel" aria-label="模板库" hidden></div>
       <div id="panel-schema" role="tabpanel" aria-label="数据表" hidden></div>
@@ -2747,7 +2840,7 @@ function runQuery(db,sql){return db.exec(sql)}
   var CODE_DEFAULT='-- 在这里写你的 SQL\n-- Ctrl+Enter 或点"运行并判定"\n';
   var DEFAULT_STATE={v:1,done:{},wrong:{},notes:{},lessons:{},plan:{},days:[],savedAt:0};
   var state={v:1,done:{},wrong:{},notes:{},lessons:{},plan:{},days:[],savedAt:0};
-  var codes={},attempts={},viewed={};
+  var codes={},viewed={};
   var currentQid=null,qfilter='all',db=null,engineMode='loading',test=null,testTimer=null;
 
   function todayStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
@@ -2774,8 +2867,37 @@ function runQuery(db,sql){return db.exec(sql)}
     while(set[key(d)]){n++;d.setDate(d.getDate()-1)}
     return n;
   }
+  function bumpAttempts(qid){state.attempts=state.attempts||{};state.attempts[qid]=(state.attempts[qid]||0)+1}
+  /* ---------- v2.6:间隔重复复习(简化 SM-2) ---------- */
+  function dayKey(dt){return dt.getFullYear()+'-'+('0'+(dt.getMonth()+1)).slice(-2)+'-'+('0'+dt.getDate()).slice(-2)}
+  function addDaysStr(n){var d=new Date();d.setDate(d.getDate()+n);return dayKey(d)}
+  function srRec(qid){state.sr=state.sr||{};if(!state.sr[qid])state.sr[qid]={due:todayStr(),iv:0,rep:0,ef:2.5,lapse:0};return state.sr[qid]}
+  /* quality:2=独立通过 1=看答案后通过 0=未通过;返回排程结果供界面提示 */
+  function srGrade(qid,quality){
+    var r=srRec(qid);
+    if(quality===0){r.rep=0;r.lapse=(r.lapse||0)+1;r.iv=1;r.due=addDaysStr(1)}
+    else if(quality===1){r.rep=Math.max(r.rep||0,1);r.iv=1;r.ef=Math.max(1.6,(r.ef||2.5)-0.05);r.due=addDaysStr(1)}
+    else{r.rep=(r.rep||0)+1;r.iv=r.rep===1?1:(r.rep===2?3:Math.min(Math.round((r.iv||1)*(r.ef||2.5)),60));r.due=addDaysStr(r.iv)}
+    return r;
+  }
+  function isDue(qid){var r=state.sr&&state.sr[qid];return !!r&&r.due<=todayStr()}
+  function srDueList(){
+    var out=[];
+    for(var id in (state.sr||{})){if(isDue(id))out.push(id)}
+    out.sort(function(a,b){var ra=state.sr[a],rb=state.sr[b];return ra.due<rb.due?-1:(ra.due>rb.due?1:0)});
+    return out;
+  }
+  function dueLabel(due){
+    var t=todayStr();
+    if(due===t)return '今天到期';
+    if(due<t)return '逾期 '+Math.max(1,Math.round((new Date(t)-new Date(due))/864e5))+' 天';
+    var inN=Math.round((new Date(due)-new Date(t))/864e5);
+    return inN===1?'明天':inN+' 天后';
+  }
 
   function refreshIcons(){try{if(window.lucide&&window.lucide.createIcons)window.lucide.createIcons({attrs:{width:16,height:16}})}catch(e){}}
+  /* 触感反馈:尽力而为,不支持的设备静默跳过 */
+  function buzz(p){try{if(navigator.vibrate)navigator.vibrate(p)}catch(e){}}
   function qById(id){if(id==='play')return null;for(var i=0;i<QUESTIONS.length;i++){if(QUESTIONS[i].id===id)return QUESTIONS[i]}return null}
   function nextQuestion(){
     var bw=null,bwW=9;
@@ -2808,7 +2930,7 @@ function runQuery(db,sql){return db.exec(sql)}
     var el=document.getElementById('st-streak');
     if(el)el.textContent='连续 '+streak()+' 天 · '+Object.keys(state.done).length+'/'+QUESTIONS.length+' 题';
     var b=document.getElementById('st-engine-text');
-    if(b)b.textContent=engineMode==='ok'?'引擎就绪':(engineMode==='self'?'自测模式':'加载中…');
+    if(b)b.textContent=engineMode==='ok'?'练习库就绪':(engineMode==='self'?'自评模式':'准备中…');
     document.getElementById('st-engine').setAttribute('data-mode',engineMode);
     var _ld=0;for(var _k in state.lessons){if(state.lessons[_k])_ld++}
     var percentage=Math.round((Object.keys(state.done).length+_ld)/(QUESTIONS.length+LESSONS.length)*100);
@@ -2827,6 +2949,7 @@ function runQuery(db,sql){return db.exec(sql)}
     if(!obj){try{obj=JSON.parse(decodeURIComponent(escape(atob(raw))))}catch(e){obj=null}}
     if(!obj||obj.v!==1||typeof obj.done!=='object')return null;
     obj.done=obj.done||{};obj.wrong=obj.wrong||{};obj.notes=obj.notes||{};obj.lessons=obj.lessons||{};obj.plan=obj.plan||{};obj.days=obj.days||[];
+    obj.attempts=obj.attempts||{};obj.sr=obj.sr||{};
     return obj;
   }
   function mergeBackup(o){
@@ -2835,12 +2958,15 @@ function runQuery(db,sql){return db.exec(sql)}
     src=o.notes||{};dst=state.notes||{};Object.keys(src).forEach(function(id){if(!dst[id])dst[id]=src[id]});state.notes=dst;
     var set={};(state.days||[]).forEach(function(d){set[d]=1});(o.days||[]).forEach(function(d){set[d]=1});
     state.days=Object.keys(set).sort();
+    src=o.attempts||{};dst=state.attempts||{};Object.keys(src).forEach(function(id){dst[id]=Math.max(dst[id]||0,src[id])});state.attempts=dst;
+    src=o.sr||{};dst=state.sr||{};Object.keys(src).forEach(function(id){if(!dst[id])dst[id]=src[id]});state.sr=dst;
   }
   function applyBackup(o,mode){
     try{localStorage.setItem('sqltrain_state_before_import',JSON.stringify(state))}catch(e){}
     if(mode==='merge')mergeBackup(o);else state=o;
+    state.attempts=state.attempts||{};state.sr=state.sr||{};state.lessons=state.lessons||{};state.plan=state.plan||{};state.days=state.days||[];
     state.savedAt=Date.now();
-    codes={};attempts={};viewed={};
+    codes={};viewed={};
     if(testTimer){clearInterval(testTimer);testTimer=null}
     test=null;
     saveState();updateStreak();renderDash();
@@ -3073,7 +3199,7 @@ function runQuery(db,sql){return db.exec(sql)}
         +(nl?'<button class="btn" data-act="open-lesson" data-lid="'+nl.id+'" type="button"><span class="st-btn-ic"><i data-lucide="book-open" aria-hidden="true"></i>先学后练：'+esc(nl.title)+'</span></button>':'')
         +'<span>'+WEEKS[next.w-1].name+' · '+next.pts+' 分 · '+next.tables.length+' 张数据表</span></div>';
     }else{
-      markup+='<div class="st-focus-label"><i data-lucide="party-popper" aria-hidden="true"></i>'+QUESTIONS.length+' 题全部通关</div><h2>每一次练习，都算数。</h2><p>你已走完八周训练路径。去找 ZCode 安排一场全真模拟笔试吧。</p>';
+      markup+='<div class="st-focus-label"><i data-lucide="party-popper" aria-hidden="true"></i>'+QUESTIONS.length+' 题全部通关</div><h2>每一次练习，都算数。</h2><p>你已走完八周训练路径。到「测验 · 限时周测」来一场全真模拟，验收手感。</p>';
     }
     markup+='</div><div class="st-database-map" aria-label="练习数据库包含四张电商数据表">'
       +'<div class="st-map-heading"><span><i data-lucide="database" aria-hidden="true"></i>practice.db</span><span>SQLite</span></div>'
@@ -3082,8 +3208,10 @@ function runQuery(db,sql){return db.exec(sql)}
       +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="circle-check" aria-hidden="true"></i>已完成题目</div><div class="st-stat-value">'+doneCount+'<span>/ '+QUESTIONS.length+' 题</span></div><div class="st-stat-foot">完成整个计划的 '+percentage+'%</div></div>'
       +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="flame" aria-hidden="true"></i>连续练习</div><div class="st-stat-value">'+streak()+'<span>天</span></div><div class="st-stat-foot">保持节奏，让理解更扎实</div></div>'
       +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="rotate-ccw" aria-hidden="true"></i>待重写错题</div><div class="st-stat-value">'+wrongCount+'<span>题</span></div><div class="st-stat-foot">'+(wrongCount?'去错题本，重新试一遍':'新的一页，准备好开始')+'</div></div>'
-      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="route" aria-hidden="true"></i>当前学习阶段</div><div class="st-stat-value st-stat-week">'+(next?'第 '+next.w+' 周':'已通关')+'</div><div class="st-stat-foot">'+(next?WEEKS[next.w-1].name:'八周训练路径已完成')+'</div></div></section>'
-      +'<div class="st-heatwrap"><div class="st-heat-head"><span class="st-heat-t">近 8 周打卡</span><span class="text-small text-muted">本周打卡 '+wsNow.d+' 天 · 本周完成 '+wsNow.q+' 题</span></div><div class="st-heat">'+heatCells+'</div></div>';
+      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="route" aria-hidden="true"></i>当前学习阶段</div><div class="st-stat-value st-stat-week">'+(next?'第 '+next.w+' 周':'已通关')+'</div><div class="st-stat-foot">'+(next?WEEKS[next.w-1].name:'八周训练路径已完成')+'</div></div></section>';
+    var dueN=srDueList().length;
+    if(dueN)markup+='<section class="st-rev-strip" aria-label="今日复习"><div class="st-rev-strip-t"><i data-lucide="repeat" aria-hidden="true"></i><div>今日复习 '+dueN+' 题<small>间隔重复:把做过的题,变成记得住的能力</small></div></div><button class="btn btn-primary" data-act="start-review" type="button"><span class="st-btn-ic"><i data-lucide="play" aria-hidden="true"></i>开始复习</span></button></section>';
+    markup+='<div class="st-heatwrap"><div class="st-heat-head"><span class="st-heat-t">近 8 周打卡</span><span class="text-small text-muted">本周打卡 '+wsNow.d+' 天 · 本周完成 '+wsNow.q+' 题</span></div><div class="st-heat">'+heatCells+'</div></div>';
     markup+='<section aria-label="八周进度地图"><div class="st-section-heading"><div><h3>八周学习路径</h3><p>循序渐进，从取数基础到业务实战。点击方块，继续对应题目。</p></div>'
       +'<div class="st-legend"><span><span class="st-mdot is-done"></span>已通过</span><span><span class="st-mdot is-wrong"></span>待重写</span><span><span class="st-mdot"></span>未开始</span></div></div><div class="st-mosaic">';
     WEEKS.forEach(function(week){
@@ -3123,6 +3251,7 @@ function runQuery(db,sql){return db.exec(sql)}
     return '<button class="btn btn-sm'+(currentQid===q.id?' btn-primary':'')+'" data-act="open-q" data-qid="'+q.id+'" type="button"><span class="st-qbtn"><span class="st-dot '+cls+'"></span><span class="st-qtitle">'+q.title+'</span></span></button>';
   }
   function filteredQuestions(){
+    if(qfilter==='review'){return QUESTIONS.filter(function(q){return isDue(q.id)})}
     if(qfilter==='wrong'){return QUESTIONS.filter(function(q){return state.wrong[q.id]})}
     if(qfilter==='all')return QUESTIONS;
     var w=parseInt(qfilter,10);
@@ -3134,9 +3263,14 @@ function runQuery(db,sql){return db.exec(sql)}
     WEEKS.forEach(function(wk){opts.push('<option value="'+wk.w+'"'+(qfilter===String(wk.w)?' selected':'')+'>第'+wk.w+'周 · '+wk.name+'</option>')});
     opts.push('<option value="wrong"'+(qfilter==='wrong'?' selected':'')+'>只看错题</option>');
     var list='';
-    if(qfilter==='wrong'){
+    if(qfilter==='review'){
+      var dq=srDueList();
+      list='<div class="st-weekhead"><span class="text-small" style="font-weight:500">今日复习</span><span class="text-small text-muted tabular-nums">'+dq.length+' 题到期</span></div>';
+      dq.forEach(function(id){var q=qById(id);if(q)list+=qBtn(q)});
+      if(!dq.length)list+='<div class="text-muted text-small" style="margin:4px 2px">复习清空了,明天再来。</div>';
+    }else if(qfilter==='wrong'){
       var wq=QUESTIONS.filter(function(q){return state.wrong[q.id]});
-      list='<div class="st-weekhead"><span class="text-small" style="font-weight:500">错题集中营</span><span class="text-small text-muted tabular-nums">'+wq.length+' 题</span></div>';
+      list='<div class="st-weekhead"><span class="text-small" style="font-weight:500">错题清单</span><span class="text-small text-muted tabular-nums">'+wq.length+' 题</span></div>';
       wq.forEach(function(q){list+=qBtn(q)});
       if(!wq.length)list+='<div class="text-muted text-small" style="margin:4px 2px">没有错题，好样的。</div>';
     }else if(qfilter==='all'){
@@ -3196,7 +3330,7 @@ function runQuery(db,sql){return db.exec(sql)}
       +'<div id="st-explain" hidden style="margin-top:12px"><div class="text-small text-muted st-kpi"><i data-lucide="route" aria-hidden="true"></i>思路拆解（看完请关掉重写）</div><div class="st-lp" style="white-space:pre-line;margin-bottom:0">'+esc(EXPLAINS[qid]||'这道题暂无拆解。')+'</div></div>'
       +'<label class="form-label text-small" for="st-note" style="margin-top:12px"><span class="st-kpi"><i data-lucide="pen-line" aria-hidden="true"></i>我的笔记（自动保存）</span></label>'
       +'<textarea id="st-note" class="form-control" rows="2" placeholder="一句话记下这道题的卡点">'+esc(state.notes[qid]||'')+'</textarea>'
-      +'<div id="st-att-line" data-qid="'+qid+'" class="text-small text-muted" style="margin-top:8px">本题已尝试 '+(attempts[qid]||0)+' 次'+(viewed[qid]?' · 已看过参考答案':'')+'</div>'
+      +'<div id="st-att-line" data-qid="'+qid+'" class="text-small text-muted" style="margin-top:8px">本题已尝试 '+(state.attempts[qid]||0)+' 次'+(viewed[qid]?' · 已看过参考答案':'')+'</div>'
       +'<details class="st-hist" style="margin-top:6px"><summary>运行历史（最近 '+(state.history||[]).length+' 次）</summary><div class="st-hlist">'
       +((state.history||[]).map(function(h,hi){var qq=qById(h.q);return '<button class="btn btn-sm" data-act="hist-load" data-i="'+hi+'" type="button">'+(h.ok?'✓':'✗')+' '+esc(qq?qq.title:h.q)+' · '+fmtClock(h.t)+'</button>'}).join('')||'<span class="text-small text-muted">还没有运行记录</span>')
       +'</div></details>';
@@ -3211,7 +3345,7 @@ function runQuery(db,sql){return db.exec(sql)}
   }
   function editorHtml(qid,isPlay){
     if(engineMode==='self'&&!isPlay){
-      return '<div class="viz-controls"><label class="form-label text-small">自测模式：引擎未加载，无法自动判分。写下你的答案 → 查看参考答案 → 自评。</label>'
+      return '<div class="viz-controls"><label class="form-label text-small">自评模式：离线状态下无法自动判分。写下你的答案 → 对照参考解析 → 自己判分。</label>'
         +'<div class="viz-row">'
         +'<button class="btn btn-primary btn-sm" data-act="self-pass" data-qid="'+qid+'" type="button"><span class="st-btn-ic"><i data-lucide="circle-check" aria-hidden="true"></i>我做对了</span></button>'
         +'<button class="btn btn-sm" data-act="self-fail" data-qid="'+qid+'" type="button"><span class="st-btn-ic"><i data-lucide="circle-x" aria-hidden="true"></i>没做出来</span></button>'
@@ -3259,7 +3393,7 @@ function runQuery(db,sql){return db.exec(sql)}
   }
   function doRunPlay(){
     var out=document.getElementById('st-result');
-    if(!db){out.innerHTML='<div class="text-destructive" role="alert">引擎未加载，无法运行。</div>';return}
+    if(!db){out.innerHTML='<div class="text-destructive" role="alert">练习库还没准备好，稍等一下再试。</div>';return}
     try{out.innerHTML=rowsToTable(runQuery(db,getSQL('play')),30)}
     catch(e){out.innerHTML='<div class="text-destructive" role="alert">SQL 错误：'+String(e.message||e).replace(/</g,'&lt;')+'</div>'}
   }
@@ -3270,31 +3404,36 @@ function runQuery(db,sql){return db.exec(sql)}
     var mine,sqlTxt=getSQL(qid);
     try{mine=resultRows(runQuery(db,sqlTxt))}
     catch(e){
-      attempts[qid]=(attempts[qid]||0)+1;pushHistory(qid,sqlTxt,0);
+      bumpAttempts(qid);pushHistory(qid,sqlTxt,0);
       state.wrong[qid]=Math.max(state.wrong[qid]||0,1);saveState();
       v.innerHTML='<div class="text-destructive st-kpi" role="alert"><i data-lucide="circle-x" aria-hidden="true"></i>SQL 有错误：'+String(e.message||e).replace(/</g,'&lt;')+'</div>';
       out.innerHTML='';renderQStatus(qid);refreshIcons();return;
     }
     if(!mine){pushHistory(qid,sqlTxt,0);v.innerHTML='<div class="text-destructive" role="alert">查询没有返回结果集（检查是不是写了只含注释的语句）。</div>';out.innerHTML='';return}
     var ref=refRows(q);
-    attempts[qid]=(attempts[qid]||0)+1;
+    bumpAttempts(qid);
     var passed=cmpRows(mine,ref);pushHistory(qid,sqlTxt,passed);
     if(passed){
       var assisted=viewed[qid]?'<span class="text-muted text-small">（看过答案，此题保留在错题本）</span>':'';
       state.done[qid]={ts:Date.now(),used:viewed[qid]?1:0};
       if(!viewed[qid])delete state.wrong[qid];
-      saveState();markToday();
+      var srR=srGrade(qid,viewed[qid]?1:2);
+      saveState();markToday();buzz(12);
       var nx=nextQuestion();
       v.innerHTML='<div class="st-verdict-pass st-kpi"><i data-lucide="circle-check" aria-hidden="true"></i>通过！'+assisted+'</div>'
+        +'<div class="text-small text-muted" style="margin-top:4px"><i data-lucide="calendar-check" aria-hidden="true"></i>已排入间隔复习 · '+dueLabel(srR.due)+'（'+srR.due+'）</div>'
         +(nx?'<div class="viz-row" style="margin-top:8px"><button class="btn btn-primary btn-sm" data-act="open-q" data-qid="'+nx.id+'" type="button"><span class="st-btn-ic"><i data-lucide="arrow-right" aria-hidden="true"></i>下一题：'+nx.title+'</span></button></div>'
-            :'<div class="text-small text-muted" style="margin-top:8px">42 题全部通关！去找 ZCode 安排模拟笔试。</div>');
+            :'<div class="text-small text-muted" style="margin-top:8px">'+QUESTIONS.length+' 题全部通关！到「测验 · 限时周测」做一场全真模拟收尾。</div>');
       out.innerHTML='';renderQStatus(qid);refreshIcons();
     }else{
-      state.wrong[qid]=(state.wrong[qid]||0)+1;saveState();
+      state.wrong[qid]=(state.wrong[qid]||0)+1;
+      srGrade(qid,0);
+      saveState();
       var msg='<div class="text-destructive st-kpi" role="alert"><i data-lucide="circle-x" aria-hidden="true"></i>结果不一致：你的查询返回 '+mine.rows.length+' 行 × '+mine.cols+' 列，标准答案是 '+ref.rows.length+' 行 × '+ref.cols+' 列。</div>';
       if(ref&&mine.cols===ref.cols&&mine.rows.length===ref.rows.length){msg+='<div class="text-small text-muted" style="margin-top:4px">行数列数都对上了，检查某一行的取值（大小写、NULL、精度）。</div>'}
-      if(attempts[qid]>=2&&ref){msg+='<div class="text-small text-muted" style="margin-top:6px">标准结果前3行：</div><div class="st-pre"><table class="table table-sm"><tbody>'+ref.rows.slice(0,3).map(function(r){return '<tr>'+r.map(function(c){return '<td>'+(c===null?'NULL':c)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div><div class="text-small text-muted" style="margin-top:6px">还差一步就能自己写对——别急着看答案。</div>'}
+      if(state.attempts[qid]>=2&&ref){msg+='<div class="text-small text-muted" style="margin-top:6px">标准结果前3行：</div><div class="st-pre"><table class="table table-sm"><tbody>'+ref.rows.slice(0,3).map(function(r){return '<tr>'+r.map(function(c){return '<td>'+(c===null?'NULL':c)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div><div class="text-small text-muted" style="margin-top:6px">还差一步就能自己写对——别急着看答案。</div>'}
       v.innerHTML=msg;out.innerHTML='';
+      buzz([8,60,10]);
       renderQStatus(qid);refreshIcons();
     }
   }
@@ -3370,8 +3509,8 @@ function runQuery(db,sql){return db.exec(sql)}
         try{var mine=resultRows(runQuery(db,codes['test_'+qid]||''));
           ok=!!mine&&cmpRows(mine,refRows(q))}catch(e){ok=false}
       }
-      if(ok){passed++;state.done[qid]={ts:Date.now(),used:0};delete state.wrong[qid]}
-      else{state.wrong[qid]=(state.wrong[qid]||0)+1}
+      if(ok){passed++;state.done[qid]={ts:Date.now(),used:0};delete state.wrong[qid];srGrade(qid,2)}
+      else{state.wrong[qid]=(state.wrong[qid]||0)+1;srGrade(qid,0)}
       rows+='<div class="viz-row" style="justify-content:space-between;margin-bottom:6px"><span class="st-kpi"><i data-lucide="'+(ok?'circle-check':'circle-x')+'" aria-hidden="true" class="'+(ok?'st-pass':'st-fail')+'"></i>W'+q.w+' '+q.title+'</span><button class="btn btn-ghost btn-sm" data-act="open-q" data-qid="'+qid+'" type="button">去复盘</button></div>';
     });
     saveState();markToday();
@@ -3382,6 +3521,27 @@ function runQuery(db,sql){return db.exec(sql)}
       +'<hr>'+rows
       +'<div class="viz-row" style="margin-top:12px"><button class="btn btn-primary btn-sm" data-act="test-home" type="button"><span class="st-btn-ic"><i data-lucide="rotate-ccw" aria-hidden="true"></i>再测一次</span></button></div>';
     test=null;updateStreak();refreshIcons();
+  }
+
+  /* ---------- 间隔复习 ---------- */
+  function renderReview(){
+    var el=document.getElementById('panel-review');if(!el)return;
+    var due=srDueList();
+    var total=0;for(var id in (state.sr||{}))total++;
+    var h='<div class="st-kpi" style="margin-bottom:6px"><i data-lucide="repeat" aria-hidden="true"></i><h3 style="margin:0">间隔复习</h3></div>'
+      +'<p class="text-small text-muted" style="margin-bottom:14px">做过的题会按记忆曲线自动排程:1 天 → 3 天 → 按熟练度逐步拉长,最远 60 天。每天几分钟清一遍到期题,把「做过」变成「记得住」。</p>';
+    if(!total){
+      h+='<div class="text-muted text-small">还没有题进入复习循环。通过一道新题,它会自动排入明天的复习。</div>';
+    }else if(!due.length){
+      var upcoming=Object.keys(state.sr).sort(function(a,b){return state.sr[a].due<state.sr[b].due?-1:1}).slice(0,6);
+      h+='<div class="st-rev-strip"><div class="st-rev-strip-t"><i data-lucide="circle-check" aria-hidden="true"></i><div>今天没有到期的复习<small>共 '+total+' 题在复习计划里。休息一下,明天继续。</small></div></div></div>'
+        +'<div class="st-rev-list">'+upcoming.map(function(id){var q=qById(id);if(!q)return '';return '<div class="st-rev-item"><span class="text-small">'+esc(q.title)+'</span><span class="st-rev-due">'+dueLabel(state.sr[id].due)+'</span></div>'}).join('')+'</div>';
+    }else{
+      h+='<div class="st-rev-strip"><div class="st-rev-strip-t"><i data-lucide="bell-ring" aria-hidden="true"></i><div>今天有 '+due.length+' 题到期<small>清完这批,今天的复习就收工。</small></div></div>'
+        +'<button class="btn btn-primary" data-act="start-review" type="button"><span class="st-btn-ic"><i data-lucide="play" aria-hidden="true"></i>开始复习</span></button></div>'
+        +'<div class="st-rev-list">'+due.map(function(id){var q=qById(id);if(!q)return '';return '<div class="st-rev-item"><span class="text-small">'+esc(q.title)+'</span><span class="st-rev-due '+(state.sr[id].due<todayStr()?'is-over':'is-today')+'">'+dueLabel(state.sr[id].due)+'</span></div>'}).join('')+'</div>';
+    }
+    el.innerHTML=h;refreshIcons();
   }
 
   /* ---------- 错题本 ---------- */
@@ -3452,7 +3612,7 @@ function lBtn(l){
 }
 function lessonResultHtml(l,s,i){
   var out='<div class="st-ex-out" id="st-lx-'+l.id+'-'+i+'">';
-  if(!db)out+=engineMode==='self'?'<div class="text-muted text-small">自测模式：引擎未加载，示例无法运行，讲解与语法仍然有效。</div>':'<div class="text-muted text-small">引擎加载中，稍等片刻或点"运行"。</div>';
+  if(!db)out+=engineMode==='self'?'<div class="text-muted text-small">自评模式：示例暂不能运行，讲解与语法不受影响。</div>':'<div class="text-muted text-small">练习库准备中，稍等片刻或点"再跑一遍"。</div>';
   else{
     try{out+=rowsToTable(runQuery(db,s.code),12)}
     catch(e){out+='<div class="text-destructive" role="alert">SQL 错误：'+esc(String(e.message||e))+'</div>'}
@@ -3599,7 +3759,7 @@ function renderPlanPage(){
     +pchk('acc_timed','限时模拟 4 题完成 3 题+')
     +pchk('acc_demo','能用 SQL 为自己的 BI demo 作品造数据、验数据（和作品集打通）')
     +'</div>'
-    +'<div class="st-biz"><strong><i data-lucide="briefcase" aria-hidden="true"></i>周测陪练</strong><p>每周日回来找 ZCode：出题 → 计时作答 → 批改讲解 → 更新模板库。也可以直接用"周测"页自助考试。</p></div>';
+    +'<div class="st-biz"><strong><i data-lucide="briefcase" aria-hidden="true"></i>周测陪练</strong><p>每周日用「测验 · 限时周测」自助一场：抽题 → 计时作答 → 交卷复盘，把新套路沉淀进模板库。</p></div>';
   panel.innerHTML=h;
   refreshIcons();
   window.scrollTo(0,0);
@@ -3697,26 +3857,36 @@ function renderCheatPage(){
     currentQid=qid;
     if(qid!=='play'){
       var hit=false;
-      if(qfilter==='wrong')hit=!!state.wrong[qid];
+      if(qfilter==='review')hit=isDue(qid);
+      else if(qfilter==='wrong')hit=!!state.wrong[qid];
       else if(qfilter==='all')hit=true;
       else hit=qById(qid)&&qById(qid).w===parseInt(qfilter,10);
       if(!hit)qfilter='all';
     }
     switchTab('practice');
   }
-  function switchTab(name){
+  var topTab='dash';
+  function switchTab(name,slide){
     var sub=null;
-    if(name==='learn'||name==='practice'||name==='tpl'||name==='schema'){sub=name;name='train'}
+    if(name==='learn'||name==='practice'||name==='review'||name==='tpl'||name==='schema'){sub=name;name='train'}
     else if(name==='test'||name==='wrong'){sub=name;name='exam'}
     var tabs=[['dash','panel-dash'],['train','panel-train'],['exam','panel-exam'],['me','panel-me']];
     root.classList.toggle('st-nobrand',name!=='dash');
-    document.getElementById('st-breadcrumb-current').textContent=document.getElementById('tab-'+name).textContent.trim();
+    var pageTitle=document.getElementById('tab-'+name).textContent.trim();
+    document.getElementById('st-breadcrumb-current').textContent=pageTitle;
+    var _lt=document.getElementById('st-ltitle');if(_lt)_lt.textContent=pageTitle;
+    var _tt=document.getElementById('st-tbtitle');if(_tt)_tt.textContent=pageTitle;
     tabs.forEach(function(p){
       var tab=document.getElementById('tab-'+p[0]),panel=document.getElementById(p[1]);
       var on=p[0]===name;
       if(tab){tab.classList.toggle('active',on);tab.setAttribute('aria-selected',on?'true':'false');tab.tabIndex=on?0:-1}
       if(panel){if(on)panel.removeAttribute('hidden');else panel.setAttribute('hidden','')}
     });
+    topTab=name;
+    if(slide){
+      var pn=document.getElementById('panel-'+name);
+      if(pn){pn.classList.remove('st-slide-l','st-slide-r');void pn.offsetWidth;pn.classList.add(slide==='l'?'st-slide-l':'st-slide-r');setTimeout(function(){pn.classList.remove('st-slide-l','st-slide-r')},420)}
+    }
     if(name==='dash')renderDash();
     if(name==='train'){showSub('train',sub||trainSub);renderTrain()}
     if(name==='exam'){showSub('exam',sub||examSub);renderExam()}
@@ -3725,7 +3895,7 @@ function renderCheatPage(){
   }
   /* ---------- 合并子页(训练/测验) ---------- */
   var trainSub='learn',examSub='test';
-  var TRAIN_PANELS={learn:'panel-learn',practice:'panel-practice',tpl:'panel-tpl',schema:'panel-schema'};
+  var TRAIN_PANELS={learn:'panel-learn',practice:'panel-practice',review:'panel-review',tpl:'panel-tpl',schema:'panel-schema'};
   function showSub(group,sub){
     if(group==='train')trainSub=sub;else examSub=sub;
     var seg=document.getElementById(group==='train'?'st-train-seg':'st-exam-seg');
@@ -3740,14 +3910,25 @@ function renderCheatPage(){
   function renderTrain(){
     if(trainSub==='learn')renderLearn();
     else if(trainSub==='practice')renderPractice();
+    else if(trainSub==='review')renderReview();
     else if(trainSub==='tpl')renderTpl();
     else renderSchema();
   }
   function renderExam(){if(examSub==='test')renderTest();else renderWrong()}
 
   /* ---------- 我的:档案 / 数据管理 / 关于与版本更新 ---------- */
-  var APP_VERSION='2.5.3';
+  var APP_VERSION='2.6.0';
   var CHANGELOG=[
+    ['2.6.0','2026-10-25',[
+      '间隔重复复习上线:通过/答错的题自动按记忆曲线排程(1 天 → 3 天 → 按熟练度拉长至 60 天),总览与「训练 · 复习」显示今日到期,从刷一遍变成记得住',
+      '学习提醒:「我的 · 学习提醒」设定每日提醒时间,到点且当天未练习时发系统通知(需授权;应用打开期间有效)',
+      '移动端 iOS 手感:各大页新增大标题,滚动时折叠进顶栏;左右滑动可在 总览/训练/测验/我的 间切换',
+      '首屏骨架屏:打开即见版式骨架,渲染完成后无缝替换;「我的 · 外观」新增字号调节(标准/大/特大)',
+      '键盘避让:弹出键盘时底部 Tab 栏自动上移,输入框聚焦自动滚入可视区;移动端输入统一 16px,聚焦不再自动放大',
+      '触控目标达标:移动端按钮/下拉/题目行命中区提升到 44px 规格,分段切换与进围点补足命中区',
+      '深色模式对比度清扫:统计数值、热图标题、面包屑、状态栏、表单标签等十余处灰字全部提到无障碍对比度',
+      '细节修复:命令面板搜"微课"显示 undefined;云同步菜单重复文案;全通关提示硬编码题数;练习次数改为跨会话累计',
+      '触感反馈:切页/判分/成就解锁在支持的设备上轻微震动(尽力而为)']],
     ['2.5.3','2026-10-25',['暗色模式重做为纯黑(OLED)画布:背景纯黑、卡片微抬升、文字与边框换 iOS 中性灰,蓝色环境光与玻璃保持']],
     ['2.5.2','2026-10-25',['Tab 栏玻璃质感对齐参考稿:清透白玻璃、大图标深描边、白色云朵选中胶囊、更宽排布']],
     ['2.5.1','2026-10-25',['底栏玻璃质感重做:顶缘锐光/底部厚度暗影/内圈轮廓与双热斑光泽,玻璃有了厚度','点击交互:按压缩放回弹、选中光晕绽放、药丸移动弹性形变,激活图标加粗发光']],
@@ -3768,6 +3949,52 @@ function renderCheatPage(){
     ['1.1.0','2026-10-25',['云同步新增 GitHub Gist 方案（LeanCloud 国际版已停止新注册）']],
     ['1.0.0','2026-10-25',['SQL 八周训练营上线：学习、练习、周测、错题本一体化，含云同步与进度备份']]
   ];
+  /* ---------- v2.6:学习提醒(应用打开期间到点通知;iOS 彻底后台推送需服务端,后续跟进) ---------- */
+  var REMIND_KEY='sqltrain_remind';
+  function loadRemind(){
+    try{var r=JSON.parse(localStorage.getItem(REMIND_KEY)||'{}');
+      if(r&&typeof r==='object')return {on:!!r.on,time:/^\d{2}:\d{2}$/.test(r.time||'')?r.time:'20:30',last:r.last||''}}catch(e){}
+    return {on:false,time:'20:30',last:''};
+  }
+  function saveRemind(r){try{localStorage.setItem(REMIND_KEY,JSON.stringify(r))}catch(e){}}
+  function remindStatus(msg){var el=document.getElementById('st-remind-status');if(el)el.textContent=msg}
+  function remindPerm(){return ('Notification' in window&&'requestPermission' in Notification)?Notification.permission:'unsupported'}
+  function askRemindPermission(){
+    if(remindPerm()==='unsupported'){var r0=loadRemind();r0.on=false;saveRemind(r0);remindStatus('当前浏览器不支持通知。可以先用系统闹钟当替代,或换用支持的浏览器。');renderMe();return}
+    Notification.requestPermission().then(function(p){
+      var r=loadRemind();
+      if(p==='granted'){r.on=true;saveRemind(r);remindStatus('提醒已开启:每天 '+r.time+' 提醒今日训练。');buzz(10)}
+      else{r.on=false;saveRemind(r);remindStatus(p==='denied'?'通知权限被拒绝:在浏览器或系统设置里允许本站通知后,回来再开一次。':'未授权,提醒保持关闭。')}
+      renderMe();
+    }).catch(function(){remindStatus('暂时无法发起授权,请稍后再试。')});
+  }
+  function remindTimeChanged(v){
+    var r=loadRemind();r.time=v;saveRemind(r);
+    remindStatus('提醒时间已设为每天 '+v+'。');
+    setTimeout(checkReminder,50);
+  }
+  function fireReminder(){
+    var r=loadRemind();r.last=todayStr();saveRemind(r);
+    var s=streak();
+    var body=s>0?('已连续练习 '+s+' 天。今天留 45 分钟,做 1—2 道题保持手感。'):'今天留 45 分钟,把 SQL 练起来。';
+    var opts={body:body,tag:'sqltrain-daily',renotify:true};
+    try{
+      if(navigator.serviceWorker){navigator.serviceWorker.ready.then(function(reg){
+        if(reg.showNotification)reg.showNotification('SQL 训练时间到',opts);
+        else if(remindPerm()==='granted')new Notification('SQL 训练时间到',opts);
+      }).catch(function(){if(remindPerm()==='granted')new Notification('SQL 训练时间到',opts)})}
+      else if(remindPerm()==='granted')new Notification('SQL 训练时间到',opts);
+    }catch(e){}
+    buzz(10);
+  }
+  function checkReminder(){
+    var r=loadRemind();if(!r.on)return;
+    if(remindPerm()!=='granted')return;
+    var now=new Date();
+    var pp=(r.time||'20:30').split(':');
+    var due=new Date(now.getFullYear(),now.getMonth(),now.getDate(),parseInt(pp[0],10),parseInt(pp[1],10));
+    if(now>=due&&r.last!==todayStr()&&(state.days||[]).indexOf(todayStr())<0)fireReminder();
+  }
   function checkUpdate(){
     var st=document.getElementById('st-upd-status');
     function say(m){if(st)st.textContent=m}
@@ -3785,7 +4012,7 @@ function renderCheatPage(){
     var doneCount=Object.keys(state.done).length,wrongCount=Object.keys(state.wrong).length,_ld=0;
     for(var _k in state.lessons){if(state.lessons[_k])_ld++}
     var pct=Math.round((doneCount+_ld)/(QUESTIONS.length+LESSONS.length)*100);
-    var markup='<div class="st-me-head"><span class="st-me-avatar"><i data-lucide="user" aria-hidden="true"></i></span><div style="min-width:0"><h2>我的学习档案</h2><p>进度保存在这台设备 · 外观跟随系统深浅色</p></div></div>'
+    var markup='<div class="st-me-head"><span class="st-me-avatar"><i data-lucide="user" aria-hidden="true"></i></span><div style="min-width:0"><h2>我的学习档案</h2><p>进度保存在这台设备 · 备份与云同步在下方</p></div></div>'
       +'<section class="st-me-stats" aria-label="学习速览">'
       +'<div class="st-ms"><b class="num">'+streak()+'<span>天</span></b><span>连续练习</span></div>'
       +'<div class="st-ms"><b class="num">'+pct+'<span>%</span></b><span>总体进度</span></div>'
@@ -3796,7 +4023,19 @@ function renderCheatPage(){
       +'<button type="button" class="btn btn-sm" data-act="mode-set" data-mo="auto">跟随系统</button>'
       +'<button type="button" class="btn btn-sm" data-act="mode-set" data-mo="light">浅色</button>'
       +'<button type="button" class="btn btn-sm" data-act="mode-set" data-mo="dark">深色</button>'
+      +'</div>'
+      +'<div class="st-mode-row" style="border-top:1px solid var(--border);gap:6px"><span class="form-label text-small" style="margin:0;align-self:center">字号</span>'
+      +[['m','标准'],['l','大'],['xl','特大']].map(function(f){return '<button type="button" class="btn btn-sm'+((document.documentElement.dataset.font||'m')===f[0]?' btn-primary':'')+'" data-act="font-set" data-fz="'+f[0]+'">'+f[1]+'</button>'}).join('')
       +'</div></div>'
+  var rm=loadRemind(),rp=remindPerm();
+  markup+='<div class="st-menu-cap">学习提醒</div><div class="st-menu">'
+    +'<div class="st-mode-row" style="justify-content:space-between;align-items:center;flex-wrap:nowrap">'
+    +'<span style="display:flex;align-items:center;gap:12px;min-width:0"><span class="st-mrow-ic"><i data-lucide="bell-ring" aria-hidden="true"></i></span><span style="min-width:0"><span style="font-weight:600;font-size:13px">每日提醒</span><span class="text-muted text-small" style="display:block;margin-top:2px">'+(rp==='unsupported'?'此浏览器不支持通知':'每天 '+rm.time+(rm.on?' · 已开启':' · 未开启'))+'</span></span></span>'
+    +'<button type="button" class="btn btn-sm'+(rm.on?'':' btn-primary')+'" data-act="remind-toggle">'+(rm.on?'关闭':'开启')+'</button></div>'
+    +'<div class="st-mode-row" style="border-top:1px solid var(--border);justify-content:space-between;align-items:center;flex-wrap:nowrap"><label class="form-label text-small" for="st-remind-time" style="margin:0">提醒时间</label>'
+    +'<input type="time" id="st-remind-time" class="form-control" style="width:130px;min-height:40px" value="'+rm.time+'"></div>'
+    +'</div>'
+    +'<div id="st-remind-status" class="text-small text-muted" style="margin:-6px 4px 16px">'+(rp==='denied'?'通知权限被拒绝:在浏览器或系统设置里允许本站通知后,回来再开一次。':(rm.on?'提醒在你打开训练系统期间生效;到点且当天还没练过时通知你。':''))+'</div>'
       +'<div class="st-menu-cap">数据与同步</div>'
       +'<div class="st-menu">'
     markup+='<details class="st-mrow"><summary><span class="st-mrow-ic"><i data-lucide="database-backup" aria-hidden="true"></i></span><span class="st-mrow-t">备份与迁移</span><span class="st-mrow-sub">导出 · 进度码 · 导入</span><span class="st-chev"><i data-lucide="chevron-down" aria-hidden="true"></i></span></summary><div class="st-mrow-body"><p>进度保存在此浏览器的本地存储里。换浏览器、换电脑或清理缓存前：点"导出备份文件"存一份 JSON，或点"复制进度码"把进度变成一段文本随身携带。在新设备打开本页面，把内容粘进下面的框，点"粘贴恢复"（覆盖）或"合并导入"（两台都练过时取并集）。每次导入前系统会自动把当前进度留一份应急备份，导错也不怕。</p>'
@@ -3812,7 +4051,7 @@ function renderCheatPage(){
       +'<button class="btn btn-sm" data-act="import-merge" type="button"><span class="st-btn-ic"><i data-lucide="git-merge" aria-hidden="true"></i>合并导入（两台都练过用这个）</span></button>'
       +'<input type="file" id="st-import-file" accept=".json,application/json" hidden></div></div></details>'
     var scfg=loadSyncCfg();
-    markup+='<details class="st-mrow"><summary><span class="st-mrow-ic"><i data-lucide="cloud" aria-hidden="true"></i></span><span class="st-mrow-t">云同步</span><span class="st-mrow-sub">Gist / LeanCloud 自动同步</span><span class="st-chev"><i data-lucide="chevron-down" aria-hidden="true"></i></span></summary>（GitHub Gist / LeanCloud）</summary><div class="st-mrow-body">'
+    markup+='<details class="st-mrow"><summary><span class="st-mrow-ic"><i data-lucide="cloud" aria-hidden="true"></i></span><span class="st-mrow-t">云同步</span><span class="st-mrow-sub">Gist / LeanCloud 自动同步</span><span class="st-chev"><i data-lucide="chevron-down" aria-hidden="true"></i></span></summary><div class="st-mrow-body">'
       +'<p><strong>推荐：GitHub Gist</strong>，无需新注册账号：github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token，只勾选 <strong>gist</strong> 一个权限，把生成的令牌填到下面（Gist ID 留空，保存时自动创建私有 Gist）。绑定手机/新电脑：填同一个令牌、同一个 Gist ID（本机连上后会显示在下方输入框，复制过去）和同一个同步码。<strong>LeanCloud</strong> 供已注册用户使用（国际版已停止新注册）。开启端到端加密后，进度用同步码加密（AES-GCM），云端只存密文。保存后自动同步：练习完成自动推送、打开页面自动拉取合并；两端都有新进度时自动取并集，不会互相覆盖。清空进度也会同步清空云端（已有二次确认）。</p>'
       +'<input type="radio" name="st-sync-prov" id="st-sync-prov-gist" data-prov="gist"'+(scfg.provider==='lc'?'':' checked')+'>'
       +'<label class="st-prov-lbl" for="st-sync-prov-gist">GitHub Gist（推荐）</label>'
@@ -3841,7 +4080,7 @@ function renderCheatPage(){
       +'<div class="st-menu-cap">关于</div>'
       +'<div class="st-menu">'
       +'<details class="st-mrow"><summary><span class="st-mrow-ic"><i data-lucide="info" aria-hidden="true"></i></span><span class="st-mrow-t">关于与版本更新</span><span class="st-mrow-sub">v'+APP_VERSION+'</span><span class="st-chev"><i data-lucide="chevron-down" aria-hidden="true"></i></span></summary><div class="st-mrow-body">'
-      +'<div class="st-about-head"><span class="st-about-mark"><i data-lucide="code-xml" aria-hidden="true"></i></span><div style="flex:1;min-width:0"><strong>SQL Lab · 八周训练营</strong><span class="text-small text-muted">版本 v'+APP_VERSION+' · '+(engineMode==='ok'?'本地 SQLite 引擎':(engineMode==='self'?'自测模式':'引擎加载中…'))+'</span></div><button class="btn btn-sm" data-act="check-update" type="button">检查更新</button></div>'
+      +'<div class="st-about-head"><span class="st-about-mark"><i data-lucide="code-xml" aria-hidden="true"></i></span><div style="flex:1;min-width:0"><strong>SQL Lab · 八周训练营</strong><span class="text-small text-muted">版本 v'+APP_VERSION+' · '+(engineMode==='ok'?'本地 SQLite 练习库':(engineMode==='self'?'自评模式':'练习库准备中…'))+'</span></div><button class="btn btn-sm" data-act="check-update" type="button">检查更新</button></div>'
       +'<div id="st-upd-status" class="text-small text-muted" style="margin:8px 0 4px;min-height:18px">有新版本发布时，联网打开页面会自动更新；也可点「检查更新」立即检查。</div>'
       +'<details class="st-clbox"><summary><span style="font-weight:600">版本更新日志</span><span class="text-small text-muted">'+CHANGELOG.length+' 个版本</span><span class="st-chev"><i data-lucide="chevron-down" aria-hidden="true"></i></span></summary><div class="st-clist">'
       +CHANGELOG.map(function(c){return '<div class="st-clent"><div class="st-clent-h"><span class="st-cl-v">v'+c[0]+'</span><span class="text-small text-muted">'+c[1]+'</span></div><ul>'+c[2].map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div>'}).join('')
@@ -3849,6 +4088,8 @@ function renderCheatPage(){
       +'</div></details>'
       +'</div>';
     el.innerHTML=markup;
+    var _rt=document.getElementById('st-remind-time');
+    if(_rt)_rt.onchange=function(){if(_rt.value)remindTimeChanged(_rt.value)};
     refreshIcons();
   }
   /* ---------- v2.5:命令面板 ---------- */
@@ -3858,7 +4099,7 @@ function renderCheatPage(){
     var it=[];
     [['dash','总览'],['train','训练营'],['exam','测验'],['me','我的']].forEach(function(t){it.push({t:t[1],k:'页面',go:function(){switchTab(t[0])}})});
     QUESTIONS.forEach(function(q){it.push({t:q.title,k:'W'+q.w+' 题',go:function(){openQuestion(q.id)}})});
-    LESSONS.forEach(function(l){it.push({t:l.t,k:'微课',go:function(){openLesson(l.id)}})});
+    LESSONS.forEach(function(l){it.push({t:l.title,k:'微课',go:function(){openLesson(l.id)}})});
     TEMPLATES.forEach(function(t2){it.push({t:t2.name,k:'模板',go:function(){codes['play']=t2.code;currentQid='play';switchTab('practice');renderQPanel('play')}})});
     CMDK_ITEMS=it;return it;
   }
@@ -3923,7 +4164,7 @@ function renderCheatPage(){
     state.mil=state.mil||{};
     var got=[];
     MILESTONES.forEach(function(m){if(!state.mil[m.id]&&m.c(state)){state.mil[m.id]=1;got.push(m.t)}});
-    if(got.length){saveState();stToast('成就解锁:'+got.join(' · '))}
+    if(got.length){saveState();buzz([10,40,18]);stToast('成就解锁：'+got.join(' · '))}
     _milLock=false;
   }
   function pushHistory(qid,sql,ok){
@@ -3936,7 +4177,7 @@ function renderCheatPage(){
       var _hc=document.querySelector('#st-qpanel .st-hlist');
       if(_hc)_hc.innerHTML=state.history.map(function(h,hi){var qq=qById(h.q);return '<button class="btn btn-sm" data-act="hist-load" data-i="'+hi+'" type="button">'+(h.ok?'✓':'✗')+' '+esc(qq?qq.title:h.q)+' · '+fmtClock(h.t)+'</button>'}).join('')||'<span class="text-small text-muted">还没有运行记录</span>';
       var _al=document.getElementById('st-att-line');
-      if(_al&&_al.getAttribute('data-qid')===qid)_al.innerHTML='本题已尝试 '+(attempts[qid]||0)+' 次'+(viewed[qid]?' · 已看过参考答案':'');
+      if(_al&&_al.getAttribute('data-qid')===qid)_al.innerHTML='本题已尝试 '+(state.attempts[qid]||0)+' 次'+(viewed[qid]?' · 已看过参考答案':'');
     }catch(e){}
   }
   function weekStatsNow(){
@@ -3965,8 +4206,8 @@ function renderCheatPage(){
     else if(act==='show-hint'){var h=document.getElementById('st-hint');if(h)h.hidden=!h.hidden;refreshIcons()}
     else if(act==='show-answer'){viewed[qid]=true;var a=document.getElementById('st-answer');if(a)a.hidden=false}
     else if(act==='show-explain'){viewed[qid]=true;var xp=document.getElementById('st-explain');if(xp)xp.hidden=false}
-    else if(act==='self-pass'){state.done[qid]={ts:Date.now(),used:1};delete state.wrong[qid];saveState();markToday();renderQPanel(qid);renderQStatus(qid)}
-    else if(act==='self-fail'){state.wrong[qid]=(state.wrong[qid]||0)+1;saveState();markToday();renderQPanel(qid);renderQStatus(qid)}
+    else if(act==='self-pass'){state.done[qid]={ts:Date.now(),used:1};delete state.wrong[qid];srGrade(qid,1);saveState();markToday();renderQPanel(qid);renderQStatus(qid)}
+    else if(act==='self-fail'){state.wrong[qid]=(state.wrong[qid]||0)+1;srGrade(qid,0);saveState();markToday();renderQPanel(qid);renderQStatus(qid)}
     else if(act==='wrong-del'){delete state.wrong[qid];saveState();renderWrong()}
     else if(act==='export-progress'){doExport()}
     else if(act==='copy-progress'){doCopyCode()}
@@ -3978,8 +4219,11 @@ function renderCheatPage(){
     else if(act==='sync-now'){syncNow(true)}
     else if(act==='sync-unbind'){var uc=loadSyncCfg();delete uc.code;uc.lastSync=0;saveSyncCfg(uc);syncStatus('已解绑：本机不再同步（云端数据保留，重新填码可再绑定）')}
     else if(act==='mode-set'){localStorage.setItem('sqltrain_mode',JSON.stringify(el.getAttribute('data-mo')));applyMode()}
+    else if(act==='font-set'){applyFont(el.getAttribute('data-fz')||'m');renderMe()}
+    else if(act==='remind-toggle'){var r0=loadRemind();if(r0.on){r0.on=false;saveRemind(r0);remindStatus('提醒已关闭。');renderMe()}else askRemindPermission()}
     else if(act==='check-update'){checkUpdate()}
     else if(act==='wrong-practice'){qfilter='wrong';switchTab('practice')}
+    else if(act==='start-review'){qfilter='review';var _fd=srDueList()[0];if(_fd)openQuestion(_fd);else switchTab('practice')}
     else if(act==='hist-load'){var hIdx=parseInt(el.getAttribute('data-i'),10);var hRec=(state.history||[])[hIdx];if(hRec){if(hRec.q!==currentQid)openQuestion(hRec.q);var _ta=document.getElementById('st-code');if(_ta){_ta.value=hRec.s;_ta.dispatchEvent(new Event('input',{bubbles:true}))}}}
     else if(act==='snap-restore'){var sw=null;try{sw=JSON.parse(localStorage.getItem('sqltrain_snap')||'null')}catch(e){}
       if(!sw||!sw.s){backupStatus('还没有自动快照:明天首次打开时才会生成')}
@@ -3993,7 +4237,7 @@ function renderCheatPage(){
     else if(act==='test-finish'){finishTest()}
     else if(act==='test-home'){renderTest()}
     else if(act==='reset1'){
-      if(resetArmed){state={v:1,done:{},wrong:{},notes:{},lessons:{},plan:{},days:[],savedAt:0};codes={};attempts={};viewed={};saveState();resetArmed=false;renderAll()}
+      if(resetArmed){state={v:1,done:{},wrong:{},notes:{},lessons:{},plan:{},days:[],attempts:{},sr:{},savedAt:0};codes={};viewed={};saveState();resetArmed=false;renderAll()}
       else{resetArmed=true;var c=document.getElementById('st-reset-confirm');if(c){c.innerHTML='<button class="btn btn-sm" data-act="reset1" type="button">再点一次确认清空</button>';setTimeout(function(){resetArmed=false},4000)}}
     }
   });
@@ -4016,6 +4260,7 @@ function renderCheatPage(){
   });
   for(var ti=0;ti<navTabs.length;ti++){
     (function(b){b.addEventListener('click',function(){
+      buzz(6);
       switchTab(b.getAttribute('aria-controls').replace('panel-',''));
       b.classList.remove('st-bloom');void b.offsetWidth;b.classList.add('st-bloom');
       setTimeout(function(){b.classList.remove('st-bloom')},480);
@@ -4043,6 +4288,49 @@ function renderCheatPage(){
   if(mqlTab.addEventListener)mqlTab.addEventListener('change',placeTabbar);else if(mqlTab.addListener)mqlTab.addListener(placeTabbar);
   window.addEventListener('resize',placeTabbar);
   window.addEventListener('load',placeTabbar);
+  /* ---------- v2.6:动态字号(我的·外观;zoom 等比缩放,重算药丸与顶栏) ---------- */
+  function applyFont(fz){
+    try{if(fz&&fz!=='m')localStorage.setItem('sqltrain_font',fz);else localStorage.removeItem('sqltrain_font')}catch(e){}
+    if(fz&&fz!=='m')document.documentElement.dataset.font=fz;else document.documentElement.removeAttribute('data-font');
+    setTimeout(function(){movePill();tbGlass()},80);
+  }
+  /* ---------- v2.6:键盘避让(visualViewport 推底栏上移;聚焦控件滚入可视区) ---------- */
+  var _vv=window.visualViewport;
+  function kbSync(){
+    if(!_vv)return;
+    var kb=Math.max(0,Math.round(window.innerHeight-_vv.height-_vv.offsetTop));
+    document.documentElement.style.setProperty('--st-kb',kb+'px');
+    root.classList.toggle('st-kb',kb>90);
+  }
+  if(_vv){_vv.addEventListener('resize',kbSync);_vv.addEventListener('scroll',kbSync);kbSync()}
+  root.addEventListener('focusin',function(e){
+    var el=e.target;
+    if(!el||!el.matches||!el.matches('textarea,input,select'))return;
+    setTimeout(function(){try{el.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(_e){try{el.scrollIntoView()}catch(e2){}}},320);
+  });
+  /* ---------- v2.6:滑动切 Tab(移动端;避开输入区/代码块/可滚动列表) ---------- */
+  var swOrder=['dash','train','exam','me'];
+  var swX=0,swY=0,swT=0,swOn=false;
+  root.addEventListener('touchstart',function(e){
+    if(e.touches.length!==1||!window.matchMedia('(max-width:680px)').matches){swOn=false;return}
+    var t=e.target;
+    if(t&&t.closest&&t.closest('textarea,input,select,button,a,pre,.table-responsive,.st-qlist,.st-dots,.nav,#cmdk,summary,.st-subseg,.form-control')){swOn=false;return}
+    swX=e.touches[0].clientX;swY=e.touches[0].clientY;swT=Date.now();swOn=true;
+  },{passive:true});
+  root.addEventListener('touchend',function(e){
+    if(!swOn)return;swOn=false;
+    var tc=e.changedTouches&&e.changedTouches[0];if(!tc)return;
+    var dx=tc.clientX-swX,dy=tc.clientY-swY;
+    if(Math.abs(dx)<64||Math.abs(dx)<Math.abs(dy)*1.4||Date.now()-swT>900)return;
+    var ni=swOrder.indexOf(topTab)+(dx<0?1:-1);
+    if(ni<0||ni>=swOrder.length)return;
+    switchTab(swOrder[ni],dx<0?'l':'r');
+    buzz(6);
+  },{passive:true});
+  /* ---------- v2.6:提醒调度(应用打开期间每 30s 检查一次) ---------- */
+  setInterval(checkReminder,30000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)checkReminder()});
+  setTimeout(checkReminder,2500);
   /* 顶栏液态玻璃随滚动连续渐显:0px 全透明 → 60px 全强度,状态栏与顶栏始终一体 */
   var tbT=false;
   function tbGlass(){
@@ -4064,6 +4352,7 @@ function renderCheatPage(){
     seg.addEventListener('click',function(e){
       var b=e.target&&e.target.closest?e.target.closest('button[data-sub]'):null;
       if(!b)return;
+      buzz(4);
       showSub(pair[1],b.getAttribute('data-sub'));
       if(pair[1]==='exam')renderExam();else renderTrain();
     });
@@ -4076,6 +4365,12 @@ function renderCheatPage(){
 
   loadState();
   state.lessons=state.lessons||{};state.plan=state.plan||{};
+  state.attempts=state.attempts||{};state.sr=state.sr||{};
+  /* 存量进度回填:已通过的题按周次分三天摊入复习计划,避免升级首日一次压垮 */
+  if(!state.srSeeded){
+    QUESTIONS.forEach(function(q){if(state.done[q.id]){var r=srRec(q.id);r.rep=1;r.ef=2.5;r.iv=q.w<=3?0:(q.w<=6?1:2);r.due=addDaysStr(r.iv)}});
+    state.srSeeded=1;
+  }
   try{var _snap=JSON.parse(localStorage.getItem('sqltrain_snap')||'null');var _today=todayStr();
     if(state.savedAt&&(!_snap||_snap.d!==_today)){localStorage.setItem('sqltrain_snap',JSON.stringify({d:_today,t:state.savedAt,s:JSON.stringify(state)}))}
   }catch(e){}

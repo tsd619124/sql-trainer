@@ -1,5 +1,5 @@
 // SQL 训练营 Service Worker：在线时永远拿最新版，离线时用缓存打开
-const CACHE = 'sql-trainer-v18';
+const CACHE = 'sql-trainer-v19';
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -34,4 +34,18 @@ self.addEventListener('fetch', (e) => {
         .catch(() => caches.match(req).then((r) => r || caches.match('./')))
     );
   }
+});
+
+// 学习提醒：点通知回到训练页（v2.6.0）
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      for (let i = 0; i < list.length; i++) {
+        const c = list[i];
+        if ('focus' in c) return c.focus();
+      }
+      return self.clients.openWindow('./');
+    })
+  );
 });
