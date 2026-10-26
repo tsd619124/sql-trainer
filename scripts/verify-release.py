@@ -14,7 +14,7 @@ REPORT = ROOT / 'output/release/acceptance.json'
 report = {
     'ok': False, 'checked_at': datetime.datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(),
     'local_only': True, 'checks': [],
-    'limitations': ['未部署或推送', 'iPhone 主屏安装、系统键盘和 VoiceOver 仍需真机验收', '同步使用虚拟服务，未访问真实云账号'],
+    'limitations': ['本报告仅覆盖本地验收，不证明线上部署状态', 'iPhone 主屏安装、系统键盘和 VoiceOver 仍需真机验收', '同步使用虚拟服务，未访问真实云账号'],
 }
 environment = dict(os.environ, PYTHONDONTWRITEBYTECODE='1')
 
