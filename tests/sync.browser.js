@@ -8,6 +8,7 @@ async (page) => {
   const openQ=async(p,id)=>{
     await p.locator('#tab-train').click();await p.locator('#st-train-seg [data-sub="practice"]').click();
     await p.locator('#panel-practice [data-act="open-q"][data-qid="'+id+'"]').first().click();
+    if(!await p.locator('.st-note-panel').evaluate(element=>element.open))await p.locator('.st-note-panel>summary').click();
   };
   const sync=async p=>{
     await p.locator('#tab-me').click();

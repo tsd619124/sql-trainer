@@ -52,6 +52,7 @@ async (page) => {
       s = await stored(page); assert(s.done.q1 && !s.wrong.q1 && s.attempts.q1 === 2 && s.sr.q1.rep === 1, '正确结果未保存');
     });
     await check('草稿、空草稿、笔记、题号和看过答案状态刷新恢复', async () => {
+      await page.locator('.st-note-panel>summary').click();
       await page.locator('#st-note').fill('排序要写 DESC');
       await page.locator('[data-act="show-answer"]').click();
       await page.locator('#st-code').fill('-- 未完成的草稿\nSELECT product_name');

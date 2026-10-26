@@ -1,17 +1,17 @@
 {
   "app": "sql-trainer",
-  "version": "2.9.0",
-  "build": "20261026.4",
-  "cache": "sql-trainer-v23",
+  "version": "3.0.0",
+  "build": "20261026.8",
+  "cache": "sql-trainer-v27",
   "assets": [
     {
       "path": "index.html",
-      "sha256": "927e1a0a0cbbbf1b3c4eaf4128180eaf312ea95193e7ed4a862c5f27603ee936",
-      "bytes": 1327707
+      "sha256": "a38b4ef5596f9b625723bcf04439cb3f47c8278c7e3fdfbbada47df3ca591bf4",
+      "bytes": 1368885
     },
     {
       "path": "manifest.webmanifest",
-      "sha256": "9bd8ef506f891c7cb8926ef70ce593e31ac61890767de37fd937a45768ef5d64",
+      "sha256": "09d41bc0461fa7be778869f5844ad1791de917e8d7b3c29e4ac88c0865a28be8",
       "bytes": 551
     },
     {

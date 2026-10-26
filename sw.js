@@ -1,6 +1,6 @@
-const CACHE = 'sql-trainer-v23';
-const VERSION = '2.9.0';
-const BUILD = '20261026.4';
+const CACHE = 'sql-trainer-v27';
+const VERSION = '3.0.0';
+const BUILD = '20261026.8';
 const ROOT = new URL('./', self.registration.scope);
 const CACHE_NAME = CACHE + ':' + ROOT.href;
 const ASSETS = ['index.html', 'manifest.webmanifest', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/app.svg'];

@@ -15,7 +15,7 @@ if not modules:
 module_path = modules[0].parent
 
 
-for name in (sys.argv[2:] or ['reliability.browser.js', 'sync.browser.js', 'mobile.browser.js', 'pwa.browser.js', 'pwa-legacy.browser.js']):
+for name in (sys.argv[2:] or ['reliability.browser.js', 'sync.browser.js', 'mobile.browser.js', 'app.browser.js', 'pwa.browser.js', 'pwa-legacy.browser.js']):
     server = fixture_server('legacy' if name == 'pwa-legacy.browser.js' else 'old') if name in ('pwa.browser.js', 'pwa-legacy.browser.js') else contextlib.nullcontext(url)
     with server as browser_url:
         (test_dir.parent / 'output/playwright').mkdir(parents=True, exist_ok=True)

@@ -7,10 +7,10 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SQL Lab">
 <meta name="application-name" content="SQL Lab · SQL 八周训练营">
-<meta name="sqltrain-version" content="2.9.0">
-<meta name="sqltrain-build" content="20261026.4">
+<meta name="sqltrain-version" content="3.0.0">
+<meta name="sqltrain-build" content="20261026.8">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f7fa">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f5f9">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
 <meta name="referrer" content="no-referrer">
 <script>try{var _m=JSON.parse(localStorage.getItem("sqltrain_mode")||'"auto"');var _eff=_m==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):_m;document.documentElement.dataset.mode=_eff;document.documentElement.style.colorScheme=_eff}catch(e){}</script>
@@ -1984,6 +1984,262 @@ html[data-font="xxl"] #sqltrain-root :is(.st-stats,.st-me-stats,.st-routine,.st-
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}body>.nav,body>.nav *,body>.nav *::before,body>.nav *::after,#cmdk,#cmdk *,#st-toast{animation:none!important;transition:none!important}body>.nav .nav-link:active{transform:none}}
 </style>
 
+<style id="sqltrain-app-ui">
+:root{--app-canvas:#f3f5f9;--app-side:#edf1f7;--app-ink:#182940;--app-muted:#63738b;--app-line:#e5eaf2;--app-blue:#1668f5;--app-blue-soft:#edf3ff;--app-hero:#eaf1ff;--app-track:#d9e5fd;--app-shadow:0 4px 24px rgba(27,48,79,.035)}
+html[data-mode="dark"]{--app-canvas:#000;--app-side:#101014;--app-ink:#f3f4f8;--app-muted:#a2a9b9;--app-line:#292a33;--app-blue:#78adff;--app-blue-soft:#14233c;--app-hero:#12223d;--app-track:#293d5b;--app-shadow:none}
+html{background:var(--app-canvas)!important;scroll-padding-top:100px}
+html>body{background:var(--app-canvas)!important}
+#sqltrain-root{max-width:none;grid-template-columns:232px minmax(0,1fr);background:var(--app-canvas);color:var(--app-ink)}
+#sqltrain-root .st-sidebar{padding:30px 18px 22px;background:var(--app-side);border-color:var(--app-line);z-index:50}
+#sqltrain-root .st-brand{gap:12px;padding:0 12px}
+#sqltrain-root .st-brand-mark{width:42px;height:42px;border-radius:14px;background:#1668f5;box-shadow:0 5px 12px #1668f51f}
+#sqltrain-root .st-brand-name{color:var(--app-ink);font-size:23px;letter-spacing:-1px}
+#sqltrain-root .st-brand-sub{font-size:11px;letter-spacing:1px;color:var(--app-muted)}
+#sqltrain-root .st-nav-label{margin:36px 14px 12px;font-size:11px;color:var(--app-muted);letter-spacing:.06em}
+#sqltrain-root .st-sidebar .nav{gap:6px}
+#sqltrain-root .st-sidebar .nav-link{min-height:50px;padding:12px 16px;border-radius:13px;color:var(--app-muted);font-size:var(--st-small)}
+#sqltrain-root .st-sidebar .nav-link:hover{background:var(--card);color:var(--app-ink)}
+#sqltrain-root .st-sidebar .nav-link.active{background:var(--card);color:var(--app-blue);box-shadow:var(--app-shadow)}
+#sqltrain-root .st-sidebar .nav-link.active::after{content:none}
+#sqltrain-root .st-sidebar .st-btn-ic{gap:13px}
+#sqltrain-root .st-side-tools{display:grid;gap:4px}
+#sqltrain-root .st-side-tools button{display:flex;align-items:center;gap:13px;min-height:44px;padding:10px 16px;border:0;border-radius:12px;background:transparent;color:var(--app-muted);font:inherit;font-size:var(--st-small);text-align:left;cursor:pointer}
+#sqltrain-root .st-side-tools button:hover{background:var(--card);color:var(--app-blue)}
+#sqltrain-root .st-sidebar-course{padding:16px;background:var(--card);border-color:var(--app-line);border-radius:16px}
+#sqltrain-root .st-sidebar-course strong{font-size:12px;color:var(--app-ink)}
+#sqltrain-root .st-save-status{font-size:11px;color:var(--app-muted);line-height:1.7}
+#sqltrain-root .st-main{width:100%;max-width:1460px;margin:0 auto;padding:0 40px 40px}
+#sqltrain-root .st-topbar,#sqltrain-root.st-glass .st-topbar,#sqltrain-root.st-nobrand .st-topbar{position:sticky;top:0;display:flex;min-height:92px;margin:0 -4px 22px;padding:14px 4px;gap:16px;background:var(--app-canvas);border-bottom:1px solid var(--app-line);z-index:45;backdrop-filter:none;-webkit-backdrop-filter:none}
+#sqltrain-root .st-header-leading{display:flex;align-items:center;gap:12px;min-width:0}
+#sqltrain-root .st-header-copy{display:flex;flex-direction:column;gap:1px;min-width:0}
+#sqltrain-root .st-app-kicker{font:11px/1.6 var(--font-mono);letter-spacing:.03em;color:var(--app-muted)}
+#sqltrain-root #st-breadcrumb-current{font-size:calc(1.125rem * var(--st-text-scale));font-weight:650;line-height:1.5;color:var(--app-ink);overflow-wrap:anywhere}
+#sqltrain-root .st-topbar-status,#sqltrain-root.st-nobrand .st-topbar-status{display:flex;gap:10px;flex-wrap:nowrap}
+#sqltrain-root .st-icon-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:44px;min-width:44px;height:44px;padding:9px;border:1px solid var(--app-line);border-radius:13px;background:var(--card);color:var(--app-muted);font:inherit;font-size:var(--st-small);cursor:pointer;transition:background .15s,transform .15s}
+#sqltrain-root .st-icon-button:hover{background:var(--app-blue-soft);color:var(--app-blue)}
+#sqltrain-root .st-icon-button:active{transform:scale(.96)}
+#sqltrain-root .st-icon-button svg{width:19px!important;height:19px!important;flex:none}
+#sqltrain-root .st-search-button{width:auto;padding:10px 13px;gap:10px}
+#sqltrain-root .st-search-button kbd{margin-left:12px;padding:1px 5px;border:1px solid var(--app-line);border-radius:5px;font:11px var(--font-mono)}
+#sqltrain-root .st-focus-toggle{width:auto;white-space:nowrap}
+#sqltrain-root .st-focus-toggle[aria-pressed="true"]{color:var(--app-blue);background:var(--app-blue-soft);border-color:var(--app-blue)}
+#sqltrain-root .st-avatar{display:grid;width:40px;min-width:40px;height:40px;padding:0;border:0;background:var(--app-blue-soft);color:var(--app-blue);font:600 11px var(--font-mono);cursor:pointer}
+#sqltrain-root .st-engine{border:0;padding:6px 2px;background:none!important;color:var(--green);font-size:11px}
+#sqltrain-root #st-streak,#sqltrain-root #st-ltitle,#sqltrain-root #st-tbtitle,#sqltrain-root .st-main-footer{display:none!important}
+#sqltrain-root .btn{border-radius:12px;box-shadow:none;transition:background .15s,transform .15s}
+#sqltrain-root .btn:active{transform:translateY(1px)}
+#sqltrain-root .btn-primary{background:#1668f5;border-color:#1668f5;color:#fff}
+#sqltrain-root .btn-primary:hover{background:#0c59de;border-color:#0c59de;color:#fff}
+#sqltrain-root .st-home-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:4px 0 24px}
+#sqltrain-root .st-home-date{font-size:var(--st-small);color:var(--app-muted)}
+#sqltrain-root .st-home-heading h1{margin:5px 0 0;font-size:calc(1.9rem * var(--st-text-scale));font-weight:700;line-height:1.4;letter-spacing:-.04em;color:var(--app-ink)}
+#sqltrain-root .st-home-saved{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--app-muted);white-space:nowrap}
+#sqltrain-root .st-today-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,1fr);gap:20px;align-items:stretch}
+#sqltrain-root .st-session-card{display:flex;flex-direction:column;min-width:0;padding:30px;border:1px solid var(--app-track);border-radius:24px;background:var(--app-hero);color:var(--app-ink)}
+#sqltrain-root .st-session-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}
+#sqltrain-root .st-session-label{display:inline-flex;align-items:center;gap:7px;font-size:var(--st-small);font-weight:600;color:var(--app-blue)}
+#sqltrain-root .st-session-meta{font-size:12px;color:var(--app-muted);white-space:nowrap}
+#sqltrain-root .st-session-card h2{max-width:600px;margin:0 0 12px;font-size:calc(1.65rem * var(--st-text-scale));line-height:1.45;letter-spacing:-.035em;font-weight:650;color:var(--app-ink)}
+#sqltrain-root .st-session-card p{max-width:600px;margin:0 0 24px;font-size:var(--st-small);line-height:1.9;color:var(--app-muted);overflow-wrap:anywhere}
+#sqltrain-root .st-session-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+#sqltrain-root .st-session-bottom .btn{min-height:48px;padding:12px 19px}
+#sqltrain-root .st-session-bottom>span{font-size:12px;color:var(--app-muted)}
+#sqltrain-root .st-day-card{padding:23px 24px;background:var(--card);border:1px solid var(--app-line);border-radius:24px;box-shadow:var(--app-shadow)}
+#sqltrain-root .st-card-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:var(--st-small);font-weight:600;color:var(--app-ink)}
+#sqltrain-root .st-card-caption>span{font-weight:400;color:var(--app-muted);font-size:12px}
+#sqltrain-root .st-week-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:20px 0 22px}
+#sqltrain-root .st-week-day{display:flex;flex-direction:column;align-items:center;gap:9px;font-size:12px;color:var(--app-muted)}
+#sqltrain-root .st-week-day b{display:grid;place-items:center;width:29px;height:29px;border:1px solid var(--app-line);border-radius:50%;background:var(--app-canvas);color:var(--app-muted);font:500 11px var(--font-mono)}
+#sqltrain-root .st-week-day.is-today b{border-color:var(--app-blue);color:var(--app-blue);box-shadow:0 0 0 3px var(--app-blue-soft)}
+#sqltrain-root .st-week-day.is-active b{background:#1668f5;color:#fff;border-color:#1668f5}
+#sqltrain-root .st-day-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-top:18px;border-top:1px solid var(--app-line)}
+#sqltrain-root .st-day-stats strong{display:block;font-size:calc(1.5rem * var(--st-text-scale));font-weight:650;line-height:1.5;font-variant-numeric:tabular-nums;color:var(--app-ink)}
+#sqltrain-root .st-day-stats strong small{font-size:12px!important;margin-left:3px;color:var(--app-muted);font-weight:400}
+#sqltrain-root .st-day-stats span{font-size:12px;color:var(--app-muted)}
+#sqltrain-root .st-home-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0 30px}
+#sqltrain-root .st-home-shortcut{display:flex;align-items:center;gap:13px;min-width:0;min-height:88px;padding:17px 18px;border:1px solid var(--app-line);border-radius:17px;background:var(--card);text-align:left;color:var(--app-ink);font:inherit;cursor:pointer;transition:background .15s,border-color .15s}
+#sqltrain-root .st-home-shortcut:hover{border-color:var(--app-blue);background:var(--app-blue-soft)}
+#sqltrain-root .st-shortcut-icon{display:grid;place-items:center;width:42px;height:42px;flex:none;background:var(--app-blue-soft);color:var(--app-blue);border-radius:13px}
+#sqltrain-root .st-shortcut-icon svg{width:20px!important;height:20px!important}
+#sqltrain-root .st-shortcut-copy{min-width:0;flex:1}
+#sqltrain-root .st-shortcut-copy strong{display:block;font-size:var(--st-small);font-weight:600}
+#sqltrain-root .st-shortcut-copy small{display:block;margin-top:3px;font-size:12px!important;color:var(--app-muted);overflow-wrap:anywhere}
+#sqltrain-root .st-shortcut-arrow{width:15px!important;height:15px!important;flex:none;color:var(--app-muted)}
+#sqltrain-root .st-path-panel{padding:24px;border:1px solid var(--app-line);border-radius:22px;background:var(--card)}
+#sqltrain-root .st-path-panel .st-section-heading{align-items:center;flex-direction:row;margin-bottom:22px}
+#sqltrain-root .st-path-panel h2{font-size:calc(1.125rem * var(--st-text-scale));font-weight:650;line-height:1.5;letter-spacing:-.02em;color:var(--app-ink)}
+#sqltrain-root .st-path-panel .st-section-heading p{font-size:12px!important;color:var(--app-muted);margin:4px 0 0}
+#sqltrain-root .st-text-button{display:inline-flex;align-items:center;gap:5px;min-height:44px;padding:6px 0 6px 10px;border:0;background:transparent;color:var(--app-blue);font:inherit;font-size:var(--st-small);white-space:nowrap;cursor:pointer}
+#sqltrain-root .st-path-track{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:0}
+#sqltrain-root .st-path-stop{position:relative;display:flex;flex-direction:column;align-items:center;gap:11px;min-width:0;min-height:94px;padding:0 3px 9px;border:0;background:transparent;font:inherit;font-size:12px;color:var(--app-muted);text-align:center;cursor:pointer}
+#sqltrain-root .st-path-stop::before{position:absolute;content:"";top:23px;left:calc(-50% + 26px);right:calc(50% + 26px);height:2px;background:var(--app-line)}
+#sqltrain-root .st-path-stop:first-child::before{display:none}
+#sqltrain-root .st-path-stop b{position:relative;display:grid;place-items:center;width:46px;height:46px;border:1px solid var(--app-line);border-radius:15px;background:var(--app-canvas);color:var(--app-muted);font:500 13px var(--font-mono)}
+#sqltrain-root .st-path-stop.is-current b{background:#1668f5;color:#fff;border-color:#1668f5;box-shadow:0 4px 12px #1668f52b}
+#sqltrain-root .st-path-stop.is-current{color:var(--app-blue);font-weight:600}
+#sqltrain-root .st-path-stop.is-done b{color:var(--green);background:var(--app-blue-soft)}
+#sqltrain-root .st-path-stop:hover b{outline:2px solid var(--app-blue);outline-offset:3px}
+#sqltrain-root .st-path-details{margin-top:12px;border-top:1px solid var(--app-line)}
+#sqltrain-root .st-path-details>summary{display:flex;justify-content:space-between;align-items:center;min-height:50px;padding:13px 0 0;font-size:var(--st-small);color:var(--app-muted);list-style:none;cursor:pointer}
+#sqltrain-root .st-path-details>summary::-webkit-details-marker{display:none}
+#sqltrain-root .st-path-details>summary svg{transition:transform .2s}
+#sqltrain-root .st-path-details[open]>summary svg{transform:rotate(180deg)}
+#sqltrain-root .st-path-details .st-mosaic{padding-top:20px;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#sqltrain-root .st-path-details .st-week-card{background:var(--app-canvas)!important;border-radius:15px}
+#sqltrain-root .st-path-details .st-week-card.is-current{border-color:var(--app-blue)}
+#sqltrain-root .st-week-top{margin-bottom:2px}
+#sqltrain-root .st-week-open{min-height:44px!important;color:var(--app-ink)}
+#sqltrain-root .st-week-bottom{margin-top:8px}
+#sqltrain-root .st-qtarget{background:var(--card);border-color:var(--app-line);border-radius:12px;color:var(--app-muted)}
+#sqltrain-root .st-qtarget.is-done{color:var(--green);border-color:var(--green);background:var(--app-blue-soft)}
+#sqltrain-root .st-home-footnote{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;color:var(--app-muted);font-size:12px}
+#sqltrain-root .st-home-footnote .st-guide{margin:0;padding:0;max-width:700px}
+#sqltrain-root .st-home-footnote .st-guide summary{font-size:12px}
+#sqltrain-root .st-subseg{display:flex;width:fit-content;max-width:100%;gap:4px;padding:5px;margin:0 0 22px;background:var(--app-side);border:1px solid var(--app-line);border-radius:14px;box-shadow:none}
+#sqltrain-root .st-subseg::before{display:none}
+#sqltrain-root .st-subseg button{min-height:42px;padding:8px 18px;color:var(--app-muted);border-radius:10px}
+#sqltrain-root .st-subseg button.on{background:var(--card);color:var(--app-blue);box-shadow:0 1px 4px #1729410a}
+#sqltrain-root .st-cols{grid-template-columns:244px minmax(0,1fr);gap:20px}
+#sqltrain-root .st-catalog{position:sticky;top:112px;padding:0;border-radius:18px;border-color:var(--app-line);box-shadow:var(--app-shadow)}
+#sqltrain-root .st-catalog>summary{padding:14px 16px;color:var(--app-ink)}
+#sqltrain-root .st-qlist{max-height:calc(100dvh - 270px);scrollbar-width:thin;overscroll-behavior:contain}
+#sqltrain-root .st-qlist .btn{padding:11px 12px;border-radius:10px;font-size:var(--st-small)}
+#sqltrain-root .st-qlist .btn-primary{color:var(--app-blue);background:var(--app-blue-soft);border-color:transparent}
+#sqltrain-root .st-qlist .btn:hover{background:var(--app-blue-soft)}
+#sqltrain-root :is(#st-qpanel,#st-lpanel,#panel-test,#panel-wrong,#panel-tpl,#panel-schema,#panel-review){padding:28px;border-radius:20px;border-color:var(--app-line);box-shadow:var(--app-shadow)}
+#sqltrain-root .st-problem{padding-bottom:20px;margin-bottom:4px;border-bottom:1px solid var(--app-line)}
+#sqltrain-root .st-task-title{margin:16px 0 12px;color:var(--app-ink);font-weight:650;letter-spacing:-.025em}
+#sqltrain-root .st-task-description{color:var(--app-muted);margin-bottom:0}
+#sqltrain-root .st-related-lesson{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;margin-top:12px;padding:8px 0;border:0;background:transparent;color:var(--app-blue);font:inherit;font-size:var(--st-small);text-align:left;cursor:pointer;overflow-wrap:anywhere}
+#sqltrain-root .st-related-lesson svg{flex:none;width:16px!important;height:16px!important}
+#sqltrain-root .st-related-lesson span{min-width:0;flex:1}
+#sqltrain-root .st-editor-header{margin-top:12px;padding:13px 16px;background:#172a45;border-color:#223a57;border-radius:13px 13px 0 0;color:#b9cbe0}
+#sqltrain-root #st-code{min-height:260px;padding:18px;background:#11223a;border-color:#223a57;border-radius:0 0 13px 13px;color:#e2ecfa;line-height:1.85;caret-color:#8cbdff}
+#sqltrain-root #st-code:focus{border-color:#468fff;box-shadow:0 0 0 3px #1668f514;outline-offset:2px}
+#sqltrain-root .st-sql-tools{gap:5px;padding:9px 0}
+#sqltrain-root .st-sql-tools .btn{min-height:44px;padding:8px 10px;border-radius:8px;background:var(--app-canvas);font-size:12px}
+#sqltrain-root .st-editor-schema{margin:4px 0 12px;border-color:var(--app-line);border-radius:12px;background:var(--app-canvas)}
+#sqltrain-root .st-editor-actions{gap:8px;margin-top:14px}
+#sqltrain-root .st-editor-actions .btn-primary{min-height:46px;padding:10px 17px}
+#sqltrain-root .st-note-panel{margin-top:20px;padding:0 15px;border:1px solid var(--app-line);border-radius:13px;background:var(--app-canvas)}
+#sqltrain-root .st-note-panel>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:50px;font-size:var(--st-small);color:var(--app-muted);cursor:pointer}
+#sqltrain-root .st-note-panel>summary span{display:flex;align-items:center;gap:8px}
+#sqltrain-root .st-note-panel textarea{margin:0 0 15px;background:var(--card)!important}
+#sqltrain-root .st-note-panel>label{display:block;margin:0 0 8px}
+#sqltrain-root .st-learn-switch{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 18px}
+#sqltrain-root .st-learn-switch .btn{border-radius:10px}
+#sqltrain-root .st-menu{border-color:var(--app-line);border-radius:18px;box-shadow:var(--app-shadow)}
+#sqltrain-root .st-menu-cap{margin:24px 4px 10px;color:var(--app-muted);font-size:var(--st-small)}
+#sqltrain-root .st-mrow>summary{padding:15px 18px;min-height:64px;color:var(--app-ink)}
+#sqltrain-root .st-mrow-ic{border-radius:10px;background:var(--app-blue-soft);color:var(--app-blue)}
+#sqltrain-root .st-me-stats{padding:20px 24px;border-radius:20px;background:var(--card)!important}
+#sqltrain-root .st-me-head{margin:12px 0 24px}
+#sqltrain-root .st-me-avatar{width:64px;height:64px;border-radius:22px;background:var(--app-blue-soft);color:var(--app-blue)}
+#sqltrain-root.st-focused{grid-template-columns:minmax(0,1fr)}
+#sqltrain-root.st-focused .st-sidebar,#sqltrain-root.st-focused #st-train-seg,#sqltrain-root.st-focused .st-catalog{display:none!important}
+#sqltrain-root.st-focused .st-main{max-width:1060px}
+#sqltrain-root.st-focused .st-cols{grid-template-columns:minmax(0,1fr)}
+body.st-app-focused>.nav.nav-pills{display:none!important}
+#cmdk .cmdk-box{border-color:var(--app-line);border-radius:22px;background:var(--card)}
+#cmdk .cmdk-head{padding:12px 18px;color:var(--app-ink)}
+#cmdk .cmdk-item{padding:14px 18px}
+#cmdk .cmdk-item.sel{background:var(--app-blue-soft)}
+@media(min-width:681px){#sqltrain-root .st-home-heading h1{max-width:700px}#sqltrain-root[data-page="me"] #panel-me{max-width:900px;margin:0 auto}}
+@media(max-width:1180px){#sqltrain-root{grid-template-columns:204px minmax(0,1fr)}#sqltrain-root .st-main{padding-inline:26px}#sqltrain-root .st-today-grid{grid-template-columns:minmax(0,1.4fr) minmax(250px,1fr)}#sqltrain-root .st-session-card{padding:24px}#sqltrain-root .st-search-button>span,#sqltrain-root .st-search-button kbd{display:none}#sqltrain-root .st-search-button{width:44px;padding:9px}#sqltrain-root .st-cols{grid-template-columns:210px minmax(0,1fr)}#sqltrain-root .st-home-shortcut{padding:15px 13px;gap:10px}#sqltrain-root .st-shortcut-arrow{display:none}}
+@media(max-width:960px){#sqltrain-root .st-today-grid{grid-template-columns:minmax(0,1fr)}#sqltrain-root .st-day-card{padding:20px 24px}#sqltrain-root .st-week-days{max-width:460px;margin:18px 0}#sqltrain-root .st-home-shortcuts{grid-template-columns:minmax(0,1fr);gap:8px;margin-top:14px}#sqltrain-root .st-home-shortcut{min-height:76px;padding:14px 17px}#sqltrain-root .st-shortcut-arrow{display:block}#sqltrain-root .st-cols{grid-template-columns:minmax(0,1fr)}#sqltrain-root .st-catalog{position:static}#sqltrain-root .st-qlist{max-height:50vh}#sqltrain-root .st-engine{display:none}#sqltrain-root .st-path-track{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:15px}#sqltrain-root .st-path-stop:nth-child(5)::before{display:none}#sqltrain-root .st-main{padding-bottom:36px}}
+@media(max-width:680px){
+  #sqltrain-root{display:block;padding:0;background:var(--app-canvas)}
+  #sqltrain-root .st-sidebar{display:none!important}
+  #sqltrain-root .st-main{padding:0 18px calc(112px + env(safe-area-inset-bottom,0px))}
+  #sqltrain-root .st-topbar,#sqltrain-root.st-glass .st-topbar,#sqltrain-root.st-nobrand .st-topbar{min-height:74px;margin:0 -18px 22px;padding:calc(10px + env(safe-area-inset-top,0px)) 18px 10px;gap:10px;border-bottom:1px solid var(--app-line);background:var(--app-canvas)}
+  #sqltrain-root .st-header-leading{gap:8px}
+  #sqltrain-root .st-app-kicker{font-size:10px}
+  #sqltrain-root #st-breadcrumb-current{font-size:calc(1.125rem * var(--st-text-scale))}
+  #sqltrain-root .st-topbar-status{gap:7px}
+  #sqltrain-root .st-icon-button{border-color:transparent;background:transparent}
+  #sqltrain-root .st-avatar{width:36px;min-width:36px;height:36px}
+  #sqltrain-root .st-focus-toggle{width:44px}
+  #sqltrain-root .st-focus-toggle>span{display:none}
+  #sqltrain-root .st-home-heading{margin:0 0 21px;align-items:center}
+  #sqltrain-root .st-home-heading h1{font-size:calc(1.65rem * var(--st-text-scale));margin-top:6px}
+  #sqltrain-root .st-home-saved{display:none}
+  #sqltrain-root .st-today-grid{gap:14px}
+  #sqltrain-root .st-session-card{padding:22px;border-radius:23px}
+  #sqltrain-root .st-session-card h2{font-size:calc(1.45rem * var(--st-text-scale));margin-bottom:10px}
+  #sqltrain-root .st-session-card p{margin-bottom:20px}
+  #sqltrain-root .st-session-top{margin-bottom:17px;flex-wrap:wrap;gap:6px}
+  #sqltrain-root .st-session-meta{font-size:11px}
+  #sqltrain-root .st-session-bottom{align-items:stretch;flex-direction:column;gap:12px}
+  #sqltrain-root .st-session-bottom .btn{width:100%;justify-content:center;min-height:50px;border-radius:13px}
+  #sqltrain-root .st-session-bottom>span{text-align:center;font-size:11px}
+  #sqltrain-root .st-day-card{padding:20px 21px;border-radius:21px}
+  #sqltrain-root .st-week-days{margin:19px 0;max-width:none}
+  #sqltrain-root .st-day-stats{padding-top:16px}
+  #sqltrain-root .st-home-shortcuts{margin:14px 0 26px}
+  #sqltrain-root .st-path-panel{padding:20px 18px;border-radius:21px}
+  #sqltrain-root .st-path-panel .st-section-heading{gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  #sqltrain-root .st-path-panel .st-section-heading p{font-size:12px!important}
+  #sqltrain-root .st-path-stop{gap:9px;font-size:11px}
+  #sqltrain-root .st-path-stop b{width:44px;height:44px;border-radius:14px}
+  #sqltrain-root .st-path-stop::before{top:22px}
+  #sqltrain-root .st-path-details .st-mosaic{grid-template-columns:minmax(0,1fr)}
+  #sqltrain-root .st-home-footnote{align-items:flex-start;flex-direction:column}
+  #sqltrain-root .st-subseg{width:100%;flex-wrap:nowrap;gap:2px;overflow-x:auto;scrollbar-width:none;padding:4px;margin-bottom:18px;border-radius:13px}
+  #sqltrain-root .st-subseg button{flex:1 0 auto;min-height:42px;padding:8px 11px;font-size:var(--st-small);white-space:nowrap}
+  #sqltrain-root :is(#st-qpanel,#st-lpanel,#panel-test,#panel-wrong,#panel-tpl,#panel-schema,#panel-review){padding:21px 17px;border-radius:18px}
+  #sqltrain-root .st-task-title{font-size:calc(1.3rem * var(--st-text-scale));line-height:1.5}
+  #sqltrain-root .st-task-description{font-size:var(--st-body)}
+  #sqltrain-root #st-code{min-height:236px;padding:15px 12px;font-size:var(--st-body)!important}
+  #sqltrain-root .st-editor-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  #sqltrain-root .st-editor-actions .btn{padding:10px 8px;justify-content:center}
+  #sqltrain-root .st-editor-actions .btn-primary{grid-column:1/-1}
+  #sqltrain-root .st-sql-tools .btn{min-height:44px;padding:8px 10px}
+  #sqltrain-root .st-editor-shortcut{display:none}
+  #sqltrain-root .st-note-panel{padding-inline:12px}
+  #sqltrain-root .st-note-panel>summary{flex-wrap:wrap}
+  #sqltrain-root .st-me-stats{padding:18px}
+  #sqltrain-root .st-me-head{gap:12px;margin-top:4px}
+  #sqltrain-root .st-me-head h2{font-size:calc(1.35rem * var(--st-text-scale))}
+  #sqltrain-root .st-me-head p{font-size:12px!important}
+  #sqltrain-root .st-mrow-t{flex:1}
+  #sqltrain-root .st-mrow-sub{display:none}
+  body>.nav.nav-pills{--st-tab-fill:rgba(255,255,255,.08);--st-tab-wash:rgba(255,255,255,.12);--st-tab-glint:rgba(255,255,255,.96);--st-tab-shade:rgba(30,52,88,.08);--st-tab-selected:rgba(255,255,255,.09);--st-tab-lens:rgba(255,255,255,.42);--st-tab-ink:#22364f;--st-tab-active-ink:#075bd5;--st-tab-ink-shadow:rgba(255,255,255,.72);bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:5px;width:min(380px,calc(100vw - 32px));min-height:68px;border-radius:24px;border:1px solid transparent;background:var(--st-tab-fill);box-shadow:0 12px 32px var(--st-tab-shade),0 2px 6px var(--st-tab-shade),inset 0 -1px 0 var(--st-tab-wash);backdrop-filter:blur(9px) saturate(1.3);-webkit-backdrop-filter:blur(9px) saturate(1.3)}
+  body>.nav.nav-pills::before{z-index:0;background:linear-gradient(155deg,var(--st-tab-wash),transparent 30%,transparent 70%,var(--st-tab-wash));opacity:.35}
+  body>.nav.nav-pills::after{content:"";position:absolute;inset:0;z-index:3;padding:1px;border-radius:inherit;background:linear-gradient(135deg,var(--st-tab-glint),var(--st-tab-wash) 28%,transparent 48%,var(--st-tab-wash) 70%,var(--st-tab-glint));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;pointer-events:none}
+  html[data-mode="dark"] body>.nav.nav-pills{--st-tab-fill:rgba(12,16,24,.12);--st-tab-wash:rgba(255,255,255,.04);--st-tab-glint:rgba(255,255,255,.48);--st-tab-shade:rgba(0,0,0,.26);--st-tab-selected:rgba(188,215,255,.04);--st-tab-lens:rgba(255,255,255,.18);--st-tab-ink:#f0f5ff;--st-tab-active-ink:#c0dcff;--st-tab-ink-shadow:rgba(0,0,0,.85);background:var(--st-tab-fill);border-color:transparent;box-shadow:0 12px 32px var(--st-tab-shade),0 2px 6px var(--st-tab-shade),inset 0 -1px 0 var(--st-tab-wash)}
+  html[data-mode="dark"] body>.nav.nav-pills::before{background:linear-gradient(155deg,var(--st-tab-wash),transparent 30%,transparent 70%,var(--st-tab-wash))}
+  body>.nav.nav-pills .nav-link[role="tab"]{position:relative;z-index:2;min-height:56px;padding:5px 4px;border:0;border-radius:19px;background:transparent;color:var(--st-tab-ink);font-size:11px;font-weight:600;line-height:1.4;text-shadow:0 1px 2px var(--st-tab-ink-shadow)}
+  body>.nav.nav-pills .nav-link[data-glass-ink="dark"]{--st-tab-ink:#22364f;--st-tab-active-ink:#075bd5;--st-tab-ink-shadow:rgba(255,255,255,.72)}
+  body>.nav.nav-pills .nav-link[data-glass-ink="light"]{--st-tab-ink:#f0f5ff;--st-tab-active-ink:#c0dcff;--st-tab-ink-shadow:rgba(0,0,0,.85)}
+  body>.nav.nav-pills .nav-link:not(:disabled):not([aria-disabled="true"]):hover{background:transparent;border-color:transparent;color:var(--st-tab-ink)}
+  body>.nav.nav-pills .nav-link[role="tab"][aria-selected="true"],body>.nav.nav-pills .nav-link.active:not(:disabled):not([aria-disabled="true"]):hover{color:var(--st-tab-active-ink)}
+  body>.nav.nav-pills .nav-link svg{filter:drop-shadow(0 1px 1px var(--st-tab-ink-shadow))}
+  body>.nav .nav-link.active::after{content:none}
+  body>.nav .nav-link .st-btn-ic{gap:4px}
+  body>.nav .nav-link svg{width:22px!important;height:22px!important}
+  #st-tabpill,html[data-mode="dark"] #st-tabpill{top:5px;bottom:5px;z-index:1;border-radius:19px;background:linear-gradient(135deg,var(--st-tab-wash),transparent 70%),var(--st-tab-selected);box-shadow:0 3px 12px var(--st-tab-shade),inset 0 1px 0 var(--st-tab-glint),inset 0 0 0 1px var(--st-tab-lens),inset 0 -1px 0 var(--st-tab-wash);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);transition:transform .26s cubic-bezier(.22,.68,0,1),width .16s ease,opacity .16s ease}
+  #st-tabpill.st-squash{animation:st-glass-settle .24s ease-out}
+  body>.nav.nav-pills .nav-link.st-bloom{animation:none}
+  @keyframes st-glass-settle{0%,100%{scale:1}50%{scale:1.025 .975}}
+  #sqltrain-root.st-focused .st-main{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
+  #cmdk{padding:calc(12px + env(safe-area-inset-top,0px)) 12px 12px;align-items:flex-start}
+  #cmdk .cmdk-box{max-height:calc(100dvh - 28px - env(safe-area-inset-top,0px));border-radius:19px}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  body>.nav.nav-pills,html[data-mode="dark"] body>.nav.nav-pills{background:var(--card)}
+}
+@media(max-width:680px) and (prefers-reduced-transparency:reduce){
+  body>.nav.nav-pills,html[data-mode="dark"] body>.nav.nav-pills{background:var(--card);backdrop-filter:none;-webkit-backdrop-filter:none}
+  #st-tabpill,html[data-mode="dark"] #st-tabpill{background:var(--app-blue-soft);backdrop-filter:none;-webkit-backdrop-filter:none}
+}
+html[data-font="xl"] #sqltrain-root .st-today-grid,html[data-font="xxl"] #sqltrain-root .st-today-grid{grid-template-columns:minmax(0,1fr)}
+html[data-font="xxl"] #sqltrain-root .st-home-shortcuts,html[data-font="xxl"] #sqltrain-root .st-path-details .st-mosaic{grid-template-columns:minmax(0,1fr)}
+html[data-font="xxl"] #sqltrain-root .st-path-track{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+html[data-font="xxl"] #sqltrain-root .st-path-stop::before{display:none}
+html[data-font="xxl"] #sqltrain-root .st-topbar-status{flex-wrap:wrap}
+html[data-font="xxl"] #sqltrain-root .st-topbar{align-items:flex-start}
+@media(prefers-reduced-motion:reduce){#sqltrain-root .st-icon-button,#sqltrain-root .st-home-shortcut,#sqltrain-root .btn,#sqltrain-root .st-path-details>summary svg{transition:none!important;transform:none!important}}
+</style>
 <a class="st-skip" href="#st-main-content">跳到学习内容</a>
 <div id="sqltrain-root">
   <aside class="st-sidebar" aria-label="SQL 八周训练营">
@@ -1993,10 +2249,16 @@ html[data-font="xxl"] #sqltrain-root :is(.st-stats,.st-me-stats,.st-routine,.st-
     </div>
     <div class="st-nav-label">学习空间</div>
     <div class="nav nav-pills" role="tablist" aria-label="训练系统导航" aria-orientation="vertical">
-      <button class="nav-link active" id="tab-dash" role="tab" aria-controls="panel-dash" aria-selected="true" type="button"><span class="st-btn-ic"><i data-lucide="layout-dashboard" aria-hidden="true"></i>总览</span></button>
+      <button class="nav-link active" id="tab-dash" role="tab" aria-controls="panel-dash" aria-selected="true" type="button"><span class="st-btn-ic"><i data-lucide="layout-dashboard" aria-hidden="true"></i>今天</span></button>
       <button class="nav-link" id="tab-train" role="tab" aria-controls="panel-train" aria-selected="false" type="button"><span class="st-btn-ic"><i data-lucide="dumbbell" aria-hidden="true"></i>训练</span></button>
       <button class="nav-link" id="tab-exam" role="tab" aria-controls="panel-exam" aria-selected="false" type="button"><span class="st-btn-ic"><i data-lucide="timer" aria-hidden="true"></i>测验</span></button>
       <button class="nav-link" id="tab-me" role="tab" aria-controls="panel-me" aria-selected="false" type="button"><span class="st-btn-ic"><i data-lucide="user" aria-hidden="true"></i>我的</span></button>
+    </div>
+    <div class="st-nav-label">常用工具</div>
+    <div class="st-side-tools" aria-label="常用工具">
+      <button type="button" data-act="open-q" data-qid="play"><i data-lucide="code-xml" aria-hidden="true"></i>自由练习</button>
+      <button type="button" data-act="app-go" data-page="tpl"><i data-lucide="book-open" aria-hidden="true"></i>SQL 模板</button>
+      <button type="button" data-act="app-go" data-page="schema"><i data-lucide="database" aria-hidden="true"></i>练习数据表</button>
     </div>
     <div class="st-sidebar-bottom">
       <div class="st-sidebar-course">
@@ -2005,14 +2267,22 @@ html[data-font="xxl"] #sqltrain-root :is(.st-stats,.st-me-stats,.st-routine,.st-
         <div class="st-sidebar-progress-label"><span>学习进度</span><span id="st-sidebar-progress">0%</span></div>
         <div class="st-progress-track" id="st-course-progress" role="progressbar" aria-label="总体学习进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="st-progress-fill" id="st-sidebar-fill"></div></div>
       </div>
-      <div class="st-save-status"><i data-lucide="hard-drive" aria-hidden="true"></i>进度自动保存 · 总览页可备份迁移</div>
+      <div class="st-save-status"><i data-lucide="hard-drive" aria-hidden="true"></i>学习进度自动保存<br>在「我的」中备份与同步</div>
     </div>
   </aside>
   <main class="st-main" id="st-main-content" tabindex="-1">
     <header class="st-topbar">
-      <div class="st-breadcrumb"><span>我的学习空间</span><i data-lucide="chevron-right" aria-hidden="true"></i><strong id="st-breadcrumb-current">总览</strong></div>
-      <strong id="st-tbtitle" aria-hidden="true">总览</strong>
-      <div class="st-topbar-status"><span class="st-engine" id="st-engine" data-mode="loading"><i data-lucide="database" aria-hidden="true"></i><span id="st-engine-text">正在准备练习库…</span></span><span class="st-kpi" id="st-streak">连续练习 0 天</span><span class="st-avatar" aria-hidden="true">SQL</span></div>
+      <div class="st-header-leading">
+        <button class="st-icon-button" id="st-app-back" data-act="app-back" type="button" aria-label="返回上一页" hidden><i data-lucide="chevron-left" aria-hidden="true"></i></button>
+        <div class="st-header-copy"><span class="st-app-kicker" id="st-app-kicker">SQL Lab · 学习空间</span><strong id="st-breadcrumb-current">今天</strong></div>
+      </div>
+      <div class="st-topbar-status">
+        <span class="st-engine" id="st-engine" data-mode="loading"><i data-lucide="database" aria-hidden="true"></i><span id="st-engine-text">正在准备练习库…</span></span>
+        <button class="st-icon-button st-search-button" data-act="app-search" type="button" aria-label="搜索课程、题目与模板"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><span>搜索课程、题目</span><kbd>⌘ K</kbd></button>
+        <button class="st-icon-button st-focus-toggle" id="st-app-focus" data-act="app-focus" type="button" aria-label="进入专注练习" aria-pressed="false" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><rect x="8" y="8" width="8" height="8" rx="2"/></svg><span>专注练习</span></button>
+        <button class="st-avatar" data-act="app-go" data-page="me" type="button" aria-label="打开我的学习档案">SQL</button>
+        <span class="st-kpi" id="st-streak">连续练习 0 天</span>
+      </div>
     </header>
     <div id="st-ltitle" aria-hidden="true">总览</div>
     <div id="panel-dash" role="tabpanel" aria-labelledby="tab-dash"><div class="st-skel" aria-hidden="true"><div class="sk sk-focus"></div><div class="sk-row"><div class="sk sk-stat"></div><div class="sk sk-stat"></div><div class="sk sk-stat"></div><div class="sk sk-stat"></div></div><div class="sk sk-map"></div><div class="sk-row"><div class="sk sk-card"></div><div class="sk sk-card"></div></div></div></div>
@@ -3116,9 +3386,10 @@ function rebaseProgress(imported,current,device){
     var eff=m==='auto'?(modeMql.matches?'dark':'light'):m;
     document.documentElement.dataset.mode=eff;
     document.documentElement.style.colorScheme=eff;
-    document.querySelectorAll('meta[name="theme-color"]').forEach(function(m2){m2.removeAttribute('media');m2.setAttribute('content',eff==='dark'?'#000000':'#f5f7fa')});
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function(m2){m2.removeAttribute('media');m2.setAttribute('content',eff==='dark'?'#000000':'#f3f5f9')});
     var seg=document.getElementById('st-mode-seg');
     if(seg)Array.prototype.forEach.call(seg.querySelectorAll('button[data-mo]'),function(b){var on=b.getAttribute('data-mo')===m;b.classList.toggle('btn-primary',on);b.setAttribute('aria-pressed',String(on))});
+    updateTabInk();
     return eff;
   }
   modeMql.addEventListener('change',function(){if(loadMode()==='auto')applyMode()});
@@ -3565,50 +3836,62 @@ function rebaseProgress(imported,current,device){
     else if(lastLearning&&lastLearning.type==='lesson')openLesson(lastLearning.id);
     else if(lastLearning)openQuestion(lastLearning.id);
   }
-  function resumeCard(){
-    var title='',copy='';
-    if(test){title='继续限时周测';copy='第 '+(test.idx+1)+' / '+test.qids.length+' 题 · 沿用原截止时间'}
-    else if(lastLearning){
-      if(lastLearning.type==='lesson'){var lesson=lessonById(lastLearning.id);if(lesson){title=lesson.title;copy='继续上次微课 · 第 '+lesson.w+' 周'}}
-      else{var question=qById(lastLearning.id);title=question?question.title:'自由练习区';copy='继续上次练习 · 草稿已保存在这台设备'}
-    }
-    if(!title)return '';
-    return '<section class="st-resume-card" aria-label="继续上次学习"><div><div class="st-focus-label">继续上次</div><h2>'+esc(title)+'</h2><p>'+esc(copy)+'</p></div>'
-      +'<button class="btn btn-primary" data-act="resume-learning" type="button">'+(test?'继续周测':'继续学习')+'</button></section>';
-  }
   function renderDash(){
     var panel=document.getElementById('panel-dash');
     var doneCount=Object.keys(state.done).length;
     var wrongCount=Object.keys(state.wrong).length;
     var next=nextQuestion();
     var nl=nextLesson();
-    var percentage=Math.round(doneCount/QUESTIONS.length*100);
+    var learned=lessonProgress().done;
     var wsNow=weekStatsNow();var dset={};(state.days||[]).forEach(function(d){dset[d]=1});
+    var now=new Date(),today=todayStr(),dayNames=['日','一','二','三','四','五','六'];
+    var dateLabel=(now.getMonth()+1)+' 月 '+now.getDate()+' 日 · 星期'+dayNames[now.getDay()];
+    var monday=new Date(now.getFullYear(),now.getMonth(),now.getDate()-(now.getDay()+6)%7);
+    var weekDays='';
+    for(var dayIndex=0;dayIndex<7;dayIndex++){
+      var date=new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()+dayIndex);
+      var dateKey=date.getFullYear()+'-'+('0'+(date.getMonth()+1)).slice(-2)+'-'+('0'+date.getDate()).slice(-2);
+      var active=!!dset[dateKey],isToday=dateKey===today;
+      weekDays+='<div class="st-week-day'+(active?' is-active':'')+(isToday?' is-today':'')+'" role="listitem" aria-label="'+dateKey+(isToday?'，今天':'')+(active?'，已打卡':'，未打卡')+'"'+(isToday?' aria-current="date"':'')+'><span>'+dayNames[date.getDay()]+'</span><b aria-hidden="true">'+(active?'✓':date.getDate())+'</b></div>';
+    }
     var heatCells='';
     for(var hi=55;hi>=0;hi--){var hdt=new Date(Date.now()-hi*864e5);var hk=hdt.getFullYear()+'-'+('0'+(hdt.getMonth()+1)).slice(-2)+'-'+('0'+hdt.getDate()).slice(-2);heatCells+='<i'+(dset[hk]?' class="on"':'')+' title="'+hk+'"></i>'}
-    var markup=resumeCard(),dueN=srDueList().length;
-    if(dueN)markup+='<section class="st-rev-strip" aria-label="今日复习"><div class="st-rev-strip-t"><i data-lucide="repeat" aria-hidden="true"></i><div>今日复习 '+dueN+' 题<small>先巩固学过的内容，再挑战新题</small></div></div><button class="btn btn-primary" data-act="start-review" type="button">开始复习</button></section>';
-    markup+='<section class="st-focus-card" aria-label="今日推荐"><div class="st-focus-copy">';
-    if(next){
-      markup+='<div class="st-focus-label"><i data-lucide="sparkles" aria-hidden="true"></i>今日推荐 · 第 '+next.w+' 周</div>'
-        +'<h2>'+next.title+'</h2><p>'+next.text+'</p>'
-        +'<div class="st-focus-actions"><button class="btn btn-primary" data-act="open-q" data-qid="'+next.id+'" type="button"><span class="st-btn-ic"><i data-lucide="play" aria-hidden="true"></i>开始练习<i data-lucide="arrow-up-right" aria-hidden="true"></i></span></button>'
-        +(nl?'<button class="btn" data-act="open-lesson" data-lid="'+nl.id+'" type="button"><span class="st-btn-ic"><i data-lucide="book-open" aria-hidden="true"></i>先学后练：'+esc(nl.title)+'</span></button>':'')
-        +'<span>'+WEEKS[next.w-1].name+' · '+next.pts+' 分 · '+next.tables.length+' 张数据表</span></div>';
-    }else{
-      markup+='<div class="st-focus-label"><i data-lucide="party-popper" aria-hidden="true"></i>'+QUESTIONS.length+' 题全部通关</div><h2>每一次练习，都算数。</h2><p>你已走完八周训练路径。到「测验 · 限时周测」来一场全真模拟，验收手感。</p>';
+    var dueN=srDueList().length;
+    var primary={label:'今日推荐',title:next?next.title:'全部题目已通关',copy:next?next.text:'到限时周测里，用一场模拟检验所学。',action:next?'open-q':'app-go',id:next?next.id:'',button:next?'开始今日练习':'开始限时周测',meta:next?'第 '+next.w+' 周 · '+WEEKS[next.w-1].name:'八周训练已完成',foot:next?next.pts+' 分 · '+next.tables.length+' 张数据表':QUESTIONS.length+' 道题，已经走完一遍'};
+    if(test){
+      primary={label:'继续未完成的周测',title:'回到你的限时周测',copy:'已保存答题草稿，继续时仍沿用原来的截止时间。',action:'resume-learning',id:'',button:'继续周测',meta:'第 '+(test.idx+1)+' / '+test.qids.length+' 题',foot:'离开页面也会继续计时'};
+    }else if(lastLearning){
+      var lastLesson=lastLearning.type==='lesson'?lessonById(lastLearning.id):null;
+      var lastQuestion=lastLearning.type==='question'?qById(lastLearning.id):null;
+      if(lastLesson||lastQuestion||lastLearning.id==='play'){
+        primary.label='继续上次学习';primary.action='resume-learning';primary.button='继续学习';
+        primary.title=lastLesson?lastLesson.title:(lastQuestion?lastQuestion.title:'自由练习区');
+        primary.copy=lastLesson?lastLesson.goal:(lastQuestion?lastQuestion.text:'回到独立练习库，继续试写你的 SQL。');
+        primary.meta=lastLesson?'微课 · 约 '+lastLesson.min+' 分钟':(lastQuestion?'第 '+lastQuestion.w+' 周 · '+WEEKS[lastQuestion.w-1].name:'自由探索');
+        primary.foot=lastLesson?'已保留上次学习位置':'草稿保存在这台设备';
+      }
     }
-    markup+='</div><div class="st-database-map" aria-label="练习数据库包含四张电商数据表">'
-      +'<div class="st-map-heading"><span><i data-lucide="database" aria-hidden="true"></i>practice.db</span><span>SQLite</span></div>'
-      +'<div class="st-db-tables"><div class="st-db-table"><code>users</code><span>用户信息</span></div><div class="st-db-table"><code>orders</code><span>业务订单</span></div><div class="st-db-table"><code>products</code><span>商品清单</span></div><div class="st-db-table"><code>order_items</code><span>订单明细</span></div></div></div></section>';
-    var statsMarkup='<section class="st-stats" aria-label="学习数据">'
-      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="circle-check" aria-hidden="true"></i>已完成题目</div><div class="st-stat-value">'+doneCount+'<span>/ '+QUESTIONS.length+' 题</span></div><div class="st-stat-foot">完成整个计划的 '+percentage+'%</div></div>'
-      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="flame" aria-hidden="true"></i>连续练习</div><div class="st-stat-value">'+streak()+'<span>天</span></div><div class="st-stat-foot">保持节奏，让理解更扎实</div></div>'
-      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="rotate-ccw" aria-hidden="true"></i>待重写错题</div><div class="st-stat-value">'+wrongCount+'<span>题</span></div><div class="st-stat-foot">'+(wrongCount?'去错题本，重新试一遍':'新的一页，准备好开始')+'</div></div>'
-      +'<div class="st-stat"><div class="st-stat-label"><i data-lucide="route" aria-hidden="true"></i>当前学习阶段</div><div class="st-stat-value st-stat-week">'+(next?'第 '+next.w+' 周':'已通关')+'</div><div class="st-stat-foot">'+(next?WEEKS[next.w-1].name:'八周训练路径已完成')+'</div></div></section>';
-    statsMarkup+='<div class="st-heatwrap"><div class="st-heat-head"><span class="st-heat-t">近 8 周打卡</span><span class="text-small text-muted">本周打卡 '+wsNow.d+' 天 · 本周完成 '+wsNow.q+' 题</span></div><div class="st-heat">'+heatCells+'</div></div>';
-    markup+='<section aria-label="八周进度地图"><div class="st-section-heading"><div><h3>八周学习路径</h3><p>循序渐进，从取数基础到业务实战。点击方块，继续对应题目。</p></div>'
-      +'<div class="st-legend"><span><span class="st-mdot is-done"></span>已通过</span><span><span class="st-mdot is-wrong"></span>待重写</span><span><span class="st-mdot"></span>未开始</span></div></div><div class="st-mosaic">';
+    var markup='<div class="st-home-heading"><div><div class="st-home-date">'+dateLabel+'</div><h1>今天也练一点 SQL</h1></div><span class="st-home-saved"><i data-lucide="hard-drive" aria-hidden="true"></i>本机学习空间</span></div>';
+    markup+='<div class="st-today-grid"><section class="st-session-card" aria-label="'+esc(primary.label)+'"><div class="st-session-top"><span class="st-session-label"><i data-lucide="play" aria-hidden="true"></i>'+esc(primary.label)+'</span><span class="st-session-meta">'+esc(primary.meta)+'</span></div>'
+      +'<h2>'+esc(primary.title)+'</h2><p>'+esc(primary.copy)+'</p><div class="st-session-bottom"><button class="btn btn-primary" data-act="'+primary.action+'" data-qid="'+primary.id+'" data-page="test" type="button"><span class="st-btn-ic">'+esc(primary.button)+'<i data-lucide="arrow-up-right" aria-hidden="true"></i></span></button><span>'+esc(primary.foot)+'</span></div></section>';
+    markup+='<section class="st-day-card" aria-label="本周学习记录"><div class="st-card-caption">本周学习<span>'+wsNow.d+' / 7 天已打卡</span></div><div class="st-week-days" role="list" aria-label="本周打卡">'+weekDays+'</div><div class="st-day-stats">'
+      +'<div><strong>'+streak()+'<small>天</small></strong><span>连续学习</span></div><div><strong>'+doneCount+'<small>/ '+QUESTIONS.length+'</small></strong><span>通过题目</span></div><div><strong>'+learned+'<small>/ '+LESSONS.length+'</small></strong><span>学会微课</span></div></div></section></div>';
+    markup+='<section class="st-home-shortcuts" aria-label="学习快捷入口">';
+    if(nl){
+      markup+='<button class="st-home-shortcut" data-act="open-lesson" data-lid="'+nl.id+'" type="button"><span class="st-shortcut-icon"><i data-lucide="book-open" aria-hidden="true"></i></span><span class="st-shortcut-copy"><strong>学一节微课</strong><small>'+esc(nl.title)+'</small></span><i class="st-shortcut-arrow" data-lucide="chevron-right" aria-hidden="true"></i></button>';
+    }else{
+      markup+='<button class="st-home-shortcut" data-act="app-go" data-page="learn" type="button"><span class="st-shortcut-icon"><i data-lucide="book-open" aria-hidden="true"></i></span><span class="st-shortcut-copy"><strong>回顾微课</strong><small>'+LESSONS.length+' 节微课，随时重温</small></span><i class="st-shortcut-arrow" data-lucide="chevron-right" aria-hidden="true"></i></button>';
+    }
+    markup+='<button class="st-home-shortcut" data-act="'+(dueN?'start-review':'app-go')+'" data-page="'+(wrongCount?'wrong':'review')+'" type="button"><span class="st-shortcut-icon"><i data-lucide="rotate-ccw" aria-hidden="true"></i></span><span class="st-shortcut-copy"><strong>'+(dueN?'今日复习':(wrongCount?'错题重写':'复习与巩固'))+'</strong><small>'+(dueN?dueN+' 题到期，先把学过的记牢':(wrongCount?wrongCount+' 道错题，重新试一遍':'查看你的复习安排'))+'</small></span><i class="st-shortcut-arrow" data-lucide="chevron-right" aria-hidden="true"></i></button>'
+      +'<button class="st-home-shortcut" data-act="open-q" data-qid="play" type="button"><span class="st-shortcut-icon"><i data-lucide="code-xml" aria-hidden="true"></i></span><span class="st-shortcut-copy"><strong>自由练习</strong><small>在独立练习库里试写 SQL</small></span><i class="st-shortcut-arrow" data-lucide="chevron-right" aria-hidden="true"></i></button></section>';
+    markup+='<section class="st-path-panel" aria-label="八周进度地图"><div class="st-section-heading"><div><h2>你的学习路径</h2><p>'+(next?'正在第 '+next.w+' 周 · '+WEEKS[next.w-1].name:'八周训练已通关')+'，按自己的节奏前进。</p></div><button class="st-text-button" data-act="app-plan" type="button">学习计划<i data-lucide="chevron-right" aria-hidden="true"></i></button></div><div class="st-path-track">';
+    WEEKS.forEach(function(week){
+      var progress=weekProgress(week.w),questions=QUESTIONS.filter(function(question){return question.w===week.w});
+      var pending=questions.filter(function(question){return !state.done[question.id]})[0]||questions[0];
+      var complete=progress.done===progress.total,current=next&&next.w===week.w;
+      markup+='<button class="st-path-stop'+(current?' is-current':'')+(complete?' is-done':'')+'" data-act="open-q" data-qid="'+pending.id+'" type="button" aria-label="进入第'+week.w+'周 · '+esc(week.name)+'，已通过'+progress.done+'/'+progress.total+'题"'+(current?' aria-current="step"':'')+'><b aria-hidden="true">'+(complete?'✓':'W0'+week.w)+'</b><span>'+esc(week.name)+'</span></button>';
+    });
+    markup+='</div><details class="st-path-details"><summary>按周选择题目<span class="st-btn-ic">'+QUESTIONS.length+' 道题<i data-lucide="chevron-down" aria-hidden="true"></i></span></summary><div class="st-mosaic">';
     WEEKS.forEach(function(week){
       var progress=weekProgress(week.w);
       var lp=lessonProgress(week.w);
@@ -3625,11 +3908,7 @@ function rebaseProgress(imported,current,device){
         +'<button class="st-week-open" data-act="open-q" data-qid="'+firstPending.id+'" type="button" aria-label="进入第'+week.w+'周 · '+week.name+'">'+week.name+'<i data-lucide="arrow-up-right" aria-hidden="true"></i></button>'
         +'<div class="st-week-bottom"><div class="st-dots" role="group" aria-label="第'+week.w+'周题目状态">'+dots+'</div><span>'+lp.done+'/'+lp.total+' 课 · '+progress.done+'/'+progress.total+' 题</span></div></article>';
     });
-    markup+='</div></section><section class="st-routine" aria-label="每日训练节奏"><div class="st-routine-title">每天，留一小时<span>持续练习，比赶进度更重要</span></div>'
-      +'<div class="st-routine-step"><span>10</span><div><strong>重写昨日错题</strong><small>分钟 · 先回顾</small></div></div>'
-      +'<div class="st-routine-step"><span>40</span><div><strong>挑战新的问题</strong><small>分钟 · 再突破</small></div></div>'
-      +'<div class="st-routine-step"><span>10</span><div><strong>整理解题笔记</strong><small>分钟 · 留积累</small></div></div></section>';
-    markup+=statsMarkup+'<details class="st-guide"><summary>训练说明与判分规则</summary><p>训练库使用 SQLite 语法，日期函数与 MySQL 有差异，题目会给出提示。判分比较查询结果，列名不影响判定；要求排序的题会检查行序，并列行允许换序；数值保留两位小数。每天节奏：10 分钟重写昨日错题 → 40 分钟新题 → 10 分钟整理笔记。</p></details>';
+    markup+='</div></details></section><div class="st-home-footnote"><details class="st-guide"><summary>近八周打卡记录</summary><p>本周打卡 '+wsNow.d+' 天 · 本周完成 '+wsNow.q+' 题</p><div class="st-heat" aria-label="近八周打卡日历">'+heatCells+'</div></details><details class="st-guide"><summary>训练说明与判分规则</summary><p>训练库使用 SQLite 语法，日期函数与 MySQL 有差异，题目会给出提示。判分比较查询结果，列名不影响判定；要求排序的题会检查行序，并列行允许换序；数值保留两位小数。每天节奏：10 分钟重写昨日错题 → 40 分钟新题 → 10 分钟整理笔记。</p></details></div>';
 
     panel.innerHTML=markup;
     refreshIcons();
@@ -3714,19 +3993,20 @@ function rebaseProgress(imported,current,device){
     var q=qById(qid);if(!q){panel.innerHTML='';return}
     var rl=qLesson(qid);
     var wk=WEEKS[q.w-1];
-    panel.innerHTML='<div class="viz-row" style="justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap">'
+    panel.innerHTML='<div class="st-problem"><div class="viz-row" style="justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap">'
       +'<div class="viz-row" style="gap:6px;flex-wrap:wrap"><span class="viz-badge">W'+q.w+' · '+wk.name+'</span><span class="viz-badge">'+q.pts+' 分</span><span id="st-qstatus">'+qStatus(q)+'</span></div>'
       +'<div class="text-small text-muted st-kpi"><i data-lucide="table-2" aria-hidden="true"></i>'+q.tables.join('、')+'</div></div>'
-      +(rl?'<div class="text-small text-muted st-kpi" style="margin:2px 0 2px"><i data-lucide="graduation-cap" aria-hidden="true"></i>这道题的知识点：<button class="btn btn-ghost btn-sm" data-act="open-lesson" data-lid="'+rl.id+'" type="button"><span class="st-btn-ic"><i data-lucide="book-open" aria-hidden="true"></i>'+esc(rl.title)+'</span></button></div>':'')
       +'<h3 class="st-task-title">'+q.title+'</h3><p class="st-task-description">'+q.text+'</p>'
+      +(rl?'<button class="st-related-lesson" data-act="open-lesson" data-lid="'+rl.id+'" type="button" aria-label="学习本题知识点：'+esc(rl.title)+'"><i data-lucide="book-open" aria-hidden="true"></i><span>配套微课 · '+esc(rl.title)+'</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>':'')+'</div>'
       +'<div id="st-hint" hidden class="text-small st-kpi" style="color:var(--muted-foreground);margin-bottom:8px"><i data-lucide="lightbulb" aria-hidden="true"></i>提示：'+q.hint+'</div>'
       +editorHtml(qid,false)
       +'<div id="st-verdict" role="status" aria-live="polite" aria-atomic="true" style="margin-top:10px"></div>'
       +'<div id="st-result" class="table-responsive" style="margin-top:8px"></div>'
       +'<div id="st-answer" hidden style="margin-top:12px"><div class="text-small text-muted st-kpi"><i data-lucide="book-open" aria-hidden="true"></i>参考答案（看完请关掉重写）</div><div class="st-pre"><pre><code>'+q.answer.replace(/</g,'&lt;')+'</code></pre></div></div>'
       +'<div id="st-explain" hidden style="margin-top:12px"><div class="text-small text-muted st-kpi"><i data-lucide="route" aria-hidden="true"></i>思路拆解（看完请关掉重写）</div><div class="st-lp" style="white-space:pre-line;margin-bottom:0">'+esc(EXPLAINS[qid]||'这道题暂无拆解。')+'</div></div>'
-      +'<label class="form-label text-small" for="st-note" style="margin-top:12px"><span class="st-kpi"><i data-lucide="pen-line" aria-hidden="true"></i>我的笔记（自动保存）</span></label>'
+      +'<details class="st-note-panel"'+(state.notes[qid]?' open':'')+'><summary><span><i data-lucide="pen-line" aria-hidden="true"></i>解题笔记</span><span>自动保存<i data-lucide="chevron-down" aria-hidden="true"></i></span></summary><label class="form-label text-small" for="st-note">记下这道题的卡点</label>'
       +'<textarea id="st-note" class="form-control" rows="2" placeholder="一句话记下这道题的卡点">'+esc(state.notes[qid]||'')+'</textarea>'
+      +'</details>'
       +'<div id="st-att-line" data-qid="'+qid+'" class="text-small text-muted" style="margin-top:8px">本题已尝试 '+(state.attempts[qid]||0)+' 次'+(viewed[qid]?' · 已看过参考答案':'')+'</div>'
       +'<details class="st-hist" style="margin-top:6px"><summary>运行历史（最近 '+(state.history||[]).length+' 次）</summary><div class="st-hlist">'
       +((state.history||[]).map(function(h,hi){var qq=qById(h.q);return '<button class="btn btn-sm" data-act="hist-load" data-i="'+hi+'" type="button">'+(h.ok?'✓':'✗')+' '+esc(qq?qq.title:h.q)+' · '+fmtClock(h.t)+'</button>'}).join('')||'<span class="text-small text-muted">还没有运行记录</span>')
@@ -4338,8 +4618,75 @@ function renderCheatPage(){
     switchTab('practice');
     focusContent('#st-qpanel h3');
   }
-  var topTab='dash';
+  var topTab='dash',appRoute=null,appRouteIndex=0,appRestoring=false,appScroll={},appFocus=false;
+  function appSnapshot(){
+    return {topTab:topTab,trainSub:trainSub,examSub:examSub,currentQid:currentQid,currentLid:currentLid,learnView:learnView,qfilter:qfilter,scroll:0};
+  }
+  function appRouteKey(route){
+    if(route.topTab==='train')return ['train',route.trainSub,route.trainSub==='practice'?route.currentQid:(route.trainSub==='learn'?route.learnView+'_'+route.currentLid:'')].join('/');
+    return route.topTab+(route.topTab==='exam'?'/'+route.examSub:'');
+  }
+  function captureAppScroll(){
+    if(!appRoute||appRestoring)return;
+    appRoute.scroll=window.scrollY||0;appScroll[appRouteKey(appRoute)]=appRoute.scroll;
+    try{history.replaceState({sqltrainApp:1,route:appRoute,index:appRouteIndex},'')}catch(error){}
+  }
+  function paintAppChrome(){
+    var working=topTab==='train'&&trainSub==='practice'&&!!currentQid;
+    var titles={dash:'今天',train:'训练',exam:'测验',me:'我的'};
+    var subTitles={learn:'微课学习',practice:'SQL 练习',review:'复习与巩固',tpl:'SQL 模板',schema:'练习数据表',test:'限时周测',wrong:'错题本'};
+    var title=topTab==='train'?subTitles[trainSub]:(topTab==='exam'?subTitles[examSub]:titles[topTab]);
+    if(topTab==='train'&&trainSub==='learn'&&learnView!=='course')title=learnView==='plan'?'学习计划':'速查手册';
+    document.getElementById('st-breadcrumb-current').textContent=title;
+    document.getElementById('st-app-kicker').textContent='SQL Lab · '+(topTab==='dash'?'学习空间':titles[topTab]);
+    document.getElementById('st-app-back').hidden=topTab==='dash';
+    var focus=document.getElementById('st-app-focus');
+    if(!working)appFocus=false;
+    focus.hidden=!working;focus.setAttribute('aria-pressed',String(appFocus));
+    focus.setAttribute('aria-label',appFocus?'退出专注练习':'进入专注练习');
+    focus.querySelector('span').textContent=appFocus?'退出专注':'专注练习';
+    root.dataset.page=topTab;root.dataset.view=topTab==='train'?trainSub:(topTab==='exam'?examSub:topTab);
+    root.classList.toggle('st-focused',appFocus);document.body.classList.toggle('st-app-focused',appFocus);
+  }
+  function recordAppRoute(){
+    paintAppChrome();
+    if(appRestoring)return;
+    var route=appSnapshot(),key=appRouteKey(route);
+    if(appRoute&&key===appRouteKey(appRoute)){route.scroll=appRoute.scroll;appRoute=route;return}
+    if(appRoute){
+      appRouteIndex++;
+      try{history.pushState({sqltrainApp:1,route:route,index:appRouteIndex},'')}catch(error){}
+    }else{
+      var existing=history.state;
+      if(existing&&existing.sqltrainApp===1&&existing.route&&appRouteKey(existing.route)===key)appRouteIndex=existing.index||0;
+      try{history.replaceState({sqltrainApp:1,route:route,index:appRouteIndex},'')}catch(error){}
+    }
+    appRoute=route;
+  }
+  function toggleAppFocus(){
+    appFocus=!appFocus;paintAppChrome();
+    var control=document.getElementById('st-app-focus');
+    try{control.focus({preventScroll:true})}catch(error){control.focus()}
+  }
+  window.addEventListener('popstate',function(event){
+    var entry=event.state,route=entry&&entry.sqltrainApp===1?entry.route:null;
+    if(!route||['dash','train','exam','me'].indexOf(route.topTab)<0)return;
+    if(appRoute)appScroll[appRouteKey(appRoute)]=window.scrollY||0;
+    if(hasOwn(appScroll,appRouteKey(route)))route.scroll=appScroll[appRouteKey(route)];
+    appRestoring=true;appRoute=route;appRouteIndex=entry.index||0;
+    trainSub=['learn','practice','review','tpl','schema'].indexOf(route.trainSub)>=0?route.trainSub:'learn';
+    examSub=['test','wrong'].indexOf(route.examSub)>=0?route.examSub:'test';
+    currentQid=route.currentQid==='play'||qById(route.currentQid)?route.currentQid:null;
+    if(lessonById(route.currentLid))currentLid=route.currentLid;
+    learnView=['course','plan','cheat'].indexOf(route.learnView)>=0?route.learnView:'course';
+    qfilter=['all','wrong','review','1','2','3','4','5','6','7','8'].indexOf(route.qfilter)>=0?route.qfilter:'all';
+    switchTab(route.topTab);appRestoring=false;
+    window.scrollTo(0,typeof route.scroll==='number'?route.scroll:0);tbGlass();
+    try{document.getElementById('st-main-content').focus({preventScroll:true})}catch(error){}
+  });
+  try{history.scrollRestoration='manual'}catch(error){}
   function switchTab(name,slide){
+    captureAppScroll();
     var sub=null;
     if(name==='learn'||name==='practice'||name==='review'||name==='tpl'||name==='schema'){sub=name;name='train'}
     else if(name==='test'||name==='wrong'){sub=name;name='exam'}
@@ -4366,7 +4713,9 @@ function renderCheatPage(){
     if(name==='me')renderMe();
     movePill();
     saveSession();
-    window.scrollTo(0,0);tbGlass();
+    recordAppRoute();
+    if(!appRestoring)window.scrollTo(0,appScroll[appRouteKey(appSnapshot())]||0);
+    tbGlass();
   }
   /* ---------- 合并子页(训练/测验) ---------- */
   var trainSub='learn',examSub='test';
@@ -4393,8 +4742,13 @@ function renderCheatPage(){
   function renderExam(){if(examSub==='test')renderTest();else renderWrong()}
 
   /* ---------- 我的:档案 / 数据管理 / 关于与版本更新 ---------- */
-  var APP_VERSION='2.9.0',APP_BUILD='20261026.4';
+  var APP_VERSION='3.0.0',APP_BUILD='20261026.8';
   var CHANGELOG=[
+    ['3.0.0','2026-10-26',[
+      '首页改为今日学习工作台：继续上次、当周打卡、微课与复习入口集中呈现，八周题目按需展开',
+      '统一手机与桌面的应用导航，加入可点击的全局搜索、返回操作与页面滚动位置记忆',
+      '新增专注练习模式，收起导航与目录；整理题面、SQL 编辑、运行操作和可折叠的解题笔记',
+      '保留题库、判分、离线引擎及原有进度格式，兼容已有草稿、复习安排与备份']],
     ['2.9.0','2026-10-26',[
       '补齐 SQL Lab 应用身份、主屏图标、安装引导与离线状态，手机与桌面沿用同一入口',
       '检查更新独立核验线上构建和页面校验值；新版本准备好后由你决定何时保存草稿并更新',
@@ -4750,7 +5104,7 @@ function renderCheatPage(){
   function cmdkIndex(){
     if(CMDK_ITEMS)return CMDK_ITEMS;
     var it=[];
-    [['dash','总览'],['train','训练营'],['exam','测验'],['me','我的']].forEach(function(t){it.push({t:t[1],k:'页面',go:function(){switchTab(t[0])}})});
+    [['dash','今天'],['train','训练营'],['exam','测验'],['me','我的']].forEach(function(t){it.push({t:t[1],k:'页面',go:function(){switchTab(t[0])}})});
     QUESTIONS.forEach(function(q){it.push({t:q.title,k:'W'+q.w+' 题',go:function(){openQuestion(q.id)}})});
     LESSONS.forEach(function(l){it.push({t:l.title,k:'微课',go:function(){openLesson(l.id)}})});
     TEMPLATES.forEach(function(t2){it.push({t:t2.name,k:'模板',go:function(){codes['play']=t2.code;openQuestion('play')}})});
@@ -4807,6 +5161,7 @@ function renderCheatPage(){
     document.addEventListener('keydown',function(e){
       if((e.metaKey||e.ctrlKey)&&(e.key==='k'||e.key==='K')){e.preventDefault();w.classList.contains('on')?cmdkClose():cmdkOpen()}
       else if(e.key==='Escape'&&w.classList.contains('on')){e.preventDefault();cmdkClose()}
+      else if(e.key==='Escape'&&appFocus){e.preventDefault();toggleAppFocus()}
     });
   })();
   /* ---------- v2.4:轻提示/成就/运行历史/周统计 ---------- */
@@ -4866,6 +5221,11 @@ function renderCheatPage(){
     if(!el||!root.contains(el))return;
     var act=el.getAttribute('data-act'),qid=el.getAttribute('data-qid');
     if(act==='open-q'){openQuestion(qid)}
+    else if(act==='app-search'){cmdkOpen()}
+    else if(act==='app-go'){var destination=el.getAttribute('data-page');if(['dash','train','exam','me','learn','practice','review','tpl','schema','test','wrong'].indexOf(destination)>=0)switchTab(destination)}
+    else if(act==='app-back'){if(appRouteIndex>0)history.back();else switchTab('dash')}
+    else if(act==='app-focus'){toggleAppFocus()}
+    else if(act==='app-plan'){learnView='plan';switchTab('learn')}
     else if(act==='resume-learning'){resumeLearning()}
     else if(act==='end-session'){switchTab('dash');focusContent('#panel-dash h2');stToast('本次学习已结束，进度和草稿已保留。')}
     else if(act==='insert-sql'){insertSQL(el)}
@@ -4926,7 +5286,7 @@ function renderCheatPage(){
       if(resetArmed){if(applyBackup(emptyProgress(),'replace')){resetArmed=false;renderAll();renderMe()}}
       else{resetArmed=true;var c=document.getElementById('st-reset-confirm');if(c){c.innerHTML='<button class="btn btn-sm" data-act="reset1" type="button">再点一次确认清空</button>';setTimeout(function(){resetArmed=false},4000)}}
     }
-    saveSession();
+    saveSession();recordAppRoute();
   });
 
   var navTabs=root.querySelectorAll('.nav-link[role="tab"]');
@@ -4956,6 +5316,38 @@ function renderCheatPage(){
   /* 底部 Tab 栏(≤680px):tablist 移出侧栏挂到 body 下,配滑动药丸指示器;桌面布局不变 */
   var tablistEl=document.querySelector('[role="tablist"]');
   var stPill=document.createElement('span');stPill.id='st-tabpill';stPill.setAttribute('aria-hidden','true');tablistEl.appendChild(stPill);
+  function tabGlassColor(value){
+    var parts=value.match(/[\d.]+/g)||[0,0,0,0],unit=value.indexOf('color(srgb')===0?1:255;
+    return [Number(parts[0])/unit,Number(parts[1])/unit,Number(parts[2])/unit,parts.length>3?Number(parts[3]):1];
+  }
+  function tabBackdropColor(horizontal,vertical){
+    var layers=document.elementsFromPoint(horizontal,vertical),element=null;
+    for(var layerIndex=0;layerIndex<layers.length;layerIndex++){if(!tablistEl.contains(layers[layerIndex])){element=layers[layerIndex];break}}
+    var color=[0,0,0,0];
+    while(element&&color[3]<.995){
+      var background=tabGlassColor(getComputedStyle(element).backgroundColor),weight=background[3]*(1-color[3]);
+      for(var channel=0;channel<3;channel++)color[channel]+=background[channel]*weight;
+      color[3]+=weight;element=element.parentElement;
+    }
+    return color;
+  }
+  function updateTabInk(){
+    if(!tablistEl||!mqlTab||!mqlTab.matches||!document.elementsFromPoint)return;
+    var bounds=tablistEl.getBoundingClientRect();
+    if(!bounds.height||getComputedStyle(tablistEl).visibility==='hidden')return;
+    var tint=tabGlassColor(getComputedStyle(tablistEl).backgroundColor),tones=[];
+    for(var tabIndex=0;tabIndex<navTabs.length;tabIndex++){
+      var button=navTabs[tabIndex],buttonBounds=button.getBoundingClientRect(),average=[0,0,0];
+      for(var sampleIndex=0;sampleIndex<2;sampleIndex++){
+        var background=tabBackdropColor(buttonBounds.left+buttonBounds.width/2,buttonBounds.top+buttonBounds.height*(sampleIndex ? .76 : .32));
+        for(var channel=0;channel<3;channel++)average[channel]+=(background[channel]*(1-tint[3])+tint[channel]*tint[3])/2;
+      }
+      var luminance=0,weights=[.2126,.7152,.0722];
+      for(var channel=0;channel<3;channel++){var value=average[channel];luminance+=weights[channel]*(value<=.04045?value/12.92:Math.pow((value+.055)/1.055,2.4))}
+      tones.push(luminance<.22?'light':'dark');
+    }
+    for(var tabIndex=0;tabIndex<navTabs.length;tabIndex++){if(navTabs[tabIndex].getAttribute('data-glass-ink')!==tones[tabIndex])navTabs[tabIndex].setAttribute('data-glass-ink',tones[tabIndex])}
+  }
   function movePill(){
     var act=tablistEl.querySelector('.nav-link.active');
     if(!act){stPill.style.opacity='0';return}
@@ -4963,6 +5355,7 @@ function renderCheatPage(){
     stPill.style.width=act.offsetWidth+'px';
     stPill.style.transform='translateX('+act.offsetLeft+'px)';
     stPill.classList.remove('st-squash');void stPill.offsetWidth;stPill.classList.add('st-squash');
+    requestAnimationFrame(updateTabInk);
   }
   var mqlTab=window.matchMedia('(max-width:680px)');
   var tabHome=tablistEl.parentNode,tabNext=tablistEl.nextSibling;
@@ -5032,12 +5425,14 @@ function renderCheatPage(){
       var y=window.scrollY||0,p=y<=2?0:(y>=60?1:(y-2)/58);
       root.style.setProperty('--st-tbp',p.toFixed(3));
       root.classList.toggle('st-glass',p>0.05);
+      updateTabInk();
     };
     if(document.hidden||typeof requestAnimationFrame==='undefined'){apply();return}
     requestAnimationFrame(apply);
     setTimeout(function(){if(tbT)apply()},120);
   }
   window.addEventListener('scroll',tbGlass,{passive:true});
+  root.addEventListener('toggle',tbGlass,true);
   tbGlass();
   [['st-train-seg','train'],['st-exam-seg','exam']].forEach(function(pair){
     var seg=document.getElementById(pair[0]);if(!seg)return;
@@ -5045,8 +5440,10 @@ function renderCheatPage(){
       var b=e.target&&e.target.closest?e.target.closest('button[data-sub]'):null;
       if(!b)return;
       buzz(4);
+      captureAppScroll();
       showSub(pair[1],b.getAttribute('data-sub'));
       if(pair[1]==='exam')renderExam();else renderTrain();
+      recordAppRoute();window.scrollTo(0,appScroll[appRouteKey(appSnapshot())]||0);tbGlass();
     });
     seg.addEventListener('keydown',function(event){
       var buttons=seg.querySelectorAll('button[data-sub]');

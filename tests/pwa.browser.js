@@ -90,8 +90,10 @@ async page => {
     });
     await check('更新等待用户操作，保存练习、笔记与周测后切换', async () => {
       await page.locator('#tab-dash').click();
+      await page.locator('.st-path-details>summary').click();
       await page.locator('.st-qtarget[data-qid="q2"]').click();
       await page.locator('#st-code').fill('-- 更新前草稿\nSELECT product_name FROM products');
+      await page.locator('.st-note-panel>summary').click();
       await page.locator('#st-note').fill('更新前保留的笔记');
       await page.locator('#tab-exam').click();
       await page.locator('[data-act="test-start"]').click();
@@ -115,7 +117,7 @@ async page => {
       assert(await page.locator('meta[name="sqltrain-version"]').getAttribute('content') === '2.8.9', '保存失败后页面仍被刷新');
       await page.evaluate(() => { Storage.prototype.setItem = window.__pwaSetItem; delete window.__pwaSetItem; });
       await page.locator('#st-update-apply').click();
-      await page.waitForFunction(() => document.querySelector('meta[name="sqltrain-version"]').content === '2.9.0');
+      await page.waitForFunction(() => document.querySelector('meta[name="sqltrain-version"]').content === '3.0.0');
       await ready(page);
       const after = await page.evaluate(() => ({session: JSON.parse(localStorage.getItem('sqltrain_session')), state: JSON.parse(localStorage.getItem('sqltrain_state'))}));
       assert(after.session.codes.q2.includes('更新前草稿'), '练习草稿丢失');
@@ -147,7 +149,7 @@ async page => {
     await check('HTTP 失败回退有效离线页，不污染缓存', async () => {
       await stage('http-error');
       await page.goto(base.href); await ready(page);
-      assert(await page.locator('meta[name="sqltrain-version"]').getAttribute('content') === '2.9.0', '503 页面覆盖了应用');
+      assert(await page.locator('meta[name="sqltrain-version"]').getAttribute('content') === '3.0.0', '503 页面覆盖了应用');
       await stage('current');
       await page.goto(new URL('missing.html', base).href);
       assert(!(await page.content()).includes('sqltrain-version'), '未知资源被错误返回应用 HTML');

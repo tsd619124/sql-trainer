@@ -19,6 +19,7 @@ async (page) => {
   };
   const question = async id => {
     await tab('dash');
+    if (!await page.locator('.st-path-details').evaluate(element => element.open)) await page.locator('.st-path-details>summary').click();
     await page.locator('.st-qtarget[data-qid="' + id + '"]').click();
   };
   const noOverflow = async label => {
@@ -45,8 +46,9 @@ async (page) => {
     });
     await page.reload(); await ready();
     await check('新用户首页推荐优先，课程与练习入口可见', async () => {
-      assert(await page.locator('.st-focus-card').isVisible(), '缺少今日推荐');
-      assert(await page.locator('.st-focus-card [data-act="open-q"]').isVisible(), '缺少开始练习');
+      assert(await page.locator('.st-session-card').isVisible(), '缺少今日推荐');
+      assert(await page.locator('.st-session-card [data-act="open-q"]').isVisible(), '缺少开始练习');
+      assert(!await page.locator('.st-path-details').evaluate(element => element.open), '完整题目列表没有按需收起');
       await noOverflow('390px 首页');
       await page.screenshot({ path: 'output/playwright/batch2-mobile-home.png', fullPage: true });
     });
@@ -54,8 +56,7 @@ async (page) => {
       await question('q2');
       await page.locator('#st-code').fill('-- 手机续写\nSELECT product_name FROM products');
       await tab('dash'); await page.reload(); await ready();
-      const sections = await page.locator('#panel-dash>section').evaluateAll(elements => elements.map(element => element.getAttribute('aria-label')));
-      assert(sections[0] === '继续上次学习', '续学入口不在首页首位');
+      assert(await page.locator('.st-session-card').getAttribute('aria-label') === '继续上次学习', '主要学习入口没有恢复上次内容');
       await page.getByRole('button', { name: '继续学习', exact: true }).click();
       assert((await session()).currentQid === 'q2', '续学题号错误');
       assert((await page.locator('#st-code').inputValue()).includes('手机续写'), '续学草稿丢失');
@@ -108,6 +109,7 @@ async (page) => {
       await page.keyboard.press('Control+Enter');
       assert((await page.locator('#st-verdict').innerText()).includes('排序不符合'), '排序差异说明丢失');
       await tab('dash');
+      await page.locator('.st-path-details>summary').click();
       await page.locator('.st-qtarget[data-qid="q1"]').focus(); await page.keyboard.press('Enter');
       const answer = await page.evaluate(() => window.__SQLTRAIN__.QUESTIONS[0].answer);
       await page.locator('#st-code').focus(); await page.keyboard.press('ControlOrMeta+A'); await page.keyboard.insertText(answer);
@@ -169,6 +171,7 @@ async (page) => {
       await font('m');
       for (const width of [390, 768]) {
         await page.setViewportSize({ width, height: 900 }); await tab('dash');
+        if (!await page.locator('.st-path-details').evaluate(element => element.open)) await page.locator('.st-path-details>summary').click();
         const targets = await page.locator('.st-qtarget').evaluateAll(elements => elements.map(element => {
           const rect = element.getBoundingClientRect(); return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
         }));
@@ -252,7 +255,7 @@ async (page) => {
       await tab('me'); await page.locator('[data-mo="light"]').click();
       await page.setViewportSize({ width: 1440, height: 1000 }); await tab('dash');
       assert(await page.locator('#tab-dash').evaluate(element => !!element.closest('.st-sidebar')), '宽屏导航未回到侧栏');
-      assert(await page.evaluate(() => scrollY === 0), '切换页面没有回到内容起点');
+      assert(await page.locator('#st-breadcrumb-current').textContent() === '今天', '宽屏应用标题与页面不一致');
       await page.screenshot({ path: 'output/playwright/batch2-desktop-home.png', fullPage: true });
     });
     assert(!errors.length && !warnings.length, '浏览器异常：' + errors.concat(warnings).join(' | '));

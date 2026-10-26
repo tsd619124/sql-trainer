@@ -9,6 +9,7 @@ async page => {
     await ready();
     await page.waitForFunction(() => navigator.serviceWorker.controller, null, {timeout: 15000});
     await page.waitForFunction(async () => (await caches.keys()).includes('sql-trainer-v21'), null, {timeout: 15000});
+    await page.locator('.st-path-details>summary').click();
     await page.locator('.st-qtarget[data-qid="q1"]').click();
     await page.locator('#st-code').fill('-- 旧版升级保留');
     await page.locator('#tab-me').click();
@@ -19,7 +20,7 @@ async page => {
     await page.waitForFunction(() => !document.querySelector('[data-act="check-update"]').disabled, null, {timeout: 25000});
     assert((await page.locator('#st-upd-status').innerText()).includes('已准备好'), '旧 SW 未能准备新版');
     await page.locator('#st-update-apply').click();
-    await page.waitForFunction(() => document.querySelector('meta[name="sqltrain-version"]').content === '2.9.0');
+    await page.waitForFunction(() => document.querySelector('meta[name="sqltrain-version"]').content === '3.0.0');
     await ready();
     assert(await page.evaluate(() => JSON.parse(localStorage.getItem('sqltrain_session')).codes.q1 === '-- 旧版升级保留'), '旧版升级草稿丢失');
     assert(!(await page.evaluate(() => caches.keys())).includes('sql-trainer-v21'), '旧版根缓存未清理');
