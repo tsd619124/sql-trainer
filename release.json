@@ -1,0 +1,63 @@
+{
+  "app": "sql-trainer",
+  "version": "4.0.0",
+  "build": "20261026.9",
+  "cache": "sql-trainer-v28",
+  "assets": [
+    {
+      "path": "assets/index-BG4jAByO.js",
+      "sha256": "f7e1bb1dc56b6c3057ceb5b76447f8f8ee49531adff90efa5285c589ad5a5483",
+      "bytes": 246373
+    },
+    {
+      "path": "assets/index-BSpOKnRh.css",
+      "sha256": "2dad858ca8e385415b71ab9b9bf863e57e5cf11be2ee007041ca727e611323ef",
+      "bytes": 124533
+    },
+    {
+      "path": "icons/app.svg",
+      "sha256": "4ed17eb0f225d8145cd14e694b8c97a7289dff3c78f135c7822be6d43700747b",
+      "bytes": 269
+    },
+    {
+      "path": "icons/icon-180.png",
+      "sha256": "50210c0e8bf5b277d5cef1dbb2665cba7a33a98839d6bae639134af6b6979a43",
+      "bytes": 1616
+    },
+    {
+      "path": "icons/icon-192.png",
+      "sha256": "c093f2d849d36e1ddf91fff4b4c533ec0fcf1b369a9d661f552f211032e46a80",
+      "bytes": 1583
+    },
+    {
+      "path": "icons/icon-512.png",
+      "sha256": "7452dac56255b2ad991213189d54bee2817b767b574067cb6ea3b0e9b6ca8670",
+      "bytes": 4797
+    },
+    {
+      "path": "index.html",
+      "sha256": "66753305cb28f6b2da416a005119d9510e28990e28f9004dfe091e88e67df37e",
+      "bytes": 8182
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "c6f6bac15af1cf34aac3d8a064828dcbcfc70a80b34ec4892ab8227ddf7fd745",
+      "bytes": 531
+    },
+    {
+      "path": "vendor/lucide.js",
+      "sha256": "969d17218c4ad09c8849f735d9a58839296b58c4b8bbeb8721d3ad9c2cbd798a",
+      "bytes": 17572
+    },
+    {
+      "path": "vendor/sql-wasm.js",
+      "sha256": "694ca5b36aa3e6e71f417819d7df390b65343665fcfa5c69015ca33d93d291b3",
+      "bytes": 48788
+    },
+    {
+      "path": "vendor/sql-wasm.wasm",
+      "sha256": "0734155c83e493983d1f2ff5b09a4fab6e35a32e9449c7e4e545756439f62d73",
+      "bytes": 659806
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "SQL Lab · SQL 八周训练营",
+  "short_name": "SQL Lab",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f5f9",
+  "theme_color": "#f3f5f9",
+  "description": "离线优先的 SQL 学习、练习、周测与复习应用",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
