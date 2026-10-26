@@ -9,7 +9,8 @@ from pwa_server import fixture_server
 
 test_dir = Path(__file__).resolve().parent
 url = sys.argv[1] if len(sys.argv) > 1 else 'http://127.0.0.1:8644/'
-modules = sorted((Path.home() / '.npm/_npx').glob('*/node_modules/playwright-core/package.json'), key=lambda file: file.stat().st_mtime, reverse=True)
+local_module = test_dir.parent / 'node_modules/playwright-core/package.json'
+modules = [local_module] if local_module.exists() else sorted((Path.home() / '.npm/_npx').glob('*/node_modules/playwright-core/package.json'), key=lambda file: file.stat().st_mtime, reverse=True)
 if not modules:
     raise RuntimeError('没有找到已有 Playwright CLI 的浏览器引擎，请先配置 Playwright CLI 与 Chrome。')
 module_path = modules[0].parent

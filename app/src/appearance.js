@@ -1,0 +1,2 @@
+try{var _m=JSON.parse(localStorage.getItem("sqltrain_mode")||'"auto"');var _eff=_m==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):_m;document.documentElement.dataset.mode=_eff;document.documentElement.style.colorScheme=_eff}catch(e){}
+try{var _fz=localStorage.getItem("sqltrain_font");if(["l","xl","xxl"].indexOf(_fz)>=0)document.documentElement.dataset.font=_fz}catch(e){}

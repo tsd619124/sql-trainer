@@ -1,0 +1,31 @@
+html[data-platform="ios"] {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+html[data-platform="ios"] .st-topbar {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#app-startup-status:not([hidden]) {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 16px;
+  padding: 24px;
+  background: #f3f5f9;
+  color: #172033;
+  text-align: center;
+}
+
+#app-startup-status button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: #007aff;
+  color: white;
+  font: inherit;
+}

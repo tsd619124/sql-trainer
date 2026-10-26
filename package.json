@@ -1,0 +1,29 @@
+{
+  "name": "sql-lab",
+  "version": "4.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SQL Lab Web 与 iOS 学习应用",
+  "engines": { "node": ">=24.0.0" },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/reliability.test.cjs tests/app-*.test.mjs",
+    "test:app": "node scripts/test-app.mjs",
+    "publish:web": "npm test && npm run build && node scripts/publish-web.mjs --publish",
+    "ios:sync": "npm run build && cap sync ios",
+    "ios:open": "cap open ios",
+    "ios:check": "node scripts/check-ios.mjs"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.3",
+    "@capacitor/ios": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3",
+    "playwright-core": "1.64.1",
+    "typescript": "5.9.3",
+    "vite": "8.3.5"
+  }
+}
