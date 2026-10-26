@@ -1,0 +1,38 @@
+{
+  "app": "sql-trainer",
+  "version": "2.9.0",
+  "build": "20261026.3",
+  "cache": "sql-trainer-v22",
+  "assets": [
+    {
+      "path": "index.html",
+      "sha256": "8c601d1959ff001bbd18a341f30b00adc6494a02058c47a67f03b9a0eee35de3",
+      "bytes": 1327656
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "9bd8ef506f891c7cb8926ef70ce593e31ac61890767de37fd937a45768ef5d64",
+      "bytes": 551
+    },
+    {
+      "path": "icons/icon-180.png",
+      "sha256": "50210c0e8bf5b277d5cef1dbb2665cba7a33a98839d6bae639134af6b6979a43",
+      "bytes": 1616
+    },
+    {
+      "path": "icons/icon-192.png",
+      "sha256": "c093f2d849d36e1ddf91fff4b4c533ec0fcf1b369a9d661f552f211032e46a80",
+      "bytes": 1583
+    },
+    {
+      "path": "icons/icon-512.png",
+      "sha256": "7452dac56255b2ad991213189d54bee2817b767b574067cb6ea3b0e9b6ca8670",
+      "bytes": 4797
+    },
+    {
+      "path": "icons/app.svg",
+      "sha256": "4ed17eb0f225d8145cd14e694b8c97a7289dff3c78f135c7822be6d43700747b",
+      "bytes": 269
+    }
+  ]
+}

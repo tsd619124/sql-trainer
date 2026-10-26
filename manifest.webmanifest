@@ -1,0 +1,16 @@
+{
+  "id": "/sql-trainer/",
+  "name": "SQL Lab · SQL 八周训练营",
+  "short_name": "SQL Lab",
+  "description": "离线学习 SQL、练习判题、间隔复习和限时周测。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#007aff",
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
