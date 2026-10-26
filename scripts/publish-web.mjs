@@ -61,6 +61,7 @@ if (mode === '--publish') {
     }
     if (site.build_type !== 'legacy' || site.source?.branch !== branch || site.source?.path !== '/') {
       execute('gh', ['api', '--method', 'PUT', 'repos/' + repository + '/pages', '--input', '-'], { input: JSON.stringify({ build_type: 'legacy', source: { branch, path: '/' } }) });
+      execute('gh', ['api', '--method', 'POST', 'repos/' + repository + '/pages/builds']);
     }
     console.log(JSON.stringify({ url: site.html_url, branch, revision, version: release.version, build: release.build }));
     console.log('已提交完整发布包；需等待 Pages 部署完成后验收线上版本。');
