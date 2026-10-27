@@ -1,18 +1,18 @@
 {
   "app": "sql-trainer",
-  "version": "4.0.0",
-  "build": "20261026.9",
-  "cache": "sql-trainer-v28",
+  "version": "4.1.0",
+  "build": "20261028.1",
+  "cache": "sql-trainer-v29",
   "assets": [
     {
-      "path": "assets/index-BG4jAByO.js",
-      "sha256": "f7e1bb1dc56b6c3057ceb5b76447f8f8ee49531adff90efa5285c589ad5a5483",
-      "bytes": 246373
+      "path": "assets/index-8Jz6az6V.js",
+      "sha256": "30caa30bb52683728919b87de2131bfe3fd2a3562c82b137c07df1ada69b1207",
+      "bytes": 326281
     },
     {
-      "path": "assets/index-BSpOKnRh.css",
-      "sha256": "2dad858ca8e385415b71ab9b9bf863e57e5cf11be2ee007041ca727e611323ef",
-      "bytes": 124533
+      "path": "assets/index-uxVJ_wi1.css",
+      "sha256": "fb096bccbedce9ed205f033e8d2d4a1c4b2e605c0d831d45b26fcfc9dd4bc024",
+      "bytes": 128074
     },
     {
       "path": "icons/app.svg",
@@ -36,7 +36,7 @@
     },
     {
       "path": "index.html",
-      "sha256": "66753305cb28f6b2da416a005119d9510e28990e28f9004dfe091e88e67df37e",
+      "sha256": "d22e71e9048a6e2f9bcc2939df7596347cc6e2d0bf45c00847b3fb3e7b6212d3",
       "bytes": 8182
     },
     {
