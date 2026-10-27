@@ -10,19 +10,20 @@ async page => {
   const root = new URL('./', page.url()).href;
   try {
     await ready(page);
+    const currentRelease = await (await page.request.get(root + 'release.json')).json();
     await check('工程化 Web 入口、独立 SQL 引擎与完整资源清单', async () => {
       const html = await (await page.request.get(root + 'index.html')).text();
       assert(html.length < 15000 && !html.includes('base64,AGFzb'), '入口仍内嵌整个引擎');
       assert(html.includes('type="module"') && html.includes('assets/'), '没有使用工程构建入口');
       const release = await (await page.request.get(root + 'release.json')).json();
-      assert(release.version === '4.0.0' && release.assets.some(asset => asset.path.endsWith('.wasm')), '发布清单缺少引擎');
+      assert(release.version === await page.locator('meta[name="sqltrain-version"]').getAttribute('content') && release.assets.some(asset => asset.path.endsWith('.wasm')), '发布清单版本不一致或缺少引擎');
       const manifest = await (await page.request.get(root + 'manifest.webmanifest')).json();
       assert(new URL(manifest.id, root).href === root, '应用身份与部署目录不一致');
       await page.waitForFunction(async () => {
         const registration = await navigator.serviceWorker.getRegistration();
         if (!registration?.active) return false;
-        const cache = await caches.open('sql-trainer-v28:' + registration.scope);
         const release = await (await fetch('release.json')).json();
+        const cache = await caches.open(release.cache + ':' + registration.scope);
         return (await Promise.all(release.assets.map(asset => cache.match(new URL(asset.path, registration.scope))))).every(Boolean);
       });
     });
@@ -43,7 +44,7 @@ async page => {
       await context.setOffline(true);
       await target.reload();
       await ready(target);
-      assert(await target.locator('meta[name="sqltrain-build"]').getAttribute('content') === '20261026.9', '异常更新损坏旧版离线副本');
+      assert(await target.locator('meta[name="sqltrain-build"]').getAttribute('content') === currentRelease.build, '异常更新损坏旧版离线副本');
       assert(!failures.length, failures.join('; '));
       await context.close();
       await page.request.get(root + '__fixture?stage=current');
@@ -84,7 +85,7 @@ async page => {
       await page.locator('.st-about-head [data-act="check-update"]').click();
       await page.waitForFunction(() => !document.querySelector('#st-update-apply').hidden);
       await page.locator('#st-update-apply').click();
-      await page.waitForURL(/sqltrain-build=20261026\.10/);
+      await page.waitForURL(url => url.searchParams.get('sqltrain-build') === currentRelease.build + '.update-test');
       await ready(page);
       const after = await page.evaluate(() => JSON.parse(localStorage.getItem('sqltrain_session')));
       assert(after.codes.q2 === before.codes.q2 && after.codes['test_' + before.test.qids[0]] === 'SELECT 42;', '更新丢失 SQL 草稿');
@@ -93,7 +94,7 @@ async page => {
       await page.context().setOffline(true);
       await page.reload();
       await ready(page);
-      assert(await page.locator('meta[name="sqltrain-build"]').getAttribute('content') === '20261026.10', '离线仍返回旧构建');
+      assert(await page.locator('meta[name="sqltrain-build"]').getAttribute('content') === currentRelease.build + '.update-test', '离线仍返回旧构建');
       await page.context().setOffline(false);
       await page.request.get(root + '__fixture?stage=current');
     });

@@ -1,0 +1,205 @@
+{
+  "old": {
+    "v": 1,
+    "done": {
+      "q1": {
+        "ts": 1,
+        "used": 0
+      }
+    },
+    "wrong": {
+      "q2": 1
+    },
+    "notes": {
+      "q1": "旧笔记"
+    },
+    "days": [
+      "2026-10-25"
+    ],
+    "savedAt": 1
+  },
+  "normalized": {
+    "v": 1,
+    "done": {
+      "q1": {
+        "ts": 1,
+        "used": 0
+      }
+    },
+    "wrong": {
+      "q2": 1
+    },
+    "notes": {
+      "q1": "旧笔记"
+    },
+    "lessons": {},
+    "plan": {},
+    "days": [
+      "2026-10-25"
+    ],
+    "attempts": {},
+    "sr": {},
+    "mil": {},
+    "savedAt": 1,
+    "_sync": {
+      "reset": {
+        "t": 0,
+        "d": ""
+      },
+      "records": {
+        "done": {
+          "q1": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "wrong": {
+          "q2": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "notes": {
+          "q1": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "lessons": {},
+        "plan": {},
+        "attempts": {},
+        "sr": {},
+        "mil": {},
+        "days": {
+          "2026-10-25": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "misc": {}
+      }
+    }
+  },
+  "changed": {
+    "v": 1,
+    "done": {
+      "q1": {
+        "ts": 1,
+        "used": 0
+      }
+    },
+    "wrong": {},
+    "notes": {
+      "q1": "跨端笔记"
+    },
+    "lessons": {},
+    "plan": {},
+    "days": [
+      "2026-10-25"
+    ],
+    "attempts": {},
+    "sr": {},
+    "mil": {},
+    "savedAt": 100,
+    "_sync": {
+      "reset": {
+        "t": 0,
+        "d": ""
+      },
+      "records": {
+        "done": {
+          "q1": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "wrong": {
+          "q2": {
+            "t": 100,
+            "d": "native-fixture",
+            "deleted": 1
+          }
+        },
+        "notes": {
+          "q1": {
+            "t": 100,
+            "d": "native-fixture"
+          }
+        },
+        "lessons": {},
+        "plan": {},
+        "attempts": {},
+        "sr": {},
+        "mil": {},
+        "days": {
+          "2026-10-25": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "misc": {}
+      }
+    }
+  },
+  "merged": {
+    "v": 1,
+    "done": {
+      "q1": {
+        "ts": 1,
+        "used": 0
+      }
+    },
+    "wrong": {},
+    "notes": {
+      "q1": "跨端笔记"
+    },
+    "lessons": {},
+    "plan": {},
+    "days": [
+      "2026-10-25"
+    ],
+    "attempts": {},
+    "sr": {},
+    "mil": {},
+    "savedAt": 100,
+    "_sync": {
+      "reset": {
+        "t": 0,
+        "d": ""
+      },
+      "records": {
+        "done": {
+          "q1": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "wrong": {
+          "q2": {
+            "t": 100,
+            "d": "native-fixture",
+            "deleted": 1
+          }
+        },
+        "notes": {
+          "q1": {
+            "t": 100,
+            "d": "native-fixture"
+          }
+        },
+        "lessons": {},
+        "plan": {},
+        "attempts": {},
+        "sr": {},
+        "mil": {},
+        "days": {
+          "2026-10-25": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "misc": {}
+      }
+    }
+  }
+}

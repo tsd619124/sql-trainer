@@ -1,0 +1,524 @@
+{
+  "plan": "八周训练计划 · 售前转型专用\n\n目标画像：你不是数据工程师，是售前。三个验收标准——① 笔试关：45 分钟限时写出\"多表 JOIN + 分组聚合 + 窗口函数\"的中等难度题；② 现场关：面试官/客户面前，给一个业务问题，能口述思路并当场写出来；③ 沟通关：看得懂数仓团队的表结构（事实表/维度表/分区），能和实施同事对接。\n\n第 0 周：搭环境（半天搞定）\n\n装本地 MySQL 8（笔试主流方言，帆软报表也常接 MySQL）；不想装就用牛客自带的在线编辑器注册牛客网（SQL 题库免费、企业笔试真题多）+ LeetCode（数据库 50 题）过一遍 SQLBolt（英文但简单，边学边练的交互入门）准备一本错题本（纸质或印象/飞书文档），本系统内置错题本也可以\n\n八周主计划（每天 45—60 分钟）\n\n周 | 主题 | 内容 | 验收里程碑 |\n\nW1 | 取数基础 | SELECT、WHERE、ORDER BY、LIMIT、DISTINCT、NULL 处理、字符串/日期函数 | 给一张表，能按任意条件取数排序 |\n\nW2 | 聚合统计 | COUNT/SUM/AVG、GROUP BY、HAVING、CASE WHEN | 看到看板上的指标能反推出 SQL |\n\nW3 | 多表 JOIN | INNER/LEFT JOIN、三表连接、一对多导致重复计算的陷阱 | 三表连接不晕，知道什么时候要去重 |\n\nW4 | 子查询与 CTE | WHERE/FROM 子查询、EXISTS、UNION、WITH | 能把复杂需求拆成\"先算什么再算什么\" |\n\nW5 | 窗口函数（上） | ROW_NUMBER/RANK/DENSE_RANK、PARTITION BY、分组 TopN | 独立写出 TopN——笔试区分度最大的考点 |\n\nW6 | 窗口函数（下） | LAG/LEAD（同环比/留存）、SUM() OVER（累计） | 独立写出\"每日留存率/复购率\"经典题 |\n\nW7 | 业务综合 | GMV 拆解、同比环比、留存漏斗、RFM 分层、行转列 | 牛客中等+较难真题刷 40 道 |\n\nW8 | 模拟笔试 | 3 次 45 分钟限时模拟；了解 Hive/Spark SQL 与 MySQL 方言差异 | 4 题稳定完成 3 题以上 |\n\n每日节奏（工作日 60 分钟）\n\n10′重写昨天的错题重写，不是重看\n\n40′新题 3—5 道先自己写 15 分钟，卡住再看题解；看完关掉题解重写一遍，写不出 = 没会\n\n10′错题本记一道只写一句话卡点\n\n每周日：90 分钟周测 + 整理本周\"模板库\"（TopN / 留存 / 连续登录 / 行转列）——售前现场写 SQL 靠模板不靠灵感。也可以直接用\"周测\"页自助考试，成绩 ≥4 题（5 题制）再进入下一周。\n\n防无效刷题的四条军规\n\n1每道题先用中文写思路（取哪张表 → 怎么关联 → 按什么分组 → 算什么），再翻译成 SQL\n\n2题解必须关掉重写，禁止\"看懂了\"自我安慰\n\n3每学一个语法，问自己：客户看板上哪个数字是这么算的？（SQL 直接服务你的 demo 能力）\n\n4App 内统一使用 SQLite 运行与判分；对照 MySQL 8 学习笔试写法，日期与整数除法差异以标注为准\n\n资源清单\n\n牛客网 SQL 题库 ↗主战场，企业笔试真题多\n\nLeetCode 数据库 50 题 ↗窗口函数专题必刷\n\nSQLBolt ↗W1—W2 交互入门（SQLZOO 也可）\n\n《SQL 必知必会》超薄小书，W1—W2 配套读物\n\n八周后验收\n\n牛客中等题正确率 80%+限时模拟 4 题完成 3 题+能用 SQL 为自己的 BI demo 作品造数据、验数据（和作品集打通）\n\n周测陪练每周日用「测验 · 限时周测」自助一场：抽题 → 计时作答 → 交卷复盘，把新套路沉淀进模板库。",
+  "cheat": "SQL 语法速查手册\n\n训练库为 SQLite，笔试多为 MySQL，数仓是 Hive。语法骨架三家通用，差异集中在日期、拼接、NULL 兜底。\n\nSQL 执行顺序（报错先想它）\n\nFROM → JOIN → WHERE → GROUP BY → HAVING → SELECT（含别名）→ DISTINCT → ORDER BY → LIMIT\n\n字符串函数\n\n用途 | SQLite | MySQL | Hive |\n\n长度 | LENGTH(s) | CHAR_LENGTH(s) | length(s) |\n\n截取 | SUBSTR(s,a,b) | SUBSTRING(s,a,b) | substr(s,a,b) |\n\n大小写 | UPPER(s) / LOWER(s) | UPPER / LOWER | upper / lower |\n\n拼接 | a || b | CONCAT(a,b) | concat(a,b) / concat_ws(sep,…) |\n\n替换 | REPLACE(s,a,b) | REPLACE | replace |\n\n去空格 | TRIM(s) | TRIM | trim |\n\n日期函数（最常见差异）\n\n用途 | SQLite | MySQL | Hive |\n\n今天 | date('now') | CURDATE() | current_date() |\n\n年-月 | strftime('%Y-%m',d) | DATE_FORMAT(d,'%Y-%m') | date_format(d,'yyyy-MM') |\n\n取年/月 | strftime('%Y',d) / strftime('%m',d) | YEAR(d) / MONTH(d) | year(d) / month(d) |\n\n天数差 | CAST(julianday(a)-julianday(b) AS INTEGER) | DATEDIFF(a,b) | datediff(a,b) |\n\n日期加减 | date(d,'+7 day') | DATE_ADD(d,INTERVAL 7 DAY) | date_add(d,7) |\n\n日期转文本 | strftime('%m',d) | DATE_FORMAT(d,'%m') | substr(d,6,2) |\n\nNULL 处理\n\n用途 | SQLite | MySQL | Hive |\n\n取第一个非空 | COALESCE(a,b,c) | COALESCE | COALESCE |\n\n两参兜底 | IFNULL(a,b) | IFNULL(a,b) | nvl(a,b) |\n\n两者相等则 NULL | NULLIF(a,b) | NULLIF | NULLIF |\n\n聚合与条件\n\n类别 | 写法 | 备注 |\n\n计数 | COUNT(*) / COUNT(col) / COUNT(DISTINCT col) | 行数 / 非空 / 去重——口径不同 |\n\n求和平均 | SUM(x) / AVG(x) | 自动忽略 NULL |\n\n最值 | MIN(x) / MAX(x) | — |\n\n保留小数 | ROUND(x,2) | 报表金额标配 |\n\n条件打标 | CASE WHEN 条件 THEN a ELSE b END | 三家通用；MySQL/Hive 另有 IF(条件,a,b) |\n\n条件计数 | SUM(CASE WHEN 条件 THEN 1 ELSE 0 END) | 高频写法，务必背熟 |\n\n窗口函数\n\n函数 | 用途 | 备注 |\n\nROW_NUMBER() | 组内唯一序号 1,2,3 | TopN 首选 |\n\nRANK() | 并列跳号 1,1,3 | 并列也算名次 |\n\nDENSE_RANK() | 并列不跳号 1,1,2 | 密集排名 |\n\nLAG(x)/LEAD(x) | 上/下一行的值 | 环比、间隔；首尾为 NULL |\n\nSUM(x) OVER (ORDER BY d) | 累计 | 累计 GMV 曲线 |\n\nAVG(x) OVER (… ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) | 7 日移动平均 | 帧控制窗口大小 |\n\n通用语法 | … OVER (PARTITION BY 分区 ORDER BY 排序) | 结果筛选必须包一层 |\n\n售前业务黑话（听不懂就翻这里）\n\n术语 | 是什么 | 怎么算 / 对应练习 |\n\nGMV | 一段时间内的成交总额（口径：通常只算已完成订单） | SUM(明细金额) · 见微课 W7/L1 与 q35 |\n\n客单价 | 平均每笔订单的金额（除以订单数，不是人数） | 总金额 ÷ COUNT(DISTINCT 订单) · q39 |\n\nARPU | 平均每用户收入 | 总收入 ÷ 用户数 |\n\nSKU | 一个商品（最小存货单位） | products 表一行就是一个 SKU |\n\n动销率 | 有销量的商品占在售商品的比例 | COUNT(DISTINCT 下过单的商品) ÷ 总商品数 |\n\n复购率 | 买过的人里买了 2 次及以上的占比 | 侧挂计数 + CASE WHEN · W6/L3 与 q32 |\n\n留存率 | 某段时间的新用户，之后还在购买/活跃的比例 | 条件计数 ÷ 人群 · W7/L3 与 q36 |\n\n转化率/漏斗 | 完成下一步的人数 ÷ 上一步人数 | 各步条件计数再相除 · W7/L3 |\n\n同比/环比 | 与去年同月 / 上一统计周期比 | LAG 偏移 12 期 / 1 期 · W7/L2 |\n\nDAU/MAU | 日活 / 月活用户数 | COUNT(DISTINCT user_id) 按天 / 按月 |\n\nUV/PV | 独立访客数 / 页面浏览量 | UV=COUNT(DISTINCT 人)，PV=COUNT(*) |\n\nLTV | 用户生命周期价值（累计贡献） | 按用户 SUM 金额的长期版 |\n\nROI | 投入产出比 | 收益 ÷ 投入 |\n\nT+1 | 数据第二天才出（数仓夜间跑批） | 见数仓扫盲微课 W3/L4 |\n\n宽表 | 提前拼好维度的大表，看板直接读 | 见数仓扫盲微课 W3/L4 |\n\n易错清单（交卷前过一遍）\n\n1NULL：= NULL 永远不成立，用 IS NULL；NOT IN 遇 NULL 返回空集，改用 NOT EXISTS\n\n2一对多连接后数\"人/单\"要 COUNT(DISTINCT id)，否则数字变大\n\n3WHERE 里不能用聚合函数；分组后筛选用 HAVING\n\n4SELECT 里的非聚合列必须出现在 GROUP BY 里\n\n5窗口函数不能直接写进 WHERE，用子查询/CTE 包一层\n\n6LEFT JOIN 的右表过滤条件写进 ON，写进 WHERE 会悄悄变回 INNER JOIN\n\n7占比写 100.0*x/y 防整数除法得 0\n\n8ORDER BY 可以用 SELECT 别名；WHERE/GROUP BY/HAVING 不行（SQLite 的 GROUP BY/HAVING 例外，但别依赖）",
+  "checks": [
+    {
+      "id": "env_mysql",
+      "title": "装本地 MySQL 8（笔试主流方言，帆软报表也常接 MySQL）；不想装就用牛客自带的在线编辑器"
+    },
+    {
+      "id": "env_nowcoder",
+      "title": "注册牛客网（SQL 题库免费、企业笔试真题多）+ LeetCode（数据库 50 题）"
+    },
+    {
+      "id": "env_sqlbolt",
+      "title": "过一遍 SQLBolt（英文但简单，边学边练的交互入门）"
+    },
+    {
+      "id": "env_notebook",
+      "title": "准备一本错题本（纸质或印象/飞书文档），本系统内置错题本也可以"
+    },
+    {
+      "id": "acc_nowcoder",
+      "title": "牛客中等题正确率 80%+"
+    },
+    {
+      "id": "acc_timed",
+      "title": "限时模拟 4 题完成 3 题+"
+    },
+    {
+      "id": "acc_demo",
+      "title": "能用 SQL 为自己的 BI demo 作品造数据、验数据（和作品集打通）"
+    }
+  ],
+  "sections": {
+    "plan": [
+      {
+        "id": "section-0",
+        "title": "八周训练计划 · 售前转型专用",
+        "text": "目标画像：你不是数据工程师，是售前。三个验收标准——① 笔试关：45 分钟限时写出\"多表 JOIN + 分组聚合 + 窗口函数\"的中等难度题；② 现场关：面试官/客户面前，给一个业务问题，能口述思路并当场写出来；③ 沟通关：看得懂数仓团队的表结构（事实表/维度表/分区），能和实施同事对接。",
+        "tables": [],
+        "links": []
+      },
+      {
+        "id": "section-1",
+        "title": "第 0 周：搭环境（半天搞定）",
+        "text": "装本地 MySQL 8（笔试主流方言，帆软报表也常接 MySQL）；不想装就用牛客自带的在线编辑器注册牛客网（SQL 题库免费、企业笔试真题多）+ LeetCode（数据库 50 题）过一遍 SQLBolt（英文但简单，边学边练的交互入门）准备一本错题本（纸质或印象/飞书文档），本系统内置错题本也可以",
+        "tables": [],
+        "links": []
+      },
+      {
+        "id": "section-2",
+        "title": "八周主计划（每天 45—60 分钟）",
+        "text": "",
+        "tables": [
+          {
+            "id": "table-0",
+            "rows": [
+              [
+                "周",
+                "主题",
+                "内容",
+                "验收里程碑"
+              ],
+              [
+                "W1",
+                "取数基础",
+                "SELECT、WHERE、ORDER BY、LIMIT、DISTINCT、NULL 处理、字符串/日期函数",
+                "给一张表，能按任意条件取数排序"
+              ],
+              [
+                "W2",
+                "聚合统计",
+                "COUNT/SUM/AVG、GROUP BY、HAVING、CASE WHEN",
+                "看到看板上的指标能反推出 SQL"
+              ],
+              [
+                "W3",
+                "多表 JOIN",
+                "INNER/LEFT JOIN、三表连接、一对多导致重复计算的陷阱",
+                "三表连接不晕，知道什么时候要去重"
+              ],
+              [
+                "W4",
+                "子查询与 CTE",
+                "WHERE/FROM 子查询、EXISTS、UNION、WITH",
+                "能把复杂需求拆成\"先算什么再算什么\""
+              ],
+              [
+                "W5",
+                "窗口函数（上）",
+                "ROW_NUMBER/RANK/DENSE_RANK、PARTITION BY、分组 TopN",
+                "独立写出 TopN——笔试区分度最大的考点"
+              ],
+              [
+                "W6",
+                "窗口函数（下）",
+                "LAG/LEAD（同环比/留存）、SUM() OVER（累计）",
+                "独立写出\"每日留存率/复购率\"经典题"
+              ],
+              [
+                "W7",
+                "业务综合",
+                "GMV 拆解、同比环比、留存漏斗、RFM 分层、行转列",
+                "牛客中等+较难真题刷 40 道"
+              ],
+              [
+                "W8",
+                "模拟笔试",
+                "3 次 45 分钟限时模拟；了解 Hive/Spark SQL 与 MySQL 方言差异",
+                "4 题稳定完成 3 题以上"
+              ]
+            ]
+          }
+        ],
+        "links": []
+      },
+      {
+        "id": "section-3",
+        "title": "每日节奏（工作日 60 分钟）",
+        "text": "10′重写昨天的错题重写，不是重看\n\n40′新题 3—5 道先自己写 15 分钟，卡住再看题解；看完关掉题解重写一遍，写不出 = 没会\n\n10′错题本记一道只写一句话卡点\n\n每周日：90 分钟周测 + 整理本周\"模板库\"（TopN / 留存 / 连续登录 / 行转列）——售前现场写 SQL 靠模板不靠灵感。也可以直接用\"周测\"页自助考试，成绩 ≥4 题（5 题制）再进入下一周。",
+        "tables": [],
+        "links": []
+      },
+      {
+        "id": "section-4",
+        "title": "防无效刷题的四条军规",
+        "text": "1每道题先用中文写思路（取哪张表 → 怎么关联 → 按什么分组 → 算什么），再翻译成 SQL\n\n2题解必须关掉重写，禁止\"看懂了\"自我安慰\n\n3每学一个语法，问自己：客户看板上哪个数字是这么算的？（SQL 直接服务你的 demo 能力）\n\n4App 内统一使用 SQLite 运行与判分；对照 MySQL 8 学习笔试写法，日期与整数除法差异以标注为准",
+        "tables": [],
+        "links": []
+      },
+      {
+        "id": "section-5",
+        "title": "资源清单",
+        "text": "牛客网 SQL 题库 ↗主战场，企业笔试真题多\n\nLeetCode 数据库 50 题 ↗窗口函数专题必刷\n\nSQLBolt ↗W1—W2 交互入门（SQLZOO 也可）\n\n《SQL 必知必会》超薄小书，W1—W2 配套读物",
+        "tables": [],
+        "links": [
+          {
+            "url": "https://www.nowcoder.com/",
+            "title": "牛客网 SQL 题库"
+          },
+          {
+            "url": "https://leetcode.cn/problemset/database/",
+            "title": "LeetCode 数据库 50 题"
+          },
+          {
+            "url": "https://sqlbolt.com/",
+            "title": "SQLBolt"
+          }
+        ]
+      },
+      {
+        "id": "section-6",
+        "title": "八周后验收",
+        "text": "牛客中等题正确率 80%+限时模拟 4 题完成 3 题+能用 SQL 为自己的 BI demo 作品造数据、验数据（和作品集打通）\n\n周测陪练每周日用「测验 · 限时周测」自助一场：抽题 → 计时作答 → 交卷复盘，把新套路沉淀进模板库。",
+        "tables": [],
+        "links": []
+      }
+    ],
+    "cheat": [
+      {
+        "id": "section-0",
+        "title": "SQL 语法速查手册",
+        "text": "训练库为 SQLite，笔试多为 MySQL，数仓是 Hive。语法骨架三家通用，差异集中在日期、拼接、NULL 兜底。",
+        "tables": [],
+        "links": []
+      },
+      {
+        "id": "section-1",
+        "title": "SQL 执行顺序（报错先想它）",
+        "text": "FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT（含别名）→ DISTINCT → ORDER BY → LIMIT",
+        "tables": [],
+        "links": []
+      },
+      {
+        "id": "section-2",
+        "title": "字符串函数",
+        "text": "",
+        "tables": [
+          {
+            "id": "table-0",
+            "rows": [
+              [
+                "用途",
+                "SQLite",
+                "MySQL",
+                "Hive"
+              ],
+              [
+                "长度",
+                "LENGTH(s)",
+                "CHAR_LENGTH(s)",
+                "length(s)"
+              ],
+              [
+                "截取",
+                "SUBSTR(s,a,b)",
+                "SUBSTRING(s,a,b)",
+                "substr(s,a,b)"
+              ],
+              [
+                "大小写",
+                "UPPER(s) / LOWER(s)",
+                "UPPER / LOWER",
+                "upper / lower"
+              ],
+              [
+                "拼接",
+                "a || b",
+                "CONCAT(a,b)",
+                "concat(a,b) / concat_ws(sep,…)"
+              ],
+              [
+                "替换",
+                "REPLACE(s,a,b)",
+                "REPLACE",
+                "replace"
+              ],
+              [
+                "去空格",
+                "TRIM(s)",
+                "TRIM",
+                "trim"
+              ]
+            ]
+          }
+        ],
+        "links": []
+      },
+      {
+        "id": "section-3",
+        "title": "日期函数（最常见差异）",
+        "text": "",
+        "tables": [
+          {
+            "id": "table-0",
+            "rows": [
+              [
+                "用途",
+                "SQLite",
+                "MySQL",
+                "Hive"
+              ],
+              [
+                "今天",
+                "date('now')",
+                "CURDATE()",
+                "current_date()"
+              ],
+              [
+                "年-月",
+                "strftime('%Y-%m',d)",
+                "DATE_FORMAT(d,'%Y-%m')",
+                "date_format(d,'yyyy-MM')"
+              ],
+              [
+                "取年/月",
+                "strftime('%Y',d) / strftime('%m',d)",
+                "YEAR(d) / MONTH(d)",
+                "year(d) / month(d)"
+              ],
+              [
+                "天数差",
+                "CAST(julianday(a)-julianday(b) AS INTEGER)",
+                "DATEDIFF(a,b)",
+                "datediff(a,b)"
+              ],
+              [
+                "日期加减",
+                "date(d,'+7 day')",
+                "DATE_ADD(d,INTERVAL 7 DAY)",
+                "date_add(d,7)"
+              ],
+              [
+                "日期转文本",
+                "strftime('%m',d)",
+                "DATE_FORMAT(d,'%m')",
+                "substr(d,6,2)"
+              ]
+            ]
+          }
+        ],
+        "links": []
+      },
+      {
+        "id": "section-4",
+        "title": "NULL 处理",
+        "text": "",
+        "tables": [
+          {
+            "id": "table-0",
+            "rows": [
+              [
+                "用途",
+                "SQLite",
+                "MySQL",
+                "Hive"
+              ],
+              [
+                "取第一个非空",
+                "COALESCE(a,b,c)",
+                "COALESCE",
+                "COALESCE"
+              ],
+              [
+                "两参兜底",
+                "IFNULL(a,b)",
+                "IFNULL(a,b)",
+                "nvl(a,b)"
+              ],
+              [
+                "两者相等则 NULL",
+                "NULLIF(a,b)",
+                "NULLIF",
+                "NULLIF"
+              ]
+            ]
+          }
+        ],
+        "links": []
+      },
+      {
+        "id": "section-5",
+        "title": "聚合与条件",
+        "text": "",
+        "tables": [
+          {
+            "id": "table-0",
+            "rows": [
+              [
+                "类别",
+                "写法",
+                "备注"
+              ],
+              [
+                "计数",
+                "COUNT(*) / COUNT(col) / COUNT(DISTINCT col)",
+                "行数 / 非空 / 去重——口径不同"
+              ],
+              [
+                "求和平均",
+                "SUM(x) / AVG(x)",
+                "自动忽略 NULL"
+              ],
+              [
+                "最值",
+                "MIN(x) / MAX(x)",
+                "—"
+              ],
+              [
+                "保留小数",
+                "ROUND(x,2)",
+                "报表金额标配"
+              ],
+              [
+                "条件打标",
+                "CASE WHEN 条件 THEN a ELSE b END",
+                "三家通用；MySQL/Hive 另有 IF(条件,a,b)"
+              ],
+              [
+                "条件计数",
+                "SUM(CASE WHEN 条件 THEN 1 ELSE 0 END)",
+                "高频写法，务必背熟"
+              ]
+            ]
+          }
+        ],
+        "links": []
+      },
+      {
+        "id": "section-6",
+        "title": "窗口函数",
+        "text": "",
+        "tables": [
+          {
+            "id": "table-0",
+            "rows": [
+              [
+                "函数",
+                "用途",
+                "备注"
+              ],
+              [
+                "ROW_NUMBER()",
+                "组内唯一序号 1,2,3",
+                "TopN 首选"
+              ],
+              [
+                "RANK()",
+                "并列跳号 1,1,3",
+                "并列也算名次"
+              ],
+              [
+                "DENSE_RANK()",
+                "并列不跳号 1,1,2",
+                "密集排名"
+              ],
+              [
+                "LAG(x)/LEAD(x)",
+                "上/下一行的值",
+                "环比、间隔；首尾为 NULL"
+              ],
+              [
+                "SUM(x) OVER (ORDER BY d)",
+                "累计",
+                "累计 GMV 曲线"
+              ],
+              [
+                "AVG(x) OVER (… ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)",
+                "7 日移动平均",
+                "帧控制窗口大小"
+              ],
+              [
+                "通用语法",
+                "… OVER (PARTITION BY 分区 ORDER BY 排序)",
+                "结果筛选必须包一层"
+              ]
+            ]
+          }
+        ],
+        "links": []
+      },
+      {
+        "id": "section-7",
+        "title": "售前业务黑话（听不懂就翻这里）",
+        "text": "",
+        "tables": [
+          {
+            "id": "table-0",
+            "rows": [
+              [
+                "术语",
+                "是什么",
+                "怎么算 / 对应练习"
+              ],
+              [
+                "GMV",
+                "一段时间内的成交总额（口径：通常只算已完成订单）",
+                "SUM(明细金额) · 见微课 W7/L1 与 q35"
+              ],
+              [
+                "客单价",
+                "平均每笔订单的金额（除以订单数，不是人数）",
+                "总金额 ÷ COUNT(DISTINCT 订单) · q39"
+              ],
+              [
+                "ARPU",
+                "平均每用户收入",
+                "总收入 ÷ 用户数"
+              ],
+              [
+                "SKU",
+                "一个商品（最小存货单位）",
+                "products 表一行就是一个 SKU"
+              ],
+              [
+                "动销率",
+                "有销量的商品占在售商品的比例",
+                "COUNT(DISTINCT 下过单的商品) ÷ 总商品数"
+              ],
+              [
+                "复购率",
+                "买过的人里买了 2 次及以上的占比",
+                "侧挂计数 + CASE WHEN · W6/L3 与 q32"
+              ],
+              [
+                "留存率",
+                "某段时间的新用户，之后还在购买/活跃的比例",
+                "条件计数 ÷ 人群 · W7/L3 与 q36"
+              ],
+              [
+                "转化率/漏斗",
+                "完成下一步的人数 ÷ 上一步人数",
+                "各步条件计数再相除 · W7/L3"
+              ],
+              [
+                "同比/环比",
+                "与去年同月 / 上一统计周期比",
+                "LAG 偏移 12 期 / 1 期 · W7/L2"
+              ],
+              [
+                "DAU/MAU",
+                "日活 / 月活用户数",
+                "COUNT(DISTINCT user_id) 按天 / 按月"
+              ],
+              [
+                "UV/PV",
+                "独立访客数 / 页面浏览量",
+                "UV=COUNT(DISTINCT 人)，PV=COUNT(*)"
+              ],
+              [
+                "LTV",
+                "用户生命周期价值（累计贡献）",
+                "按用户 SUM 金额的长期版"
+              ],
+              [
+                "ROI",
+                "投入产出比",
+                "收益 ÷ 投入"
+              ],
+              [
+                "T+1",
+                "数据第二天才出（数仓夜间跑批）",
+                "见数仓扫盲微课 W3/L4"
+              ],
+              [
+                "宽表",
+                "提前拼好维度的大表，看板直接读",
+                "见数仓扫盲微课 W3/L4"
+              ]
+            ]
+          }
+        ],
+        "links": []
+      },
+      {
+        "id": "section-8",
+        "title": "易错清单（交卷前过一遍）",
+        "text": "1NULL：= NULL 永远不成立，用 IS NULL；NOT IN 遇 NULL 返回空集，改用 NOT EXISTS\n\n2一对多连接后数\"人/单\"要 COUNT(DISTINCT id)，否则数字变大\n\n3WHERE 里不能用聚合函数；分组后筛选用 HAVING\n\n4SELECT 里的非聚合列必须出现在 GROUP BY 里\n\n5窗口函数不能直接写进 WHERE，用子查询/CTE 包一层\n\n6LEFT JOIN 的右表过滤条件写进 ON，写进 WHERE 会悄悄变回 INNER JOIN\n\n7占比写 100.0*x/y 防整数除法得 0\n\n8ORDER BY 可以用 SELECT 别名；WHERE/GROUP BY/HAVING 不行（SQLite 的 GROUP BY/HAVING 例外，但别依赖）",
+        "tables": [],
+        "links": []
+      }
+    ]
+  }
+}

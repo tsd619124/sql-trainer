@@ -2,6 +2,7 @@ import './styles/foundation.css';
 import './styles/mobile.css';
 import './styles/workspace.css';
 import './styles/native.css';
+import './styles/enrichment.css';
 import { createStorage } from './services/storage.js';
 import { createPlatform } from './platform/device.js';
 import { startWorkspace } from './app/workspace.js';

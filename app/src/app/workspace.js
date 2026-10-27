@@ -7,6 +7,8 @@ import { createSync } from '../services/sync.js';
 import { createUpdates } from '../platform/updates.js';
 import { loadSqlEngine } from '../engine/runtime.js';
 import { createJudge } from '../engine/judge.js';
+import { PRACTICE_QUESTIONS } from '../content/enrichment.js';
+import { startEnrichment } from './enrichment.js';
 
 export function startWorkspace({ storage, platform }) {
 
@@ -32,7 +34,7 @@ export function startWorkspace({ storage, platform }) {
   var CODE_DEFAULT='-- 在这里写你的 SQL\n-- Ctrl+Enter 或点"运行并判定"\n';
   var DEFAULT_STATE={v:1,done:{},wrong:{},notes:{},lessons:{},plan:{},days:[],savedAt:0};
   var state=normalizeState(DEFAULT_STATE),stateBase=cloneProgress(state);
-  var codes={},viewed={},lastLearning=null;
+  var codes={},viewed={},lastLearning=null,lastPractice=null,practiceTraining=null;
   var currentQid=null,qfilter='all',db=null,engineMode='loading',test=null,testTimer=null,testResult=null;
   var sqlRuntime=null,databaseSeed=null,playDb=null,storageWarning=false,loadWarning='',judge=null;
   var deviceId='';
@@ -77,13 +79,14 @@ export function startWorkspace({ storage, platform }) {
   function saveSession(){
     var session={v:1,codes:codes,viewed:viewed,currentQid:currentQid,qfilter:qfilter,
       topTab:topTab,trainSub:trainSub,examSub:examSub,learnView:learnView,currentLid:currentLid,
-      test:test,testResult:testResult,lastLearning:lastLearning};
+      test:test,testResult:testResult,lastLearning:lastLearning,lastPractice:lastPractice};
     try{storage.setItem('sqltrain_session',JSON.stringify(session));return true}catch(e){storageFailed();return false}
   }
   function loadSession(override){
     try{
       var raw=override||storage.getItem('sqltrain_session');if(!raw)return;
       var s=parseSafeJSON(raw);if(!isRecord(s)||s.v!==1)return;
+      if(PRACTICE_QUESTIONS.some(function(q){return q.id===s.lastPractice}))lastPractice=s.lastPractice;
       if(isRecord(s.codes))Object.keys(s.codes).forEach(function(id){
         var qid=id.indexOf('test_')===0?id.slice(5):id;
         if((qid==='play'||knownProgressId('done',qid))&&typeof s.codes[id]==='string'&&s.codes[id].length<=100000)codes[id]=s.codes[id];
@@ -159,7 +162,8 @@ export function startWorkspace({ storage, platform }) {
   function refreshIcons(){try{if(window.lucide&&window.lucide.createIcons)window.lucide.createIcons({attrs:{width:16,height:16}})}catch(e){}}
   /* 触感反馈:尽力而为,不支持的设备静默跳过 */
   function buzz(p){try{platform.haptic()}catch(e){}}
-  function qById(id){if(id==='play')return null;for(var i=0;i<QUESTIONS.length;i++){if(QUESTIONS[i].id===id)return QUESTIONS[i]}return null}
+  function qById(id){if(id==='play')return null;return QUESTIONS.concat(PRACTICE_QUESTIONS).find(function(q){return q.id===id})||null}
+  function coreDoneCount(st){return QUESTIONS.filter(function(q){return (st||state).done[q.id]}).length}
   function nextQuestion(){
     var bw=null,bwW=9;
     QUESTIONS.forEach(function(q){if(state.wrong[q.id]&&!state.done[q.id]&&q.w<bwW){bwW=q.w;bw=q}});
@@ -204,12 +208,12 @@ export function startWorkspace({ storage, platform }) {
 
   function updateStreak(){
     var el=document.getElementById('st-streak');
-    if(el)el.textContent='连续 '+streak()+' 天 · '+Object.keys(state.done).length+'/'+QUESTIONS.length+' 题';
+    if(el)el.textContent='连续 '+streak()+' 天 · '+coreDoneCount()+'/'+QUESTIONS.length+' 题';
     var b=document.getElementById('st-engine-text');
     if(b)b.textContent=engineMode==='ok'?'练习库就绪':(engineMode==='self'?'自评模式':'准备中…');
     document.getElementById('st-engine').setAttribute('data-mode',engineMode);
     var _ld=0;for(var _k in state.lessons){if(state.lessons[_k])_ld++}
-    var percentage=Math.round((Object.keys(state.done).length+_ld)/(QUESTIONS.length+LESSONS.length)*100);
+    var percentage=Math.round((coreDoneCount()+_ld)/(QUESTIONS.length+LESSONS.length)*100);
     document.getElementById('st-sidebar-progress').textContent=percentage+'%';
     document.getElementById('st-sidebar-fill').style.width=percentage+'%';
     document.getElementById('st-course-progress').setAttribute('aria-valuenow',percentage);
@@ -324,7 +328,7 @@ export function startWorkspace({ storage, platform }) {
   }
   function renderDash(){
     var panel=document.getElementById('panel-dash');
-    var doneCount=Object.keys(state.done).length;
+    var doneCount=coreDoneCount();
     var wrongCount=Object.keys(state.wrong).length;
     var next=nextQuestion();
     var nl=nextLesson();
@@ -444,7 +448,7 @@ export function startWorkspace({ storage, platform }) {
       list='<div class="st-weekhead"><span class="text-small" style="font-weight:500">第'+w+'周 · '+WEEKS[w-1].name+'</span><span class="text-small text-muted tabular-nums">'+wp.done+'/'+wp.total+'</span></div>';
       QUESTIONS.forEach(function(q){if(q.w===w)list+=qBtn(q)});
     }
-    el.innerHTML='<div class="st-cols">'
+    el.innerHTML='<p><button class="btn" type="button" data-training-open>变式与专题训练 · 109 项</button></p><div class="st-cols">'
       +'<details class="st-question-library st-catalog"'+(window.matchMedia('(min-width:961px)').matches?' open':'')+'><summary>题目目录 · 选择或切换题目</summary><div class="viz-controls"><div style="width:100%"><label class="form-label text-small" for="st-qfilter">练习范围</label>'
       +'<select id="st-qfilter" class="form-select form-select-sm">'+opts.join('')+'</select></div></div>'
       +'<div class="st-qlist">'+list+'</div></details>'
@@ -483,7 +487,7 @@ export function startWorkspace({ storage, platform }) {
       +'<div class="viz-row" style="gap:6px;flex-wrap:wrap"><span class="viz-badge">W'+q.w+' · '+wk.name+'</span><span class="viz-badge">'+q.pts+' 分</span><span id="st-qstatus">'+qStatus(q)+'</span></div>'
       +'<div class="text-small text-muted st-kpi"><i data-lucide="table-2" aria-hidden="true"></i>'+q.tables.join('、')+'</div></div>'
       +'<h3 class="st-task-title">'+q.title+'</h3><p class="st-task-description">'+q.text+'</p>'
-      +(rl?'<button class="st-related-lesson" data-act="open-lesson" data-lid="'+rl.id+'" type="button" aria-label="学习本题知识点：'+esc(rl.title)+'"><i data-lucide="book-open" aria-hidden="true"></i><span>配套微课 · '+esc(rl.title)+'</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>':'')+'</div>'
+      +(rl?'<button class="st-related-lesson" data-act="open-lesson" data-lid="'+rl.id+'" type="button" aria-label="学习本题知识点：'+esc(rl.title)+'"><i data-lucide="book-open" aria-hidden="true"></i><span>配套微课 · '+esc(rl.title)+'</span><i data-lucide="chevron-right" aria-hidden="true"></i></button>':'')+'<button class="btn btn-sm" type="button" data-training-parent="'+q.id+'">同知识点：条件变化与综合迁移</button></div>'
       +'<div id="st-hint" hidden class="text-small st-kpi" style="color:var(--muted-foreground);margin-bottom:8px"><i data-lucide="lightbulb" aria-hidden="true"></i>提示：'+q.hint+'</div>'
       +editorHtml(qid,false)
       +'<div id="st-verdict" role="status" aria-live="polite" aria-atomic="true" style="margin-top:10px"></div>'
@@ -983,7 +987,7 @@ function renderPlanPage(){
     +'<div class="st-psteps"><div><span>10′</span><div><strong>重写昨天的错题</strong><small>重写，不是重看</small></div></div><div><span>40′</span><div><strong>新题 3—5 道</strong><small>先自己写 15 分钟，卡住再看题解；看完关掉题解重写一遍，写不出 = 没会</small></div></div><div><span>10′</span><div><strong>错题本记一道</strong><small>只写一句话卡点</small></div></div></div>'
     +'<p class="st-lp"><strong>每周日</strong>：90 分钟周测 + 整理本周"模板库"（TopN / 留存 / 连续登录 / 行转列）——售前现场写 SQL 靠模板不靠灵感。也可以直接用"周测"页自助考试，成绩 ≥4 题（5 题制）再进入下一周。</p>'
     +'<h3 class="st-lh">防无效刷题的四条军规</h3>'
-    +'<div class="st-rules"><div><span>1</span>每道题先用中文写思路（取哪张表 → 怎么关联 → 按什么分组 → 算什么），再翻译成 SQL</div><div><span>2</span>题解必须关掉重写，禁止"看懂了"自我安慰</div><div><span>3</span>每学一个语法，问自己：客户看板上哪个数字是这么算的？（SQL 直接服务你的 demo 能力）</div><div><span>4</span>八周只用 MySQL 一种方言，别东学西学</div></div>'
+    +'<div class="st-rules"><div><span>1</span>每道题先用中文写思路（取哪张表 → 怎么关联 → 按什么分组 → 算什么），再翻译成 SQL</div><div><span>2</span>题解必须关掉重写，禁止"看懂了"自我安慰</div><div><span>3</span>每学一个语法，问自己：客户看板上哪个数字是这么算的？（SQL 直接服务你的 demo 能力）</div><div><span>4</span>App 内统一使用 SQLite 运行与判分；对照 MySQL 8 学习笔试写法，日期与整数除法差异以标注为准</div></div>'
     +'<h3 class="st-lh">资源清单</h3>'
     +'<div class="st-res"><a href="https://www.nowcoder.com/" target="_blank" rel="noopener">牛客网 SQL 题库 ↗</a><span>主战场，企业笔试真题多</span></div>'
     +'<div class="st-res"><a href="https://leetcode.cn/problemset/database/" target="_blank" rel="noopener">LeetCode 数据库 50 题 ↗</a><span>窗口函数专题必刷</span></div>'
@@ -1090,6 +1094,7 @@ function renderCheatPage(){
 }
   /* ---------- 事件 ---------- */
   function openQuestion(qid){
+    if(PRACTICE_QUESTIONS.some(function(q){return q.id===qid})){practiceTraining.open(qid);return}
     if(qid!=='play'&&!qById(qid))return;
     currentQid=qid;
     lastLearning={type:'question',id:qid};
@@ -1230,6 +1235,10 @@ function renderCheatPage(){
   /* ---------- 我的:档案 / 数据管理 / 关于与版本更新 ---------- */
   var APP_VERSION=__APP_VERSION__,APP_BUILD=__APP_BUILD__;
   var CHANGELOG=[
+    ['4.1.0','2026-10-28',[
+      '保留 42 道核心题，新增 109 项变式、专题、多题型训练与分析项目；SQL 在业务、边界和空集三组数据上判分',
+      '补齐课程易错点，修正连续自然日移动平均，区分阅读示例、辅助完成、独立重做和学习错误记录',
+      '备份与同步兼容原生新版的学习路径、独立作答证据、周测历史及拓展题记录，保留既有进度与草稿']],
     ['4.0.0','2026-10-26',[
       'Web 与 iOS 共用模块化训练核心，题库、课程、判分、存储与更新独立维护',
       'iOS 集成系统学习提醒、文件分享、触感反馈与本机持久化，支持离线学习',
@@ -1355,7 +1364,7 @@ function renderCheatPage(){
   var {pwa,pwaGuide,paintPwa,checkUpdate,applyUpdate,installPwa,startPwa}=createUpdates({root:root,version:APP_VERSION,build:APP_BUILD,saveBeforeUpdate:saveBeforeUpdate,storage:storage,platform:platform,toast:stToast});
   function renderMe(){
     var el=document.getElementById('panel-me');if(!el)return;
-    var doneCount=Object.keys(state.done).length,wrongCount=Object.keys(state.wrong).length,_ld=0;
+    var doneCount=coreDoneCount(),wrongCount=Object.keys(state.wrong).length,_ld=0;
     for(var _k in state.lessons){if(state.lessons[_k])_ld++}
     var pct=Math.round((doneCount+_ld)/(QUESTIONS.length+LESSONS.length)*100);
     var markup='<div class="st-me-head"><span class="st-me-avatar"><i data-lucide="user" aria-hidden="true"></i></span><div style="min-width:0"><h2>我的学习档案</h2><p>进度保存在这台设备 · 备份与云同步在下方</p></div></div>'
@@ -1519,14 +1528,14 @@ function renderCheatPage(){
     clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},2600);
   }
   var MILESTONES=[
-    {id:'first',t:'首题通过',c:function(st){return Object.keys(st.done).length>=1}},
+    {id:'first',t:'首题通过',c:function(st){return coreDoneCount(st)>=1}},
     {id:'d3',t:'连续 3 天',c:function(st){return streak()>=3}},
     {id:'d7',t:'连续 7 天',c:function(st){return streak()>=7}},
     {id:'l5',t:'微课 5 讲',c:function(st){var n=0;for(var k in st.lessons){if(st.lessons[k])n++}return n>=5}},
-    {id:'t10',t:'十题达成',c:function(st){return Object.keys(st.done).length>=10}},
+    {id:'t10',t:'十题达成',c:function(st){return coreDoneCount(st)>=10}},
     {id:'w1',t:'首周通关',c:function(st){var p=weekProgress(1);return p.total>0&&p.done===p.total}},
-    {id:'half',t:'过半征程',c:function(st){return Object.keys(st.done).length>=21}},
-    {id:'all',t:'全部通关',c:function(st){return Object.keys(st.done).length>=QUESTIONS.length}}
+    {id:'half',t:'过半征程',c:function(st){return coreDoneCount(st)>=21}},
+    {id:'all',t:'全部通关',c:function(st){return coreDoneCount(st)>=QUESTIONS.length}}
   ];
   var _milLock=false;
   function checkMilestones(){
@@ -1851,6 +1860,12 @@ function renderCheatPage(){
     if(state.savedAt&&(!_snap||_snap.d!==_today)){storage.setItem('sqltrain_snap',JSON.stringify({d:_today,t:state.savedAt,s:JSON.stringify(state)}))}
   }catch(e){}
   loadSession();
+  practiceTraining=startEnrichment({
+    getState:function(){return state},
+    updateState:function(change){var candidate=cloneProgress(state);change(candidate);candidate=stampProgress(candidate,stateBase,deviceId);candidate.savedAt=Date.now();var ok=commitProgress(candidate,true);if(ok)updateStreak();return ok},
+    getSession:function(){return {codes:codes,viewed:viewed,lastPractice:lastPractice}},
+    updateSession:function(change){var beforeCodes=Object.assign({},codes),beforeViewed=Object.assign({},viewed),beforeLast=lastPractice;if(change.codes)Object.assign(codes,change.codes);if(change.viewed)Object.assign(viewed,change.viewed);if(change.lastPractice)lastPractice=change.lastPractice;if(saveSession())return true;codes=beforeCodes;viewed=beforeViewed;lastPractice=beforeLast;return false}
+  });
   initEngine();
   setTimeout(function(){syncNow(false)},1500);
   switchTab(topTab);

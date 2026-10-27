@@ -10,9 +10,11 @@ const directory = resolve(root, 'dist');
 const mime = { '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.wasm': 'application/wasm', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const release = JSON.parse(await readFile(resolve(directory, 'release.json'), 'utf8'));
 const currentFiles = new Map(await Promise.all([...release.assets.map(asset => asset.path), 'release.json', 'sw.js'].map(async path => [path, await readFile(resolve(directory, path))])));
+const nextBuild = release.build + '.update-test';
+const nextCache = release.cache + '-update-test';
 const nextFiles = new Map([...currentFiles].map(([path, content]) => [path, /\.(?:html|js)$/.test(path)
-  ? Buffer.from(content.toString().replaceAll('20261026.9', '20261026.10').replaceAll('sql-trainer-v28', 'sql-trainer-v29')) : content]));
-const nextRelease = { ...release, build: '20261026.10', cache: 'sql-trainer-v29', assets: release.assets.map(asset => {
+  ? Buffer.from(content.toString().replaceAll(release.build, nextBuild).replaceAll(release.cache, nextCache)) : content]));
+const nextRelease = { ...release, build: nextBuild, cache: nextCache, assets: release.assets.map(asset => {
   const content = nextFiles.get(asset.path);
   return { ...asset, sha256: createHash('sha256').update(content).digest('hex'), bytes: content.length };
 }) };

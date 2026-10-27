@@ -1,0 +1,66 @@
+{
+  "code": "native-fixture-code",
+  "plaintext": {
+    "v": 1,
+    "done": {
+      "q1": {
+        "ts": 1,
+        "used": 0
+      }
+    },
+    "wrong": {
+      "q2": 1
+    },
+    "notes": {
+      "q1": "旧笔记"
+    },
+    "lessons": {},
+    "plan": {},
+    "days": [
+      "2026-10-25"
+    ],
+    "attempts": {},
+    "sr": {},
+    "mil": {},
+    "savedAt": 1,
+    "_sync": {
+      "reset": {
+        "t": 0,
+        "d": ""
+      },
+      "records": {
+        "done": {
+          "q1": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "wrong": {
+          "q2": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "notes": {
+          "q1": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "lessons": {},
+        "plan": {},
+        "attempts": {},
+        "sr": {},
+        "mil": {},
+        "days": {
+          "2026-10-25": {
+            "t": 1,
+            "d": "legacy"
+          }
+        },
+        "misc": {}
+      }
+    }
+  },
+  "payload": "{\"enc\":\"AES-GCM\",\"v\":1,\"iv\":\"ABEiM0RVZneImaq7\",\"data\":\"RW/PsNncVjpkdwMPXT0HIUQ0Fw/WKJ+qWWt6N4LlHbO3qAVxOzBOiRMGrs60VC4P8NGai+Ai0GOGS8wE6/0cMLBLLOULZ65KK6tq9eT6sqqVdWxhlt4t1XsuPh87SVBobUZ+JJW7w6USUb4AZJJZ4lqN/LERXCYaWNEYJgidWRy90/A0qSUKYxz/Yi12PikiwErldp/gYPTerRRG300deERPSx8Ok0ZkbEkR4Po7gdEEymUOTl3yayXsySx8iZXpSwE3gjqeVeZJFMHckzU1cUiH7O0FIr2p5KD+lWb0yUNzu72zlyRMHo0p+qvhovTDtBX/T1bZ/eTqZj1n+OmEImKLlyJ2aoN7u8BCZUIvNpzOhJ0KEhqFOi89s9mJcLuNSg9tW/6G2A8PFCjmu0Xvdjwf6IG6RmlnTEda6Q8BZk8KRTsmMBljqxVR0pE8Xnb6PCrH4BBEj/QoHaZyF6WZQjpg2mbTL7nAKfV4lodhCZaMiCM3nMqX9JE7yo7w4yVdcL+WxIpJso9WrnPfPiwZK+vM8VUTFNdcUqqgp5XkHm5zIAZP+Y1c6NGm1EzqhN5n5miT0c0aRs+jX2lxVWE=\"}"
+}

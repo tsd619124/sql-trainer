@@ -12,3 +12,6 @@ ios/App/CapApp-SPM/.build/
 ios/App/build/
 ios/**/xcuserdata/
 *.xcuserstate
+
+native-app/.build/
+native-app/.swiftpm/

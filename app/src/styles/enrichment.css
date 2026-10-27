@@ -1,0 +1,35 @@
+.training-dialog{width:min(960px,calc(100% - 24px));max-height:92dvh;padding:0;border:1px solid var(--border);border-radius:20px;background:var(--background);color:var(--foreground);box-shadow:0 24px 100px #0004;overscroll-behavior:contain}
+.training-dialog::backdrop{background:#10182499;backdrop-filter:blur(5px)}
+.training-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--background);z-index:2}
+.training-heading p{margin:0 0 4px;font-size:12px;color:var(--muted-foreground)}
+.training-heading h1{font-size:22px;line-height:1.4;margin:0}
+.training-heading button{flex-shrink:0}
+.training-content{padding:24px;line-height:1.75}
+.training-content p{margin:0 0 16px}
+.training-muted{font-size:13px;color:var(--muted-foreground)}
+.training-prompt{font-size:17px}
+.training-filters{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0 16px}
+.training-filters label{display:grid;gap:6px;flex:1;min-width:150px;font-size:13px}
+.training-filters select{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;background:var(--background);color:inherit}
+.training-list{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.training-list>button{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:17px 18px;border:0;text-align:left;cursor:pointer;background:var(--background);color:inherit;font:inherit}
+.training-list small{display:block;color:var(--muted-foreground);font-size:12px;margin-top:4px}
+.training-list>button>span:last-child{font-size:12px;white-space:nowrap;color:var(--muted-foreground)}
+.training-list>button:hover{background:var(--muted)}
+.training-content details{margin:18px 0;border:1px solid var(--border);border-radius:10px;padding:14px}
+.training-content summary{cursor:pointer;font-weight:600}
+.training-content details[open] summary{margin-bottom:16px}
+.training-content pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.7 ui-monospace,monospace;background:var(--muted);border-radius:8px;padding:16px}
+.training-content textarea{display:block;width:100%;min-height:190px;border:1px solid var(--border);border-radius:12px;padding:16px;background:var(--background);color:inherit;font:15px/1.7 ui-monospace,monospace;resize:vertical;margin:8px 0 14px}
+.training-content textarea#training-note{min-height:130px;font-family:inherit}
+.training-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.training-dialog :focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.training-content h2{font-size:19px;margin:25px 0 12px}
+.training-content h3{font-size:15px;margin:18px 0 8px}
+.training-choice{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--border);border-radius:8px;margin:10px 0;cursor:pointer}
+.training-choice input{width:18px;height:18px;flex-shrink:0}
+.training-table{max-width:100%;overflow-x:auto}
+.training-table table{border-collapse:collapse;width:100%;font:13px/1.6 ui-monospace,monospace}
+.training-table td{padding:8px 12px;white-space:nowrap;border-bottom:1px solid var(--border)}
+#training-verdict{margin:18px 0;font-weight:600}
+@media(max-width:600px){.training-heading,.training-content{padding:16px}.training-heading h1{font-size:19px}.training-list>button{padding:14px 12px;gap:10px}.training-list>button b{font-size:14px}.training-dialog{max-height:96dvh}.training-filters{gap:10px}.training-filters label{min-width:100px}}

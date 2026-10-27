@@ -13,12 +13,41 @@ const legacy = vm.createContext({});
 vm.runInContext(legacyHtml.match(/\/\*__CORE_START__\*\/([\s\S]*?)\/\*__CORE_END__\*\//)[1], legacy);
 const plain = value => JSON.parse(JSON.stringify(value));
 
-test('完整保留 3.0 的题库、课程、解析、模板与学习路径', () => {
+test('质量修订保留原题、课程和模板标识，其余内容保持兼容', () => {
   for (const name of ['QUESTIONS', 'LESSONS', 'WEEKS', 'TEMPLATES', 'EXPLAINS']) {
-    assert.deepEqual(plain(catalog[name]), plain(legacy[name]), name);
+    const current = plain(catalog[name]);
+    const original = plain(legacy[name]);
+    if (name === 'EXPLAINS') current.q33 = original.q33;
+    else {
+      const corrections = {
+        QUESTIONS: { q33: ['text', 'hint', 'answer', 'orderCols'] },
+        LESSONS: { w3l4: ['secs'], w6l2: ['secs', 'biz', 'key'] },
+        TEMPLATES: { '7日移动平均': ['code'] },
+      }[name] || {};
+      for (const item of current) {
+        const identifier = item.id || item.name;
+        const previous = original.find(entry => (entry.id || entry.name) === identifier);
+        for (const field of corrections[identifier] || []) {
+          if (Object.hasOwn(previous, field)) item[field] = previous[field];
+          else delete item[field];
+        }
+      }
+    }
+    assert.deepEqual(current, original, name);
   }
   assert.equal(catalog.QUESTIONS.length, 42);
   assert.equal(catalog.LESSONS.length, 28);
+});
+
+test('新版学习证据经过 Web 备份与合并仍保留', () => {
+  const progress = normalizeState({ v: 1, done: { q1: { ts: 1, used: 1 } },
+    sr: { q1: { due: '2026-10-28', iv: 1, rep: 0, ef: 2.5, lapse: 0, last: '2026-10-27' } },
+    history: [{ q: 'q1', s: 'SELEC 1', ok: 0, t: 1, kind: 'syntax', used: 1 }] });
+  assert.equal(progress.sr.q1.last, '2026-10-27');
+  assert.deepEqual(progress.history[0], { q: 'q1', s: 'SELEC 1', ok: 0, t: 1, kind: 'syntax', used: 1 });
+  assert.deepEqual(mergeStates(progress, normalizeState({ v: 1, done: {} })).history, progress.history);
+  assert.equal(normalizeState({ ...progress, history: [{ ...progress.history[0], kind: 'unknown' }] }), null);
+  assert.equal(normalizeState({ ...progress, sr: { q1: { ...progress.sr.q1, last: '2026-02-30' } } }), null);
 });
 
 test('模块化进度服务兼容旧备份和删除修订', () => {
@@ -41,6 +70,24 @@ test('模块化 SQLite 引擎运行全部标准答案并隔离判题数据库', 
   const seed = database.export();
   const judge = createJudge(runtime, seed);
   for (const question of catalog.QUESTIONS) assert.equal(judge.grade(question, question.answer).passed, true, question.id);
+  const movingAverage = catalog.QUESTIONS.find(question => question.id === 'q33');
+  const actual = database.exec(movingAverage.answer)[0].values;
+  const daily = new Map(database.exec("SELECT order_date, COUNT(*) FROM orders WHERE status='已完成' GROUP BY order_date ORDER BY order_date")[0].values);
+  const dates = [...daily.keys()];
+  const counts = [];
+  const expected = [];
+  for (let date = new Date(dates[0] + 'T00:00:00Z'); date.toISOString().slice(0, 10) <= dates.at(-1); date.setUTCDate(date.getUTCDate() + 1)) {
+    const day = date.toISOString().slice(0, 10);
+    const count = daily.get(day) || 0;
+    counts.push(count);
+    const window = counts.slice(-7);
+    expected.push([day, count, Math.round(window.reduce((sum, value) => sum + value, 0) / window.length * 100) / 100]);
+  }
+  assert.deepEqual(plain(actual), expected);
+  assert.ok(expected.some(row => row[1] === 0));
+  assert.equal(judge.grade(movingAverage, "WITH d AS (SELECT order_date, COUNT(*) AS cnt FROM orders WHERE status='已完成' GROUP BY order_date) SELECT order_date, cnt, ROUND(AVG(cnt) OVER (ORDER BY order_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW),2) AS ma7 FROM d").passed, false);
+  assert.equal(judge.grade(movingAverage, movingAverage.answer.replace('COUNT(o.order_id)', 'COUNT(*)')).passed, false);
+  assert.equal(judge.grade(movingAverage, movingAverage.answer.replace('FROM daily ORDER BY order_date;', 'FROM daily ORDER BY order_date DESC;')).passed, false);
   const first = catalog.QUESTIONS[0];
   assert.equal(judge.grade(first, first.answer.replace('DESC', 'ASC')).passed, false);
   assert.throws(() => judge.query('DELETE FROM products'), /只接受查询/);

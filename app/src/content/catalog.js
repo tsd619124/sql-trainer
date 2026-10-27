@@ -3,6 +3,8 @@ var WEEKS=[
   {w:5,name:'窗口函数（上）'},{w:6,name:'窗口函数（下）'},{w:7,name:'业务综合'},{w:8,name:'模拟笔试'}
 ];
 
+var CALENDAR_MA7_SQL="WITH RECURSIVE dates(order_date) AS (\n  SELECT MIN(order_date) FROM orders WHERE status='已完成' HAVING COUNT(*) > 0\n  UNION ALL\n  SELECT DATE(order_date, '+1 day') FROM dates\n  WHERE order_date < (SELECT MAX(order_date) FROM orders WHERE status='已完成')\n), daily AS (\n  SELECT d.order_date, COUNT(o.order_id) AS cnt\n  FROM dates d LEFT JOIN orders o\n    ON o.order_date=d.order_date AND o.status='已完成'\n  GROUP BY d.order_date\n)\nSELECT order_date, cnt,\n       ROUND(AVG(cnt) OVER (ORDER BY order_date\n             ROWS BETWEEN 6 PRECEDING AND CURRENT ROW), 2) AS ma7\nFROM daily ORDER BY order_date;";
+
 var QUESTIONS=[
 {id:'q1',w:1,pts:10,title:'价格排序的商品清单',tables:['products'],orderCols:[1],
  text:'客户的运营同学想要一份商品清单：所有商品的名称和售价，价格从高到低排。',
@@ -137,10 +139,10 @@ var QUESTIONS=[
  text:'给每位下过单的用户做标记：姓名、订单数、是否复购（≥2单为"是"，否则"否"）。要求用 COUNT(*) OVER (PARTITION BY ...) 实现。',
  hint:'连接会产生一人多行，用 COUNT(*) OVER (PARTITION BY user_id) 得到每人的订单数，再配合 ROW_NUMBER() 去重。',
  answer:"SELECT name, cnt, CASE WHEN cnt>=2 THEN '是' ELSE '否' END AS is_repeat FROM (SELECT u.name AS name, COUNT(*) OVER (PARTITION BY u.user_id) AS cnt, ROW_NUMBER() OVER (PARTITION BY u.user_id) AS rn FROM users u JOIN orders o ON u.user_id=o.user_id) t WHERE rn=1;"},
-{id:'q33',w:6,pts:20,title:'7日移动平均',tables:['orders'],
- text:'按天统计已完成订单数，并计算7日移动平均（含当天，往前共7天）：日期、当日单数、7日均值（保留2位）。',
- hint:'AVG(cnt) OVER (ORDER BY order_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)。',
- answer:"WITH d AS (SELECT order_date, COUNT(*) AS cnt FROM orders WHERE status='已完成' GROUP BY order_date) SELECT order_date, cnt, ROUND(AVG(cnt) OVER (ORDER BY order_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW),2) AS ma7 FROM d;"},
+{id:'q33',w:6,pts:20,title:'7日移动平均',tables:['orders'],orderCols:[0],
+ text:'从首个到最后一个已完成订单日，逐自然日统计已完成订单数，缺失日期补 0。计算含当天及之前 6 个自然日的 7 日移动平均，起始不足 7 天时按已有自然日数求均值。输出日期、当日单数、7日均值（保留2位），按日期升序。',
+ hint:'用递归 CTE 生成连续日期，LEFT JOIN 已完成订单并用 COUNT(order_id) 补出 0 单日，再用 AVG(cnt) OVER (ORDER BY order_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)。',
+ answer:CALENDAR_MA7_SQL},
 
 {id:'q34',w:7,pts:20,title:'RFM基础表',tables:['users','orders','order_items'],
  text:'RFM分析第一步：每位有已完成订单的用户——R（最近一次下单距 2026-10-21 的天数）、F（已完成订单数）、M（累计消费金额）。输出：姓名、R、F、M。',
@@ -214,7 +216,7 @@ q29:'① 先按天聚合：GROUP BY order_date 拿到每日单数（只算已完
 q30:'① LAG 按 user_id 分区：在每个人自己的时间线里取"上一单"；按 order_date 排序。\n② julianday 相减得天数差，CAST 取整。\n坑：忘写 PARTITION BY，"上一单"会串成别人的订单。',
 q31:'① 先按天聚合销售额（已完成订单）。\n② SUM(amt) OVER (ORDER BY order_date)：加 ORDER BY 后窗口默认从分区开头到当前行，正好是从头累加。\n累计曲线的全部秘密 = 按天聚合 + 有序窗口求和。',
 q32:'① 用户连订单后一人多行：COUNT(*) OVER (PARTITION BY u.user_id) 给每行侧挂"该用户总单数"。\n② ROW_NUMBER() OVER (PARTITION BY u.user_id) 取 rn=1，每人只留一行。\n③ CASE WHEN cnt>=2 打复购标。\n三步口诀：侧挂计数 → 取一行 → 打标。',
-q33:'① 先按天聚合出每日单数。\n② AVG(cnt) OVER (ORDER BY order_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW)：含当天往前共 7 行。\n坑：帧不写默认是"从头到当前行"（那是累计）；移动平均必须显式写帧。',
+q33:'① 以首个至最后一个已完成订单日为范围，递归生成连续的自然日。\n② LEFT JOIN 已完成订单，状态条件放在 ON 中；COUNT(order_id) 让无订单日期得到 0。\n③ 日期连续后，ROWS BETWEEN 6 PRECEDING AND CURRENT ROW 才等于含当天的 7 个自然日；ROUND 保留 2 位。\n④ 起始不足 7 天时按已有自然日数求平均；最终按日期升序。\n坑：直接对有订单的日期取前 7 行，会跨过缺失日期，算成 7 个有单日而不是 7 个自然日。',
 q34:'① R = 参照日减 MAX(order_date)：julianday 相减再取整。\n② F = COUNT(DISTINCT o.order_id)：连接明细后必须按订单去重，否则频次被撑大。\n③ M = SUM(明细金额)。\n④ GROUP BY u.user_id, u.name——用户粒度。三个指标三个函数，一条 SQL 各算各的。',
 q35:'① CTE 算各类目金额（只算已完成订单）。\n② 分母 = (SELECT SUM(amt) FROM c)，对 CTE 再聚合一次。\n③ 占比 = amt 乘 100.0 除以分母，ROUND 保留 1 位——乘 100.0 防整数除法得 0。',
 q36:'① 分母：8 月注册人数，COUNT(DISTINCT u.user_id)。LEFT JOIN 之后一人可能多行，必须去重才是"人数"。\n② 分子：其中 9 月有完成订单的人，COUNT(DISTINCT CASE WHEN 9 月 THEN user_id END)。\n③ 右表条件（已完成）写进 ON：写 WHERE 会把没订单的人过滤掉，分母悄悄变小。',
@@ -231,7 +233,7 @@ var TEMPLATES=[
  {name:'同环比（LAG）',biz:'今日 vs 昨日、本月 vs 上月——经营分析报表的灵魂。',
   code:"WITH d AS (\n  SELECT order_date, COUNT(*) AS cnt\n  FROM orders WHERE status='已完成'\n  GROUP BY order_date\n)\nSELECT order_date, cnt,\n       cnt - LAG(cnt) OVER (ORDER BY order_date) AS diff\nFROM d;"},
  {name:'7日移动平均',biz:'抹平波动看趋势，汇报里比单日数更有说服力。',
-  code:"WITH d AS (\n  SELECT order_date, COUNT(*) AS cnt\n  FROM orders WHERE status='已完成'\n  GROUP BY order_date\n)\nSELECT order_date, cnt,\n       ROUND(AVG(cnt) OVER (ORDER BY order_date\n             ROWS BETWEEN 6 PRECEDING AND CURRENT ROW), 2) AS ma7\nFROM d;"},
+  code:CALENDAR_MA7_SQL},
  {name:'行转列（交叉表）',biz:'客户要"月份做列"的报表时，CASE WHEN 一次搞定。',
   code:"SELECT p.category,\n       COUNT(DISTINCT CASE WHEN strftime('%m',o.order_date)='08' THEN o.order_id END) AS m8,\n       COUNT(DISTINCT CASE WHEN strftime('%m',o.order_date)='09' THEN o.order_id END) AS m9,\n       COUNT(DISTINCT CASE WHEN strftime('%m',o.order_date)='10' THEN o.order_id END) AS m10\nFROM orders o\nJOIN order_items i ON i.order_id=o.order_id\nJOIN products p ON p.product_id=i.product_id\nWHERE o.status='已完成'\nGROUP BY p.category;"},
  {name:'连续N天',biz:'连续登录/连续打卡类面试题，日期减序号法一招通吃。',
@@ -375,7 +377,7 @@ var LESSONS=[
   {code:"SELECT u.city, p.category, SUM(i.quantity*i.unit_price) AS gmv FROM orders o JOIN order_items i ON i.order_id=o.order_id JOIN users u ON u.user_id=o.user_id JOIN products p ON p.product_id=i.product_id WHERE o.status='已完成' GROUP BY u.city, p.category LIMIT 10;",run:1,note:'事实表（orders/order_items）关联维度表（users/products）——你已经写了两个星型查询，只是现在才认识它。'},
   {h:'数仓分层的黑话：ODS → DWD → DWS → ADS',p:'ODS 贴源层：业务库数据原样搬进来；DWD 明细层：清洗、打平的事实明细；DWS 汇总层：按天/人/商品轻度聚合；ADS 应用层：看板直接读的最终表。客户说"数不对"，第一句话先问：你看的是哪一层——不同层口径常常不同。'},
   {h:'分区与 T+1',p:'大表按日期分区存储（一天一个分区），查询只扫需要的天，这是数仓快的原因。跑批在夜里进行，所以数仓里今天只有昨天的数据——这就是 T+1。数仓同事说"今天的数明天才有"，不是懈怠，是机制。'},
-  {code:"CREATE TABLE dwd_order_detail (\n  order_id BIGINT, user_id BIGINT, product_id BIGINT,\n  quantity INT, unit_price DECIMAL(10,2)\n)\nPARTITIONED BY (dt STRING);",run:0,note:'Hive 建表的样子：PARTITIONED BY (dt STRING) 按天分区。看得懂、能提问，沟通关就达标了。'},
+  {code:"CREATE TABLE dwd_order_detail (\n  order_id BIGINT, user_id BIGINT, product_id BIGINT,\n  quantity INT, unit_price DECIMAL(10,2)\n)\nPARTITIONED BY (dt STRING);",run:0,dialect:'Hive',note:'Hive 建表的样子：PARTITIONED BY (dt STRING) 按天分区。看得懂、能提问，沟通关就达标了。'},
   {h:'宽表：为看板拼好的大表',p:'把常用维度提前 JOIN 进结果表的宽表（一行 = 一笔订单 + 用户属性 + 商品属性），看板直接读、不用现场连接。客户看板慢，实施同事甩给你一张宽表——现在你知道它为什么存在，也知道多了哪些字段该找谁确认口径。'},
   {traps:['事实表记录"事件"、行数最多；维度表描述"对象"、行数少。分不清就看主键：直接标识一个人/物的是维度表。','别拿 ODS 层直接和客户对数——脏数据都沉淀在那层，口径以 DWD/ADS 为准。','向数仓提需求说清四件事：哪张表（哪一层）、时间范围、过滤口径、要什么粒度——漏一个都会被返工。']}
  ],
@@ -465,12 +467,12 @@ var LESSONS=[
  secs:[
   {h:'累计：SUM() OVER (ORDER BY 日期)',p:'加 ORDER BY 后，聚合窗口默认"从分区开头到当前行"，正好是从头累加——经营报表的"累计 GMV 曲线"就是一行 SQL。'},
   {code:"WITH d AS (SELECT o.order_date AS order_date, SUM(i.quantity*i.unit_price) AS amt FROM orders o JOIN order_items i ON i.order_id=o.order_id WHERE o.status='已完成' GROUP BY o.order_date) SELECT order_date, amt, SUM(amt) OVER (ORDER BY order_date) AS 累计金额 FROM d ORDER BY order_date LIMIT 12;",run:1},
-  {h:'窗口帧：ROWS BETWEEN',p:'默认帧可以自己指定：ROWS BETWEEN 6 PRECEDING AND CURRENT ROW 表示"从前面第 6 行到当前行"——含当天的 7 日移动平均。这就是"均线"的写法。'},
-  {code:"WITH d AS (SELECT order_date, COUNT(*) AS cnt FROM orders WHERE status='已完成' GROUP BY order_date) SELECT order_date, cnt, ROUND(AVG(cnt) OVER (ORDER BY order_date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW),2) AS 七日均值 FROM d ORDER BY order_date LIMIT 14;",run:1,note:'前 6 天不满 7 天时，AVG 只算已有的行。'},
-  {traps:['加 ORDER BY 后帧默认是"开头到当前行"（累计）；不加 ORDER BY 时帧是整个分区（整体聚合）。差别必须清楚。','移动平均开头几天的均值基于不满的窗口，汇报时口径要说清。','帧也可以用 "BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW" 显式写全，效果同默认。']}
+  {h:'窗口帧：先补齐日期，再用 ROWS BETWEEN',p:'ROWS BETWEEN 6 PRECEDING AND CURRENT ROW 表示从前面第 6 行到当前行，共 7 行。只有每天恰好一行时，它才是含当天的 7 个自然日；没有已完成订单的日期必须补 0。本例从首个至最后一个已完成订单日生成连续日期。'},
+  {code:CALENDAR_MA7_SQL,run:1,note:'缺失日期的单数为 0。起始不足 7 天时，AVG 按已有自然日数求均值；从第 7 天起窗口固定为 7 个自然日。'},
+  {traps:['加 ORDER BY 后帧默认是"开头到当前行"（累计）；不加 ORDER BY 时帧是整个分区（整体聚合）。差别必须清楚。','7 行不一定是 7 天：先补齐零订单日期，再开移动窗口；LEFT JOIN 的状态条件放在 ON 中，计数用 COUNT(order_id)。','起始不足 7 天时按已有自然日数求均值；不要把不存在的日期跳过去，也不要把窗口写成累计。']}
  ],
- biz:'累计曲线看目标达成进度，移动平均看趋势。给客户汇报时，"7 日均线"比单日折线更有说服力——而它就是一帧 ROWS BETWEEN 的事。',
- qs:['q31','q33'],key:'ORDER BY 给了累计；ROWS BETWEEN 控制窗口大小；帧决定看多远。'},
+ biz:'累计曲线看目标达成进度，移动平均看趋势。给客户汇报 7 日均线前，先说明自然日范围、无订单日补 0 和起始窗口口径。',
+ qs:['q31','q33'],key:'先补齐自然日，再用 ROWS BETWEEN 控制 7 日窗口；起始不足 7 天按已有自然日求平均。'},
 
 {id:'w6l3',w:6,min:14,title:'留存与复购：窗口函数的业务综合题',goal:'复购标记（侧挂计数 + 去重）与新客老客划分——W6 验收题"每日留存率/复购率"的完整思路。',
  secs:[

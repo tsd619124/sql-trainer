@@ -1,6 +1,9 @@
 import { QUESTIONS, LESSONS } from '../content/catalog.js';
+import { PRACTICE_QUESTIONS } from '../content/enrichment.js';
 
-var PROGRESS_GROUPS=['done','wrong','notes','lessons','plan','attempts','sr','mil','days','misc'];
+var PROGRESS_GROUPS=['done','wrong','notes','lessons','plan','attempts','sr','mil','days','misc','evidence','tests'];
+var MISC_IDS=['history','lastBackup','srSeeded','lastTest','learningProfile'];
+var RESULT_KINDS=['passed','result','syntax','query','limit','unanswered'];
 var PLAN_IDS=['env_mysql','env_nowcoder','env_sqlbolt','env_notebook','acc_nowcoder','acc_timed','acc_demo'];
 var MILESTONE_IDS=['first','d3','d7','l5','t10','w1','half','all'];
 function isRecord(o){return !!o&&Object.prototype.toString.call(o)==='[object Object]'}
@@ -20,17 +23,18 @@ function validDay(s){
 function knownProgressId(group,id){
   if(id==='__proto__'||id==='constructor'||id==='prototype')return false;
   if(group==='days')return validDay(id);
-  if(group==='misc')return ['history','lastBackup','srSeeded','lastTest'].indexOf(id)>=0;
+  if(group==='misc')return MISC_IDS.indexOf(id)>=0;
+  if(group==='evidence'||group==='tests')return validRecordId(id);
   if(group==='plan')return PLAN_IDS.indexOf(id)>=0;
   if(group==='mil')return MILESTONE_IDS.indexOf(id)>=0;
-  var list=group==='lessons'?LESSONS:QUESTIONS;
+  var list=group==='lessons'?LESSONS:QUESTIONS.concat(PRACTICE_QUESTIONS);
   return list.some(function(item){return item.id===id});
 }
 function emptyProgress(){return {v:1,done:{},wrong:{},notes:{},lessons:{},plan:{},days:[],attempts:{},sr:{},mil:{},savedAt:0,
   _sync:{reset:{t:0,d:''},records:{}}}}
 function progressMap(s,group){
   if(group==='days'){var days={};s.days.forEach(function(day){days[day]=1});return days}
-  if(group==='misc'){var misc={};['history','lastBackup','srSeeded','lastTest'].forEach(function(k){if(hasOwn(s,k))misc[k]=s[k]});return misc}
+  if(group==='misc'){var misc={};MISC_IDS.forEach(function(k){if(hasOwn(s,k))misc[k]=s[k]});return misc}
   return s[group]||{};
 }
 function setProgressMap(s,group,map){
@@ -45,7 +49,8 @@ function validProgressValue(group,value){
   if(group==='lessons'||group==='plan'||group==='mil')return value===1||value===true;
   if(group==='sr')return isRecord(value)&&validDay(value.due)&&validCount(value.iv)&&validCount(value.rep)
     &&typeof value.ef==='number'&&isFinite(value.ef)&&value.ef>=1&&value.ef<=10
-    &&(typeof value.lapse==='undefined'||validCount(value.lapse));
+    &&(typeof value.lapse==='undefined'||validCount(value.lapse))
+    &&(typeof value.last==='undefined'||validDay(value.last));
   return false;
 }
 function normalizeTestResult(r){
@@ -54,9 +59,37 @@ function normalizeTestResult(r){
   var seen={};
   if(!r.results.every(function(v){
     if(!isRecord(v)||!knownProgressId('done',v.qid)||typeof v.ok!=='boolean'||seen[v.qid])return false;
+    if(typeof v.kind!=='undefined'&&(RESULT_KINDS.indexOf(v.kind)<0||v.ok!==(v.kind==='passed')))return false;
+    if(typeof v.sql!=='undefined'&&(typeof v.sql!=='string'||v.sql.length>100000))return false;
     seen[v.qid]=true;return true;
   }))return null;
-  return {id:r.id,results:r.results.map(function(v){return {qid:v.qid,ok:v.ok}}),endedAt:r.endedAt};
+  var clean={id:r.id,results:r.results.map(function(v){
+    var row={qid:v.qid,ok:v.ok};
+    if(typeof v.kind!=='undefined')row.kind=v.kind;
+    if(typeof v.sql!=='undefined')row.sql=v.sql;
+    return row;
+  }),endedAt:r.endedAt};
+  if(typeof r.startedAt!=='undefined'){
+    if(!validNumber(r.startedAt)||r.startedAt>r.endedAt||!validNumber(r.elapsed)||r.elapsed>2700||!validCount(r.week)||r.week>8)return null;
+    clean.startedAt=r.startedAt;clean.elapsed=r.elapsed;clean.week=r.week;
+  }
+  return clean;
+}
+function validRecordId(id){return typeof id==='string'&&['__proto__','constructor','prototype'].indexOf(id)<0&&/^[A-Za-z0-9_-]{8,100}$/.test(id)}
+function normalizeLearningProfile(value){
+  if(!isRecord(value)||['beginner','some','confident'].indexOf(value.level)<0||['job','analysis','foundation'].indexOf(value.goal)<0
+    ||[15,30,60].indexOf(value.minutes)<0||!validCount(value.startWeek)||value.startWeek<1||value.startWeek>8
+    ||typeof value.skipKnown!=='boolean'||!validNumber(value.updatedAt))return null;
+  var clean={level:value.level,goal:value.goal,minutes:value.minutes,startWeek:value.startWeek,skipKnown:value.skipKnown,updatedAt:value.updatedAt};
+  if(typeof value.diagnostic!=='undefined'){
+    var ids=['q1','q7','q13','q24'],seen={};
+    if(!Array.isArray(value.diagnostic)||value.diagnostic.length!==4||!value.diagnostic.every(function(row){
+      if(!isRecord(row)||ids.indexOf(row.qid)<0||seen[row.qid]||typeof row.ok!=='boolean'||RESULT_KINDS.indexOf(row.kind)<0||row.ok!==(row.kind==='passed'))return false;
+      seen[row.qid]=true;return true;
+    }))return null;
+    clean.diagnostic=value.diagnostic.map(function(row){return {qid:row.qid,ok:row.ok,kind:row.kind}});
+  }
+  return clean;
 }
 function normalizeState(input){
   if(!isRecord(input)||input.v!==1||!isRecord(input.done))return null;
@@ -71,10 +104,35 @@ function normalizeState(input){
         if(!knownProgressId(group,id)||!validProgressValue(group,src[id]))throw new Error('无效进度记录');
         var value=src[id];
         if(group==='done')value={ts:value.ts,used:value.used||0};
-        else if(group==='sr')value={due:value.due,iv:value.iv,rep:value.rep,ef:value.ef,lapse:value.lapse||0};
+        else if(group==='sr'){
+          var review={due:value.due,iv:value.iv,rep:value.rep,ef:value.ef,lapse:value.lapse||0};
+          if(typeof value.last!=='undefined')review.last=value.last;
+          value=review;
+        }
         out[group][id]=cloneProgress(value);
       });
     });
+    ['evidence','tests'].forEach(function(group){
+      if(typeof input[group]==='undefined')return;
+      if(!isRecord(input[group]))throw new Error('学习记录类型错误');
+      out[group]={};
+      Object.keys(input[group]).forEach(function(id){
+        var value=input[group][id];
+        if(!validRecordId(id))throw new Error('无效学习记录 ID');
+        if(group==='tests'){
+          var record=normalizeTestResult(value);
+          if(!record||record.id!==id)throw new Error('周测历史无效');
+          out[group][id]=record;
+        }else{
+          if(!isRecord(value)||!knownProgressId('done',value.qid)||typeof value.ok!=='boolean'||typeof value.used!=='boolean'
+            ||!validNumber(value.t)||RESULT_KINDS.indexOf(value.kind)<0||value.ok!==(value.kind==='passed'))throw new Error('学习证据无效');
+          out[group][id]={qid:value.qid,ok:value.ok,used:value.used,t:value.t,kind:value.kind};
+        }
+      });
+    });
+    if(typeof input.learningProfile!=='undefined'){
+      out.learningProfile=normalizeLearningProfile(input.learningProfile);if(!out.learningProfile)return null;
+    }
     var days=typeof input.days==='undefined'?[]:input.days;
     if(!Array.isArray(days)||!days.every(validDay))return null;
     out.days=days.filter(function(d,i){return days.indexOf(d)===i}).sort();
@@ -87,8 +145,15 @@ function normalizeState(input){
     if(typeof input.history!=='undefined'){
       if(!Array.isArray(input.history)||input.history.length>1000)return null;
       if(!input.history.every(function(h){return isRecord(h)&&(h.q==='play'||knownProgressId('done',h.q))
-        &&typeof h.s==='string'&&h.s.length<=100000&&(h.ok===0||h.ok===1)&&validNumber(h.t)}))return null;
-      out.history=input.history.slice(0,12).map(function(h){return {q:h.q,s:h.s,ok:h.ok,t:h.t}});
+        &&typeof h.s==='string'&&h.s.length<=100000&&(h.ok===0||h.ok===1)&&validNumber(h.t)
+        &&(typeof h.kind==='undefined'||RESULT_KINDS.indexOf(h.kind)>=0)
+        &&(typeof h.used==='undefined'||h.used===0||h.used===1)}))return null;
+      out.history=input.history.slice(0,12).map(function(h){
+        var entry={q:h.q,s:h.s,ok:h.ok,t:h.t};
+        if(typeof h.kind!=='undefined')entry.kind=h.kind;
+        if(typeof h.used!=='undefined')entry.used=h.used;
+        return entry;
+      });
     }
     if(typeof input.lastTest!=='undefined'){
       out.lastTest=normalizeTestResult(input.lastTest);if(!out.lastTest)return null;
@@ -113,6 +178,7 @@ function normalizeState(input){
       });
     }
     PROGRESS_GROUPS.forEach(function(group){
+      if((group==='evidence'||group==='tests')&&!hasOwn(out,group)&&!hasOwn(out._sync.records,group))return;
       var map=progressMap(out,group),revs=out._sync.records[group]||{};
       out._sync.records[group]=revs;
       Object.keys(map).forEach(function(id){
@@ -136,6 +202,7 @@ function nextRevision(states,device,now){
 function stampProgress(next,before,device){
   var revision=nextRevision([next,before],device);
   PROGRESS_GROUPS.forEach(function(g){
+    if((g==='evidence'||g==='tests')&&!hasOwn(next,g)&&!hasOwn(before,g))return;
     var a=progressMap(before,g),b=progressMap(next,g),revs=next._sync.records[g]||(next._sync.records[g]={});
     var ids=Object.keys(a).concat(Object.keys(b));
     ids.forEach(function(id){
@@ -153,6 +220,8 @@ function mergeStates(left,right){
   out._sync.reset=cloneProgress(floor);out.savedAt=Math.max(a.savedAt,b.savedAt);
   PROGRESS_GROUPS.forEach(function(g){
     var av=progressMap(a,g),bv=progressMap(b,g),ar=a._sync.records[g],br=b._sync.records[g],map={},revs={};
+    if((g==='evidence'||g==='tests')&&!hasOwn(a,g)&&!hasOwn(b,g)&&!ar&&!br)return;
+    ar=ar||{};br=br||{};
     var ids=Object.keys(ar).concat(Object.keys(br)).filter(function(id,i,all){return all.indexOf(id)===i}).sort();
     ids.forEach(function(id){
       var ra=ar[id],rb=br[id],useA=!rb||(ra&&compareRevision(ra,rb)>0);

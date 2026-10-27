@@ -1,48 +1,44 @@
-# SQL Lab iOS
+# SQL Lab 原生 iOS
 
-版本 4.0.0，原生构建号 9，Bundle ID 为 `com.fengguanjia.sqllab`。本工程使用 Capacitor 8 与 Swift Package Manager，实际学习界面和训练核心来自同仓库的 Web App。目标运行环境为 iOS 15 及以上；实际系统兼容性仍需真机验收。
+版本 5.1.0（11），Bundle ID com.fengguanjia.sqllab，最低 iOS 17。沿用既有 Xcode 工程、图标、启动画面、签名配置和 XCTest target，学习界面与业务改为本地 Swift Package。
 
-## 准备与运行
+2026-10-28 前四轮合并发布状态、版本化安装包和本次验证见 [合并发布记录](../native-app/RELEASE-5.1.0.md)。
 
-需要 Node.js 24、完整 Xcode 和对应的 iOS SDK。仅有 Apple Command Line Tools 可以运行部分静态检查，不能编译或启动 iOS 应用。
+## 开发运行
 
-在仓库根目录运行：
+    npm run ios:sync
+    npm run ios:open
 
-```sh
-npm ci
-npm run ios:sync
-npm run ios:open
-```
+以上命令在仓库根目录执行。ios:sync 现在导出原生课程资源，不再执行 Capacitor 同步。在 Xcode 选择 App scheme 和 iPhone 模拟器运行。工程只引用 ../../native-app，无远程 Swift 包依赖。
 
-Xcode 中选择 `App` scheme 和一个 iPhone 模拟器，点击 Run。首次打开需要解析锁定版本的 Capacitor Swift Package。
+    npm run native:test
+    npm run ios:check
+    npm run ios:test -- --simulator <UDID>
 
-连接真实 iPhone 时，在 App target 的 Signing & Capabilities 中选择自己的 Development Team，保留或按自己的发布标识调整 Bundle ID，并按设备要求启用开发者模式。仓库没有设置开发者账号、签名证书或 provisioning profile。
+ios:check 校验内容来源、核心测试、无 Web 容器依赖及 iOS 模拟器编译，输出 output/release/ios-native-acceptance.json。ios:test 运行原生导航、SQL 判分和重开保留草稿测试。
 
-## 原生功能
+## 开发签名包
 
-- `SQLLabNativePlugin.swift` 提供本机学习文件、Keychain 同步配置、系统学习提醒、备份分享、触感与前后台事件。
-- `SQLLabViewController.swift` 注册插件；SceneDelegate 和 storyboard 均指向该入口。
-- 学习文件位于应用私有 Application Support，采用原子替换；卸载应用前仍应导出备份。
-- 提醒预排未来 30 天；每次打开自动补齐。权限被拒绝时在系统设置中调整；不需要推送服务器。
-- 学习内容和 SQL 引擎随安装包提供，iOS 不注册 Web Service Worker，也不从远程地址加载应用代码。
+    npm run ios:archive
 
-## 迁入旧进度
+产物位于 output/ios-native-release/SQLLab.xcarchive 和 output/ios-native-release/export/App.ipa。使用既有开发签名配置，证书由 Xcode 管理。此命令不安装到手机、不上传 TestFlight 或 App Store；开发包仍受设备授权和签名有效期约束。
 
-在旧版 SQL Lab 或 Web App 的「我的 → 备份与迁移」导出 JSON，进入 iOS 客户端同一位置导入。原 v1 备份格式兼容。Web 与 iOS 的存储空间独立，不会自动读取浏览器中的学习记录。
+## 数据与兼容
 
-Gist / LeanCloud 需要在客户端重新填写自己的同步配置。学习备份不携带令牌或密码；已经配置好的端到端加密同步使用相同同步码。
+同 Bundle ID 升级安装时，原生存储层从旧 SQLLab/learning.json 自动迁移进度及会话到 native-learning.json，旧文件完整保留。不能通过先卸载旧 App 的方式迁移，否则应用私有数据会被系统删除。Web 用户在「我的 → 备份与迁移」导入 JSON；跨端支持手动 Gist/LeanCloud 同步，凭证在 Keychain。
 
-## 验证与交付状态
+迁移实现和功能差异见 [原生说明](../native-app/README.md)。原桥接 Swift 文件、CapApp-SPM 和 Main.storyboard 仅作兼容源码保留，当前 App 不编译或加载它们。
 
-```sh
-npm test
-npm run test:app
-npm run ios:sync
-npm run ios:check
-```
+## 旧版验收
 
-`ios:check` 校验 Swift 语法、项目与 plist、原生入口，以及 iOS 内嵌资源是否与 Web 清单一致。完整 Xcode 可用时会进一步执行不签名的模拟器构建。默认开发工具路径只有 Command Line Tools 时，脚本会尝试本机 `/Applications/Xcode.app`，不修改全局设置。报告写入 `output/release/ios-acceptance.json`；没有完整 SDK 时明确标记 `nativeBuild: false`。
+2026-10-27 的 4.0.0（9）开发签名包曾在 iPhone 安装启动，真机 XCTest 报 runner code 74。这是旧 Web 容器版本记录，不能证明 5.0 原生版已完成真机验收。新结果以本次原生测试报告为准。
 
-当前已使用 Xcode 27.1 完成模拟器目标的真实原生编译，生成 `output/ios-derived/Build/Products/Debug-iphonesimulator/App.app`。本机尚无已安装的模拟器运行时，因此未启动运行；未生成已签名 IPA、未运行真实 iPhone，也未上传 App Store / TestFlight。该 `.app` 是模拟器构建，不能直接安装到 iPhone。
+## 本次迁移验证（2026-10-27）
 
-真机验收需要覆盖：首次打开、离线重开、答题判分、后台恢复草稿和周测、备份文件导入导出、通知授权及应用关闭后的提醒、软键盘安全区、深浅色和 VoiceOver。
+原生测试 13/13、模拟器 XCTest 2/2 通过；全部 42 题与 Web 结果基准一致。模拟器构建和 Release 归档成功，开发 IPA 已导出并通过 codesign 校验。包内无 HTML、JS、WASM 或 Capacitor 运行文件。5.0 已覆盖安装并启动于 iPhone 17 Pro Max（iOS 27.2），旧数据迁移比对一致；真机 XCTest 仍在连接阶段报 code 74，完整交互验收待完成。未发布 TestFlight/App Store。
+
+汇总报告：output/release/native-migration.json（相对仓库根目录）。开发包：output/ios-native-release/export/App.ipa。
+
+真机证据：output/device-native-acceptance/验收说明.md（相对仓库根目录）。
+
+真机补充：用户完成 q1 判分并确认通过；设备进度、运行历史及重启后截图核对成功，草稿和进度重开保持一致。2026-10-27 补充完成备份合并往返的数据核对；通知到达、声音、点击打开 App 及 VoiceOver 基础流程由用户实测确认。Gist 原生同步曾报 TLS 安全连接失败，用户随后重试确认“已同步，云端与本机进度已合并”；同步后设备进度与会话保持一致，测试提醒已由用户确认关闭，VoiceOver 关闭状态已复核。本轮四项基础用例通过；双端云同步往返尚未验收，读屏动态判分未取得独立运行记录。证据层级和范围见 `output/device-feature-acceptance/20261027-1443/验收记录.md`，不能据此宣称全量云同步或无障碍验收通过。

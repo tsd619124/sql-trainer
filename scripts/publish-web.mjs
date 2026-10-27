@@ -34,6 +34,9 @@ for (const asset of release.assets) {
 }
 const worker = await readFile(resolve(directory, 'sw.js'), 'utf8');
 if (!worker.includes(JSON.stringify(release.build)) || !worker.includes(JSON.stringify(release.cache))) throw new Error('离线服务与发布版本不一致');
+const html = await readFile(resolve(directory, 'index.html'), 'utf8');
+if (html.match(/<meta name="sqltrain-version" content="([^"]+)">/)?.[1] !== release.version
+  || html.match(/<meta name="sqltrain-build" content="([^"]+)">/)?.[1] !== release.build) throw new Error('页面与发布版本不一致');
 console.log('已校验 SQL Lab ' + release.version + '（' + release.build + '）及 ' + release.assets.length + ' 项资源');
 
 if (mode === '--publish') {

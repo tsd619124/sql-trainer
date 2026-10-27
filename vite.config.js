@@ -5,9 +5,9 @@ import { resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const project = fileURLToPath(new URL('.', import.meta.url));
-const version = '4.0.0';
-const build = '20261026.9';
-const cache = 'sql-trainer-v28';
+const version = '4.1.0';
+const build = '20261028.1';
+const cache = 'sql-trainer-v29';
 
 async function listFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });

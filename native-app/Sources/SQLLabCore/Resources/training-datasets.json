@@ -1,0 +1,40 @@
+[
+  {
+    "id": "commerce",
+    "name": "电商交易",
+    "description": "用户 → 订单 → 明细 → 商品。订单数按订单 ID 去重，同名用户按 user_id 区分。",
+    "tables": [
+      "users",
+      "products",
+      "orders",
+      "order_items"
+    ]
+  },
+  {
+    "id": "behavior",
+    "name": "用户行为",
+    "description": "events 每行是一条行为日志；同一用户同日可有多条。漏斗要求同用户、同会话且先后有序。",
+    "tables": [
+      "events"
+    ]
+  },
+  {
+    "id": "marketing",
+    "name": "营销转化",
+    "description": "campaigns 每行一个活动，leads 每行一条线索，ad_spend 每行活动某天花费。多张一对多表先聚合再连接。",
+    "tables": [
+      "campaigns",
+      "leads",
+      "ad_spend"
+    ]
+  },
+  {
+    "id": "fulfillment",
+    "name": "库存履约",
+    "description": "inventory 主键为 (sku, warehouse)，shipments 每行一次发货。匹配库存必须同时关联商品与仓库；未签收不计入已签收准时率。",
+    "tables": [
+      "inventory",
+      "shipments"
+    ]
+  }
+]

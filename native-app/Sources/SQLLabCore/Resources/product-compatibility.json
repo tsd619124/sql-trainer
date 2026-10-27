@@ -1,0 +1,223 @@
+{
+  "left": {
+    "v": 1,
+    "done": {},
+    "wrong": {},
+    "notes": {},
+    "lessons": {},
+    "plan": {},
+    "days": [],
+    "attempts": {},
+    "sr": {},
+    "mil": {},
+    "savedAt": 100,
+    "_sync": {
+      "reset": {
+        "t": 0,
+        "d": ""
+      },
+      "records": {
+        "done": {},
+        "wrong": {},
+        "notes": {},
+        "lessons": {},
+        "plan": {},
+        "attempts": {},
+        "sr": {},
+        "mil": {},
+        "days": {},
+        "misc": {
+          "learningProfile": {
+            "t": 100,
+            "d": "legacy"
+          }
+        },
+        "evidence": {
+          "product-event-1": {
+            "t": 100,
+            "d": "legacy"
+          }
+        },
+        "tests": {
+          "product-exam-1": {
+            "t": 100,
+            "d": "legacy"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "product-event-1": {
+        "qid": "q13",
+        "ok": false,
+        "used": false,
+        "t": 100,
+        "kind": "syntax"
+      }
+    },
+    "tests": {
+      "product-exam-1": {
+        "id": "product-exam-1",
+        "results": [
+          {
+            "qid": "q13",
+            "ok": false,
+            "kind": "syntax",
+            "sql": "SELEC 1"
+          }
+        ],
+        "endedAt": 100,
+        "startedAt": 1,
+        "elapsed": 0.099,
+        "week": 3
+      }
+    },
+    "learningProfile": {
+      "level": "some",
+      "goal": "job",
+      "minutes": 30,
+      "startWeek": 3,
+      "skipKnown": true,
+      "updatedAt": 100
+    }
+  },
+  "right": {
+    "v": 1,
+    "done": {},
+    "wrong": {},
+    "notes": {},
+    "lessons": {},
+    "plan": {},
+    "days": [],
+    "attempts": {},
+    "sr": {},
+    "mil": {},
+    "savedAt": 200,
+    "_sync": {
+      "reset": {
+        "t": 0,
+        "d": ""
+      },
+      "records": {
+        "done": {},
+        "wrong": {},
+        "notes": {},
+        "lessons": {},
+        "plan": {},
+        "attempts": {},
+        "sr": {},
+        "mil": {},
+        "days": {},
+        "misc": {},
+        "evidence": {
+          "product-event-2": {
+            "t": 200,
+            "d": "legacy"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "product-event-2": {
+        "qid": "q13",
+        "ok": true,
+        "used": false,
+        "t": 200,
+        "kind": "passed"
+      }
+    }
+  },
+  "merged": {
+    "v": 1,
+    "done": {},
+    "wrong": {},
+    "notes": {},
+    "lessons": {},
+    "plan": {},
+    "days": [],
+    "attempts": {},
+    "sr": {},
+    "mil": {},
+    "savedAt": 200,
+    "_sync": {
+      "reset": {
+        "t": 0,
+        "d": ""
+      },
+      "records": {
+        "done": {},
+        "wrong": {},
+        "notes": {},
+        "lessons": {},
+        "plan": {},
+        "attempts": {},
+        "sr": {},
+        "mil": {},
+        "days": {},
+        "misc": {
+          "learningProfile": {
+            "t": 100,
+            "d": "legacy"
+          }
+        },
+        "evidence": {
+          "product-event-1": {
+            "t": 100,
+            "d": "legacy"
+          },
+          "product-event-2": {
+            "t": 200,
+            "d": "legacy"
+          }
+        },
+        "tests": {
+          "product-exam-1": {
+            "t": 100,
+            "d": "legacy"
+          }
+        }
+      }
+    },
+    "learningProfile": {
+      "level": "some",
+      "goal": "job",
+      "minutes": 30,
+      "startWeek": 3,
+      "skipKnown": true,
+      "updatedAt": 100
+    },
+    "evidence": {
+      "product-event-1": {
+        "qid": "q13",
+        "ok": false,
+        "used": false,
+        "t": 100,
+        "kind": "syntax"
+      },
+      "product-event-2": {
+        "qid": "q13",
+        "ok": true,
+        "used": false,
+        "t": 200,
+        "kind": "passed"
+      }
+    },
+    "tests": {
+      "product-exam-1": {
+        "id": "product-exam-1",
+        "results": [
+          {
+            "qid": "q13",
+            "ok": false,
+            "kind": "syntax",
+            "sql": "SELEC 1"
+          }
+        ],
+        "endedAt": 100,
+        "startedAt": 1,
+        "elapsed": 0.099,
+        "week": 3
+      }
+    }
+  }
+}

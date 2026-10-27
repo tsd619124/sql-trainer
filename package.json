@@ -1,10 +1,12 @@
 {
   "name": "sql-lab",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "private": true,
   "type": "module",
   "description": "SQL Lab Web 与 iOS 学习应用",
-  "engines": { "node": ">=24.0.0" },
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
@@ -12,9 +14,13 @@
     "test": "node --test tests/reliability.test.cjs tests/app-*.test.mjs",
     "test:app": "node scripts/test-app.mjs",
     "publish:web": "npm test && npm run build && node scripts/publish-web.mjs --publish",
-    "ios:sync": "npm run build && cap sync ios",
-    "ios:open": "cap open ios",
-    "ios:check": "node scripts/check-ios.mjs"
+    "ios:sync": "npm run native:resources",
+    "ios:open": "open ios/App/App.xcodeproj",
+    "ios:check": "node scripts/check-ios.mjs",
+    "ios:test": "node scripts/test-ios.mjs",
+    "ios:archive": "npm run ios:sync && xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release -destination 'generic/platform=iOS' -archivePath output/ios-native-release/SQLLab.xcarchive -derivedDataPath output/ios-native-archive -allowProvisioningUpdates archive && xcodebuild -exportArchive -archivePath output/ios-native-release/SQLLab.xcarchive -exportPath output/ios-native-release/export -exportOptionsPlist ios/ExportOptions.plist -allowProvisioningUpdates",
+    "native:resources": "node native-app/scripts/export-content.mjs",
+    "native:test": "node native-app/scripts/export-content.mjs --check && swift test --package-path native-app"
   },
   "dependencies": {
     "@capacitor/core": "8.5.3",

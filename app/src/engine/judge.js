@@ -11,7 +11,13 @@ export function createJudge(runtime, seed) {
       const statement = first.value.getSQL().replace(/^(?:\s|--[^\n]*(?:\n|$)|\/\*[\s\S]*?\*\/)+/, '');
       if (!/^(SELECT|WITH|VALUES)\b/i.test(statement)) throw new Error('判题只接受查询；修改表请使用自由练习区');
       if (!statements.next().done) throw new Error('判题一次只接受一条查询，请移除额外语句');
-      return resultRows(database.exec(sql));
+      const prepared = database.prepare(sql);
+      try {
+        const columns = prepared.getColumnNames();
+        const values = [];
+        while (prepared.step()) values.push(prepared.get());
+        return resultRows([{ columns, values }]);
+      } finally { prepared.free(); }
     } finally {
       database.close();
     }
