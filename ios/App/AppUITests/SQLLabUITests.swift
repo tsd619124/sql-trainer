@@ -34,10 +34,14 @@ import XCTest
         let question = app.buttons["practice-q1-v2"]
         XCTAssertTrue(question.waitForExistence(timeout: 10)); question.tap()
         let editor = app.textViews["sql-editor"]
-        reveal(editor); editor.tap(); editor.typeKey("a", modifierFlags: .command)
-        editor.typeText("SELECT product_id,product_name,price FROM products WHERE price>=100 ORDER BY price,product_id;")
+        let scrollStart = app.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.65))
+        scrollStart.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.25)))
+        reveal(editor); editor.tap()
         let keyboard = app.buttons["sql-dismiss-keyboard"]
-        XCTAssertTrue(keyboard.waitForExistence(timeout: 10)); keyboard.tap()
+        XCTAssertTrue(keyboard.waitForExistence(timeout: 10))
+        editor.typeKey("a", modifierFlags: .command)
+        editor.typeText("SELECT product_id,product_name,price FROM products WHERE price>=100 ORDER BY price,product_id;")
+        keyboard.tap()
         let run = app.buttons["运行并判定"]; reveal(run); run.tap()
         let verdict = app.staticTexts["verdict"]
         XCTAssertTrue(verdict.waitForExistence(timeout: 15)); XCTAssertTrue(verdict.label.contains("通过"), app.debugDescription)
