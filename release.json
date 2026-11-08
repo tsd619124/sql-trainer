@@ -1,18 +1,33 @@
 {
   "app": "sql-trainer",
   "version": "4.1.0",
-  "build": "20261028.1",
-  "cache": "sql-trainer-v29",
+  "build": "20261108.6.5",
+  "cache": "sql-trainer-v40",
   "assets": [
     {
-      "path": "assets/index-8Jz6az6V.js",
-      "sha256": "30caa30bb52683728919b87de2131bfe3fd2a3562c82b137c07df1ada69b1207",
-      "bytes": 326281
+      "path": "assets/editor-pilot-B_zFI79d.css",
+      "sha256": "8381199fc3f396d0811d3ecc8102c0575824ec796d3a5b3bbdaf3f8bcbc4c329",
+      "bytes": 2332
     },
     {
-      "path": "assets/index-uxVJ_wi1.css",
-      "sha256": "fb096bccbedce9ed205f033e8d2d4a1c4b2e605c0d831d45b26fcfc9dd4bc024",
-      "bytes": 128074
+      "path": "assets/editor-pilot-Cgv9_e4C.js",
+      "sha256": "d50132e8589a3c9ec946d632ecd8ed2eb05e28df157d472247d942a7a47dd155",
+      "bytes": 353265
+    },
+    {
+      "path": "assets/index-BxUEu8xW.css",
+      "sha256": "ec25a01e8cc8b2ac408c73776439f20a400e4a40e327bbdc9e6a3f114639dfc4",
+      "bytes": 138421
+    },
+    {
+      "path": "assets/index-yZdb29LN.js",
+      "sha256": "b86a5d0931e1fb7033c3316b3b12a4468cdee88f2cc4d27d82ea12ad8d5abe3d",
+      "bytes": 374569
+    },
+    {
+      "path": "assets/query-worker-DLop0b1l.js",
+      "sha256": "910f38d83f2c652c7027ca55bc81ed853710b2b1ffdc0f80c4e407982bf4ef35",
+      "bytes": 14621
     },
     {
       "path": "icons/app.svg",
@@ -36,8 +51,8 @@
     },
     {
       "path": "index.html",
-      "sha256": "d22e71e9048a6e2f9bcc2939df7596347cc6e2d0bf45c00847b3fb3e7b6212d3",
-      "bytes": 8182
+      "sha256": "2c4ebfc361e352cb26564cc6f2692791650b2671bb7404169a95bbd8da585272",
+      "bytes": 8023
     },
     {
       "path": "manifest.webmanifest",
@@ -51,8 +66,8 @@
     },
     {
       "path": "vendor/sql-wasm.js",
-      "sha256": "694ca5b36aa3e6e71f417819d7df390b65343665fcfa5c69015ca33d93d291b3",
-      "bytes": 48788
+      "sha256": "cb381ff1527742500ba77a9fa9a75b6f041b8b2b4e68ab7b9e224892e5c91785",
+      "bytes": 49043
     },
     {
       "path": "vendor/sql-wasm.wasm",

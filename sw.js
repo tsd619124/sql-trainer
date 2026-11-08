@@ -1,9 +1,9 @@
-const CACHE = "sql-trainer-v29";
+const CACHE = "sql-trainer-v40";
 const VERSION = "4.1.0";
-const BUILD = "20261028.1";
+const BUILD = "20261108.6.5";
 const ROOT = new URL('./', self.registration.scope);
 const CACHE_NAME = CACHE + ':' + ROOT.href;
-const ASSETS = ["assets/index-8Jz6az6V.js","assets/index-uxVJ_wi1.css","icons/app.svg","icons/icon-180.png","icons/icon-192.png","icons/icon-512.png","index.html","manifest.webmanifest","vendor/lucide.js","vendor/sql-wasm.js","vendor/sql-wasm.wasm"];
+const ASSETS = ["assets/editor-pilot-B_zFI79d.css","assets/editor-pilot-Cgv9_e4C.js","assets/index-BxUEu8xW.css","assets/index-yZdb29LN.js","assets/query-worker-DLop0b1l.js","icons/app.svg","icons/icon-180.png","icons/icon-192.png","icons/icon-512.png","index.html","manifest.webmanifest","vendor/lucide.js","vendor/sql-wasm.js","vendor/sql-wasm.wasm"];
 
 function validDocument(response) {
   return response && response.ok && /text\/html/i.test(response.headers.get('content-type') || '');

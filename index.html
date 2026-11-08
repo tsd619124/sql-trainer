@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="SQL Lab">
 <meta name="application-name" content="SQL Lab">
 <meta name="sqltrain-version" content="4.1.0">
-<meta name="sqltrain-build" content="20261028.1">
+<meta name="sqltrain-build" content="20261108.6.5">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#f3f5f9">
 <meta name="referrer" content="no-referrer">
@@ -17,8 +17,8 @@
 <link rel="apple-touch-icon" href="./icons/icon-180.png">
 <link rel="icon" href="./icons/app.svg">
 <title>SQL Lab · SQL 八周训练营</title>
-  <script type="module" crossorigin src="./assets/index-8Jz6az6V.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-uxVJ_wi1.css">
+  <script type="module" crossorigin src="./assets/index-yZdb29LN.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BxUEu8xW.css">
 </head>
 <body>
 <div id="sqltrain-root">
@@ -31,7 +31,7 @@
     <div class="nav nav-pills" role="tablist" aria-label="训练系统导航" aria-orientation="vertical">
       <button class="nav-link active" id="tab-dash" role="tab" aria-controls="panel-dash" aria-selected="true" type="button"><span class="st-btn-ic"><i data-lucide="layout-dashboard" aria-hidden="true"></i>今天</span></button>
       <button class="nav-link" id="tab-train" role="tab" aria-controls="panel-train" aria-selected="false" type="button"><span class="st-btn-ic"><i data-lucide="dumbbell" aria-hidden="true"></i>训练</span></button>
-      <button class="nav-link" id="tab-exam" role="tab" aria-controls="panel-exam" aria-selected="false" type="button"><span class="st-btn-ic"><i data-lucide="timer" aria-hidden="true"></i>测验</span></button>
+      <button class="nav-link" id="tab-exam" role="tab" aria-controls="panel-exam" aria-selected="false" type="button"><span class="st-btn-ic"><i data-lucide="repeat" aria-hidden="true"></i>复习</span></button>
       <button class="nav-link" id="tab-me" role="tab" aria-controls="panel-me" aria-selected="false" type="button"><span class="st-btn-ic"><i data-lucide="user" aria-hidden="true"></i>我的</span></button>
     </div>
     <div class="st-nav-label">常用工具</div>
@@ -67,27 +67,24 @@
     <div id="st-ltitle" aria-hidden="true">总览</div>
     <div id="panel-dash" role="tabpanel" aria-labelledby="tab-dash"><div class="st-skel" aria-hidden="true"><div class="sk sk-focus"></div><div class="sk-row"><div class="sk sk-stat"></div><div class="sk sk-stat"></div><div class="sk sk-stat"></div><div class="sk sk-stat"></div></div><div class="sk sk-map"></div><div class="sk-row"><div class="sk sk-card"></div><div class="sk sk-card"></div></div></div></div>
     <div id="panel-train" role="tabpanel" aria-labelledby="tab-train" hidden>
-      <div class="st-subseg" id="st-train-seg" role="group" aria-label="训练子页切换">
-        <button type="button" class="on" data-sub="learn">学习</button>
-        <button type="button" data-sub="practice">练习</button>
-        <button type="button" data-sub="review">复习</button>
-        <button type="button" data-sub="tpl">模板库</button>
-        <button type="button" data-sub="schema">数据表</button>
+      <div class="st-subseg" id="st-train-seg" role="group" aria-label="训练主入口">
+        <button type="button" class="on" data-sub="learn">课程</button>
+        <button type="button" data-sub="practice">题库</button>
       </div>
       <div id="panel-learn" role="tabpanel" aria-label="学习中心" hidden></div>
       <div id="panel-practice" role="tabpanel" aria-label="SQL 练习" hidden></div>
-      <div id="panel-review" role="tabpanel" aria-label="间隔复习" hidden></div>
-
       <div id="panel-tpl" role="tabpanel" aria-label="模板库" hidden></div>
       <div id="panel-schema" role="tabpanel" aria-label="数据表" hidden></div>
     </div>
     <div id="panel-exam" role="tabpanel" aria-labelledby="tab-exam" hidden>
-      <div class="st-subseg" id="st-exam-seg" role="group" aria-label="测验子页切换">
-        <button type="button" class="on" data-sub="test">限时周测</button>
-        <button type="button" data-sub="wrong">错题本</button>
+      <div class="st-subseg" id="st-exam-seg" role="group" aria-label="复习、周测与历史">
+        <button type="button" class="on" data-sub="review">复习</button>
+        <button type="button" data-sub="test">周测</button>
+        <button type="button" data-sub="wrong">历史</button>
       </div>
+      <div id="panel-review" role="tabpanel" aria-label="到期复练与同类复练" hidden></div>
       <div id="panel-test" role="tabpanel" aria-label="限时周测" hidden></div>
-      <div id="panel-wrong" role="tabpanel" aria-label="错题本" hidden></div>
+      <div id="panel-wrong" role="tabpanel" aria-label="历史与错题" hidden></div>
     </div>
     <div id="panel-me" role="tabpanel" aria-labelledby="tab-me" hidden></div>
     <footer class="st-main-footer"><span>SQL 八周训练营 · 售前转型学习计划</span><span>Learn. Query. Understand.</span></footer>
@@ -96,7 +93,6 @@
 
 
 <div id="app-startup-status" role="alert" hidden></div>
-<script src="./vendor/sql-wasm.js"></script>
 <script src="./vendor/lucide.js"></script>
 </body>
 </html>
